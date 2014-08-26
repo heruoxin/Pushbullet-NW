@@ -38,10 +38,12 @@ body
   position: relative;
   display: block;
   margin: 10px;
-  box-shadow: 0 2px 5px grey;
+  box-shadow: 0 2px 5px #d0d0d0;
   width: auto;
   max-height: 150px;
   overflow-y: hidden;
+
+  background-color: white;
 }
 .card-left
 {
@@ -54,10 +56,15 @@ body
 }
 .card-logo
 {
+  padding: 10px 5%;
   position: relative;
   display: inline-block;
   float: left;
   width: 30%;
+}
+.card-logo img
+{
+  width: 100%;
 }
 .card-content
 {
