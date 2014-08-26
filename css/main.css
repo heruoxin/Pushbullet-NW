@@ -1,0 +1,75 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  outline: none;
+}
+
+body
+{
+  overflow-y: hidden;
+}
+#menu-bar
+{
+  position: fixed;
+  display: block;
+  overflow-y: scroll;
+  width: 30%;
+  height: 100%;
+
+  background-color: #5caa4c
+}
+
+#push-list
+{
+  position: fixed;
+  display: block;
+  overflow-y: scroll;
+  width: 70%;
+  height: 100%;
+  left: 30%;
+
+  background-color: #f5f5f5;
+}
+
+
+.push-card
+{
+  position: relative;
+  display: block;
+  margin: 10px;
+  box-shadow: 0 2px 5px grey;
+  width: auto;
+  max-height: 150px;
+  overflow-y: hidden;
+}
+.card-left
+{
+  position: relative;
+  display: inline-block;
+  float: left;
+  width: 80%;
+  height: auto;
+  overflow-y: hidden;
+}
+.card-logo
+{
+  position: relative;
+  display: inline-block;
+  float: left;
+  width: 30%;
+}
+.card-content
+{
+  position: relative;
+  display: inline-block;
+  float: right;
+  width: 70%;
+}
+.card-right
+{
+  position: relative;
+  display: inline-block;
+  float: right;
+  width: 20%;
+}
