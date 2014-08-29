@@ -2,8 +2,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="UTF-8" />
-    <script src="js/main.js"></script>
-    <script src="js/jquery-2.1.1.min.js"></script>
     <link href="css/main.css" rel="stylesheet" type="text/css"/>
     <title></title>
   </head>
@@ -12,15 +10,18 @@
     <div id="menu-bar">
 
       <div class="group">
-        <div>
+        <div id="devices-bar">
           <hr/>
           <h4 class="title">分组1</h4>
           <hr/>
-          <h5 class="menber">成员1.1</h5>
+          <div class="menber android" id="">
+            <h5>成员1.1</h5>
+            <p> </p>
+          </div>
           <h5 class="menber">成员1.2</h5>
           <h5 class="menber">成员1.3</h5>
         </div>
-        <div>
+        <div id="frends-bar">
           <hr/>
           <h4 class="title">分组2</h4>
           <hr/>
@@ -41,11 +42,11 @@
           </div>
           <div class="card-content">
             <h2 class="content-title">
-              小杯子的标题
+              标题
             </h2>
             <hr class="card-hr-horizonal" />
             <p class="content-text">
-              小杯子小杯子小杯子小杯子小杯子小杯子小杯子的内容
+              的内容
             </p>
           </div>
         </div>
@@ -61,5 +62,7 @@
 
     </div>
   </body>
+  <script src="js/jquery-2.1.1.min.js"></script>
+  <script src="js/main.js"></script>
 </html>
 
