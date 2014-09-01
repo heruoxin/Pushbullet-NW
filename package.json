@@ -15,5 +15,8 @@
     "min_height": 500,
     "toolbar": false,
     "frame": false
+  },
+  "dependencies": {
+    "node-notifier": "^3.1.3"
   }
 }

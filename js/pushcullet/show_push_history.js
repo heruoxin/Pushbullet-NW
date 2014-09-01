@@ -12,20 +12,18 @@ var xml_p = function(s){
   }
 };
 
-var echo_of_copy = function(){return '; echo has copied to clipboard.';};
-var echo_of_browser = function(){return '; echo has opened in browser.';};
 
 var info_type = {
   note: {
-    arg: function(p){return ("echo '"+p.body+"' | pbcopy"+echo_of_copy());},
+    arg: function(p){return ("echo '"+p.body+"' | pbcopy");},
     subtitle: function(s){return ('<p>'+xml_p(s.body)+'</p>');},
   },
   link: {
-    arg: function(p){return ("open '"+p.url+"'"+echo_of_browser());},
+    arg: function(p){return ("open '"+p.url+"'");},
     subtitle: function(s){return ('<a href="'+xml_p(s.url)+'">'+s.title+'</a>');},
   },
   address: {
-    arg: function(p){return ("open 'https://maps.apple.com/?q="+p.address+"'"+echo_of_browser());},
+    arg: function(p){return ("open 'https://maps.apple.com/?q="+p.address+"'");},
     subtitle: function(s){return ([
       '<div class="google-maps">',
       '<iframe src="https://www.google.com/maps/embed?q="',
@@ -35,11 +33,11 @@ var info_type = {
     ].join(''));},
   },
   list: {
-    arg: function(p){return ("open 'https://www.pushbullet.com/pushes?push_iden="+p.iden+"'"+echo_of_browser());},
+    arg: function(p){return ("open 'https://www.pushbullet.com/pushes?push_iden="+p.iden+"'");},
     subtitle: function(s){return (undefined);},
   },
   file: {
-    arg: function(p){return ("open '"+p.file_url+"'"+echo_of_browser());},
+    arg: function(p){return ("open '"+p.file_url+"'");},
     subtitle: function(s){
       if (s.file_type.indexOf("image") >= 0) {
         //for image
@@ -97,7 +95,10 @@ module.exports = function (ids){
       '</div>',
       '<div class="card-right">',
       '<div class="card-control">',
-      '<span class="control open">Open</span>',
+      '<span class="control open" id="',
+      //the id should named arg……
+      xml_p(info_type[pushes[i].type].arg(pushes[i])),
+      '">Open</span>',
       '<hr class="card-hr-horizonal" />',
       '<span class="control delete">Delete</span>',
       '</div>',

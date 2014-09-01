@@ -60,7 +60,10 @@ var show_menu_bar_list = function(){
 
 var show_push_history = function(id){
   try {
-    return $("#push-list").html(require('./js/pushcullet/show_push_history')(id));
+    $("#push-list").html(require('./js/pushcullet/show_push_history')(id));
+    $.get('./html/addpushcard.html', function(data){
+      $("#push-list").prepend(data);
+    });
   } catch (e) {
     add_error_card("Show push history error", e);
   }
@@ -73,14 +76,6 @@ var menubar_click = function (){
   });
 };
 
-//loading
-setTimeout(function(){
-  show_menu_bar_list();
-  show_push_history();
-//  refresh_info();
-//  refresh_history();
-  menubar_click();
-}, 200);
 
 //window active or not
 var win = gui.Window.get();
@@ -101,5 +96,26 @@ $('.minimize').click(function(){
 $('.maximize').click(function(){
   win.toggleFullscreen();
 });
+
+
+//card button
+var exec = require('child_process').exec;
+var card_button = function(){
+  $('.open').click(function(obj){
+    var arg = obj.currentTarget.id;
+    console.log(arg);
+    exec(arg, function(err, stdout, stderr){});
+  });
+};
+
+//loading
+setTimeout(function(){
+  show_menu_bar_list();
+  show_push_history();
+  //  refresh_info();
+  //  refresh_history();
+  menubar_click();
+  card_button();
+}, 200);
 
 require('nw.gui').Window.get().showDevTools();
