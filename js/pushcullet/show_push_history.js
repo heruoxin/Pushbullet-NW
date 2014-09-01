@@ -2,12 +2,14 @@
 //pushbullet showing push history
 
 var xml_p = function(s){
-  return s
-  .replace(/&/g, '&amp;')
-  .replace(/</g, '&lt;')
-  .replace(/>/g, '&gt;')
-  .replace(/"/g, '&quot;')
-  .replace(/'/g, '&apos;');
+  if (s) {
+    return s
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&apos;');
+  }
 };
 
 var echo_of_copy = function(){return '; echo has copied to clipboard.';};
@@ -26,7 +28,7 @@ var info_type = {
     arg: function(p){return ("open 'https://maps.apple.com/?q="+p.address+"'"+echo_of_browser());},
     subtitle: function(s){return ([
       '<div class="google-maps">',
-      '<iframe src="https://www.google.com/maps/embed?pb="',
+      '<iframe src="https://www.google.com/maps/embed?q="',
       xml_p(s.address),
       '" width="400" height="120" frameborder="0" style="border:0"></iframe>',
       '</div>',
@@ -42,9 +44,9 @@ var info_type = {
       if (s.file_type.indexOf("image") >= 0) {
         //for image
         return ([
-        '<img src="',
-        s.file_url,
-        '"/>',
+          '<img src="',
+          s.file_url,
+          '"/>',
         ].join(''));
       } else {
         //for other file
@@ -54,12 +56,14 @@ var info_type = {
   },
 };
 
-module.exports = function (){
+module.exports = function (ids){
   var _out = [];
   var pushes = require(process.env.HOME+'/Library/Preferences/com.1ittlecup.pushcullet.history.json').pushes;
-  _out.push('<?xml version="1.0"?><items>');
   for (var i in pushes){
     if (!pushes[i].active) {continue;}
+    if (ids){
+      if (pushes[i].target_device_iden !== ids && pushes[i].receiver_email_normalized !== ids) {continue;}
+    }
     //    var tmp_string = [
     //      '<item uid="',
     //      xml_p(pushes[i].iden),
@@ -85,7 +89,7 @@ module.exports = function (){
       '</div>',
       '<div class="card-content">',
       '<h2 class="content-title">',
-      xml_p(pushes[i].title || pushes[i].type),
+      xml_p(pushes[i].title || pushes[i].file_name || pushes[i].name || pushes[i].type),
       '</h2>',
       '<hr class="card-hr-horizonal" />',
       info_type[pushes[i].type].subtitle(pushes[i]),

@@ -7,21 +7,28 @@ if (!token) {
 
 }
 
-//pushbullet getting & saving push history
-
 var file_path = process.env.HOME+'/Library/Preferences/com.1ittlecup.pushcullet.history.json';
 
-var modified_after = (Date.parse(new Date())/1000 - 604800); //请求一星期之内的记录
+//pushbullet getting & saving push history
+
+module.exports = function (time) {
+
+//time = 604800 为最近一周
 
 var options = {
   hostname: 'api.pushbullet.com',
   port: 443,
-  path: '/v2/pushes?modified_after='+modified_after,
   method: 'GET',
   headers: {
     'Authorization': 'Basic ' + new Buffer(token+':').toString('base64')
   }
 };
+
+if (time) {
+  options.path = '/v2/pushes?modified_after=' + (Date.parse(new Date())/1000 - time);
+} else {
+  options.path = '/v2/pushes';
+}
 
 var req = https.request(options, function(res) {
   var push_history ='';
@@ -42,3 +49,5 @@ function save_list(i){
     if (e) {console.error(e);}
   });
 }
+
+};

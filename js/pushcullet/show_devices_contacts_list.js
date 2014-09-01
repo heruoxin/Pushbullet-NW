@@ -3,8 +3,19 @@ module.exports = function(){
 
   var _out = [];
 
-  _out.push('<div id="devices-bar">');
-  _out.push('<hr/><h4 class="title">Devices</h4><hr/>');
+  _out.push(
+
+    [
+    '<div class="menber all">',
+    '<h4>',
+    'All',
+    '</h4>',
+    '</div>',
+    '<div id="devices-bar">',
+    '<hr/><h4 class="title">Devices</h4><hr/>',
+  ].join('')
+
+  );
 
   //devices list.
   for (var i in info.devices){
@@ -29,7 +40,6 @@ module.exports = function(){
   }
   _out.push('</div>');
 
-
   _out.push('<div id="contacts-bar">');
   _out.push('<hr/><h4 class="title">Contacts</h4><hr/>');
 
@@ -40,7 +50,7 @@ module.exports = function(){
       '<div class="menber ',
       'contacts',
       '" id="',
-      info.contacts[j].iden,
+      info.contacts[j].email_normalized,
       '">',
       '<h5>',
       info.contacts[j].name,
