@@ -15,6 +15,7 @@ var xml_p = function(s){
 
 var info_type = {
   note: {
+    usage: "Copyed to Clipboard.",
     arg: function(p){return ("echo '"+p.body+"' | pbcopy");},
     subtitle: function(s){return ('<p>'+xml_p(s.body)+'</p>');},
   },
@@ -95,9 +96,18 @@ module.exports = function (ids){
       '</div>',
       '<div class="card-right">',
       '<div class="card-control">',
-      '<span class="control open" id="',
-      //the id should named arg……
+      '<span class="control open"',
+      ' arg="',
       xml_p(info_type[pushes[i].type].arg(pushes[i])),
+      '" id="',
+      pushes[i].iden,
+      '" type="',
+      pushes[i].type,
+      '" usage="',
+      (info_type[pushes[i].type].usage || "Opened"),
+      '" info="',
+      xml_p(pushes[i].title || pushes[i].file_name || pushes[i].name || pushes[i].type),
+      '" other="',
       '">Open</span>',
       '<hr class="card-hr-horizonal" />',
       '<span class="control delete">Delete</span>',

@@ -4,7 +4,6 @@ nav.control-window {
 	z-index:10;
 	height:19px;
 
-  -webkit-app-region: drag;
 }
 nav.control-window a {
     display: inline-block;

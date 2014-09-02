@@ -1,4 +1,5 @@
 var gui = require('nw.gui');
+var Notification = require('node-notifier');
 
 var mb = new gui.Menu({type:"menubar"});
 mb.createMacBuiltin("your-app-name");
@@ -102,9 +103,20 @@ $('.maximize').click(function(){
 var exec = require('child_process').exec;
 var card_button = function(){
   $('.open').click(function(obj){
-    var arg = obj.currentTarget.id;
-    console.log(arg);
-    exec(arg, function(err, stdout, stderr){});
+    var e = $("#"+obj.currentTarget.id);
+    console.log(obj.currentTarget.id, e);
+    exec(e.attr("arg"), function(err, stdout, stderr){
+      var notifier = new Notification();
+      notifier.notify({
+        "title": e.attr("usage"),
+//        "subtitle": e.attr("usage"),
+        "message": e.attr("info"),
+//        "sound": "Funk", // case sensitive
+        "contentImage": './icons/'+e.attr("type")+'.png',
+        "appIcon": './icons/'+e.attr("type")+'.png',
+//        "open": "file://" + __dirname + "/coulson.jpg"
+      });
+    });
   });
 };
 
