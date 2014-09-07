@@ -1,3 +1,14 @@
+#push-list
+{
+  position: fixed;
+  display: block;
+  overflow-y: scroll;
+  width: 70%;
+  height: 100%;
+  left: 30%;
+
+  background-color: #f5f5f5;
+}
 
 .push-card
 {

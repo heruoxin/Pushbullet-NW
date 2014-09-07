@@ -120,6 +120,19 @@ var card_button = function(){
   });
 };
 
+//card expand
+var card_expand = function(){
+  $(".push-card").bind("click", function(){
+    if ($(this).css("max-height") === "none"){
+      $(this).css({"max-height": "150px"});
+      return false;
+    }
+    $(this).css({"max-height": "none"});
+    return false;
+  });
+};
+
+
 //loading
 setTimeout(function(){
   show_menu_bar_list();
@@ -128,6 +141,7 @@ setTimeout(function(){
   //  refresh_history();
   menubar_click();
   card_button();
+  card_expand();
 }, 200);
 
 require('nw.gui').Window.get().showDevTools();

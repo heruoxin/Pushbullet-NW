@@ -7,9 +7,12 @@ module.exports = function(){
 
     [
     '<div class="menber all">',
-    '<h4>',
+    '<h5>',
     'All',
-    '</h4>',
+    '</h5>',
+    '<p>',
+    'All of your pushes',
+    '</p>',
     '</div>',
     '<div id="devices-bar">',
     '<hr/><h4 class="title">Devices</h4><hr/>',

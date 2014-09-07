@@ -1,70 +1,48 @@
 nav.control-window {
-	left:5px;
-	top:3px;
-	z-index:10;
-	height:19px;
+  left:5px;
+  top:3px;
+  z-index:10;
+  height:19px;
 
 }
 nav.control-window a {
-    display: inline-block;
-    margin: 2px 0 3px 1px;
-    width: 12px;
-    height: 12px;
-    border-radius: 100%;
-    box-shadow: 0 1px 0 rgba(255,255,255,.5);
-    text-indent: -9999px;
-    position: relative;
+  display: inline-block;
+  margin: 2px 0 3px 1px;
+  width: 12px;
+  height: 12px;
+  border-radius: 100%;
+  text-indent: -9999px;
+  position: relative;
 }
 nav.control-window a:before {
-    content: '';
-    display: block;
-    position: absolute;
-    border-radius: 100%;
-    box-shadow:inset 0 1px 4px rgba(0, 0, 0, .8);
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
+  content: '';
+  display: block;
+  position: absolute;
+  border-radius: 100%;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
 }
 nav.control-window a:after {
-    content: '';
-    display: block;
-    position: absolute;
-    top: 2px;
-    left: 1px;
-    bottom: 1px;
-    right: 1px;
-    border-radius: 100%;
-    background: -webkit-linear-gradient(white, rgba(255, 255, 255, .9) 2%, white, rgba(255, 255, 255, .4) 16%, rgba(255, 255, 255, 0) 43%, rgba(255, 255, 255, .74), rgba(255, 255, 255, .7) 122%, rgba(255, 255, 255, .7));
-    box-shadow: inset 0 -3px -5px 3px rgba(255, 255, 255, 0.2), inset 0 2px -5px 3px rgba(255, 255, 255, 0.2);
+  content: '';
+  display: block;
+  position: absolute;
+  top: 2px;
+  left: 1px;
+  bottom: 1px;
+  right: 1px;
+  border-radius: 100%;
 }
-nav.control-window a.close {
-    background: #FD4E4E;
+nav.control-window .close {
+  background: #FD4E4E;
 }
-nav.control-window:hover a.close {
-	background: #FD4E4E url(./icons/buttons-hover.png) 1px 1px no-repeat;
+nav.control-window .minimize {
+  background: #F3BB55;
 }
-nav.control-window a.close:active {
-    background: #c72f2b url(./icons/buttons-hover.png) 1px 1px no-repeat;
+nav.control-window .maximize {
+  background: #96D16F;
 }
-nav.control-window a.minimize {
-    background: #F3BB55;
-}
-nav.control-window:hover a.minimize {
-    background: #F3BB55 url(./icons/buttons-hover.png) -9px 1px no-repeat;
-}
-nav.control-window a.minimize:active {
-    background: #c7862c url(./icons/buttons-hover.png) -9px 1px no-repeat;
-}
-nav.control-window a.maximize {
-    background: #96D16F;
-}
-nav.control-window:hover a.maximize {
-    background: #96D16F url(./icons/buttons-hover.png) -19px 1px no-repeat;
-}
-nav.control-window a.maximize:active {
-    background: #4a8e33 url(./icons/buttons-hover.png) -19px 1px no-repeat;
-}
-nav.control-window a.deactivate {
-    background: #b5b5b5;
+nav.control-window .deactivate {
+  background: #b5b5b5;
 }

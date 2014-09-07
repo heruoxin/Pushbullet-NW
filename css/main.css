@@ -10,33 +10,8 @@ body
 {
   overflow-y: hidden;
   -webkit-app-region: no-drag;
-}
-#menu-bar
-{
-  position: fixed;
-  display: block;
-  width: 30%;
-  height: 100%;
+  cursor: default;
 
-  background-color: #5caa4c;
-
-  -webkit-app-region: drag;
-}
-#menu-list
-{
-  overflow-y: scroll;
-
-  -webkit-app-region: no-drag;
+  font-family: 'Helvetica';
 }
 
-#push-list
-{
-  position: fixed;
-  display: block;
-  overflow-y: scroll;
-  width: 70%;
-  height: 100%;
-  left: 30%;
-
-  background-color: #f5f5f5;
-}
