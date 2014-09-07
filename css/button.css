@@ -14,26 +14,9 @@ nav.control-window a {
   text-indent: -9999px;
   position: relative;
 }
-nav.control-window a:before {
-  content: '';
-  display: block;
-  position: absolute;
-  border-radius: 100%;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
+nav.control-window a:hover {
 }
-nav.control-window a:after {
-  content: '';
-  display: block;
-  position: absolute;
-  top: 2px;
-  left: 1px;
-  bottom: 1px;
-  right: 1px;
-  border-radius: 100%;
-}
+
 nav.control-window .close {
   background: #FD4E4E;
 }
@@ -44,5 +27,5 @@ nav.control-window .maximize {
   background: #96D16F;
 }
 nav.control-window .deactivate {
-  background: #b5b5b5;
+  background: #4c9a3c;
 }
