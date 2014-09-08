@@ -57,7 +57,7 @@ var info_type = {
 
 module.exports = function (ids){
   var _out = [];
-  var pushes = require(process.env.HOME+'/Library/Preferences/com.1ittlecup.pushcullet.history.json').pushes;
+  var pushes = require(process.env.HOME+'/Library/Preferences/com.1ittlecup.pushcullet.history.json');
   for (var i in pushes){
     if (!pushes[i].active) {continue;}
     if (ids){

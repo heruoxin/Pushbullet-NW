@@ -1,5 +1,5 @@
-var fs = require('fs');
 var https = require('https');
+var save_history = require('./save_history');
 
 var token = process.argv.slice(2)[0];
 if (!token) {
@@ -39,15 +39,10 @@ var req = https.request(options, function(res) {
   res.on('end', function(e){
     if (e) {return console.error(e);}
     //console.log(JSON.parse(push_history));
-    save_list(JSON.parse(push_history));
+    save_history(JSON.parse(push_history).pushes);
   });
 });
 req.end();
 
-function save_list(i){
-  fs.writeFile(file_path, JSON.stringify(i, null, 4), function(e){
-    if (e) {console.error(e);}
-  });
-}
 
 };

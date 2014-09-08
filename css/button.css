@@ -11,10 +11,17 @@ nav.control-window a {
   width: 12px;
   height: 12px;
   border-radius: 100%;
-  text-indent: -9999px;
   position: relative;
 }
-nav.control-window a:hover {
+
+nav.control-window a.close:hover {
+  background: #FD4E4E url(../icons/buttons-hover.png) 1px 1px no-repeat;
+}
+nav.control-window a.minimize:hover {
+  background: #F3BB55 url(../icons/buttons-hover.png) -9px 1px no-repeat;
+}
+nav.control-window a.maximize:hover {
+  background: #96D16F url(../icons/buttons-hover.png) -19px 1px no-repeat;
 }
 
 nav.control-window .close {

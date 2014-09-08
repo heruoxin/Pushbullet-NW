@@ -15,7 +15,7 @@ module.exports = function(){
     '</p>',
     '</div>',
     '<div id="devices-bar">',
-    '<hr/><h4 class="title">Devices</h4><hr/>',
+    '<hr/><p class="title">Devices</p><hr/>',
   ].join('')
 
   );
@@ -44,7 +44,7 @@ module.exports = function(){
   _out.push('</div>');
 
   _out.push('<div id="contacts-bar">');
-  _out.push('<hr/><h4 class="title">Contacts</h4><hr/>');
+  _out.push('<hr/><p class="title">Contacts</p><hr/>');
 
   //contacts list.
   for (var j in info.contacts){
