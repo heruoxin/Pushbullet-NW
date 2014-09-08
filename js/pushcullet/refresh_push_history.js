@@ -39,7 +39,7 @@ var req = https.request(options, function(res) {
   res.on('end', function(e){
     if (e) {return console.error(e);}
     //console.log(JSON.parse(push_history));
-    save_history(JSON.parse(push_history).pushes);
+    save_history(JSON.parse(push_history).pushes, "refresh all");
   });
 });
 req.end();
