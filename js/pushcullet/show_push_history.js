@@ -1,4 +1,5 @@
 
+var $ = require('jquery');
 //pushbullet showing push history
 
 var xml_p = function(s){
@@ -118,5 +119,5 @@ module.exports = function (ids){
     _out.push(tmp_string.join(''));
   }
   _out.push('</items>');
-  return _out.join('');
+  return $("#push-list").html(_out.join(''));
 };

@@ -1,5 +1,6 @@
+var $ = require('jquery');
+var info = require(process.env.HOME+'/Library/Preferences/com.1ittlecup.pushcullet.info.json');
 module.exports = function(){
-  var info = require(process.env.HOME+'/Library/Preferences/com.1ittlecup.pushcullet.info.json');
 
   var _out = [];
 
@@ -67,5 +68,5 @@ module.exports = function(){
   }
   _out.push('</div>');
 
-  return _out.join('').toString();
+  return $("#menu-list").html(_out.join('').toString());
 };

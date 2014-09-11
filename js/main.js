@@ -1,5 +1,6 @@
 var gui = require('nw.gui');
 var Notification = require('node-notifier');
+var $ = require('jquery');
 
 var mb = new gui.Menu({type:"menubar"});
 mb.createMacBuiltin("your-app-name");
@@ -53,7 +54,7 @@ var refresh_history = function(time){
 
 var show_menu_bar_list = function(){
   try {
-    return $("#menu-list").html(require('./js/pushcullet/show_devices_contacts_list')());
+    return require('./js/pushcullet/show_devices_contacts_list')();
   } catch (e) {
     add_error_card("Refresh devices list error", e);
   }
@@ -61,7 +62,7 @@ var show_menu_bar_list = function(){
 
 var show_push_history = function(id){
   try {
-    $("#push-list").html(require('./js/pushcullet/show_push_history')(id));
+    require('./js/pushcullet/show_push_history')(id);
     $.get('./html/addpushcard.html', function(data){
       $("#push-list").prepend(data);
     });
