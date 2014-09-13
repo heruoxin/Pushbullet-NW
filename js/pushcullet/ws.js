@@ -1,4 +1,7 @@
 var WebSocket = require('ws');
+var show_devices_contacts_list = require('./show_devices_contacts_list');
+var refresh_devices_contacts = require('./refresh_devices_contacts');
+
 
 var token = process.argv.slice(2)[0];
 if (!token) {
@@ -15,15 +18,19 @@ var start_ws = function() {
   });
   connection.on('message', function(e) {
     e = JSON.parse(e);
+    console.log(e);
     switch (e.type) {
       case 'nop': // HeartBeat
         console.log('HeartBeat', new Date());
         heart_beat += 1;
       break;
-      case 'tickle': // Just a notification
-        if (e.subtype === device){ //device list updated
+      case 'tickle':
+        if (e.subtype === 'device'){ //device list updated
+        refresh_devices_contacts(show_devices_contacts_list);
+      } else { //other pushes updated
+        require('./refresh_push_history')(120);
       }
-        break;
+      break;
       case 'push': // Push or Android notification mirror
         break;
     }
@@ -47,8 +54,8 @@ var start_ws = function() {
   },30000);
   var restart_ws = function(){
     setTimeout(function(){
+      start_ws();
       connection.close();
-      return start_ws();
     }, 10000);
   };
 };

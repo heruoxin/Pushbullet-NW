@@ -26,7 +26,14 @@ module.exports = function(){
     if (!info.devices[i].active){continue;}
     var device = [
       '<div class="menber ',
-      info.devices[i].type,
+      function(){
+        if (info.devices[i].type !== 'stream'){
+          return info.devices[i].type;
+        }
+        if (info.devices[i].model.indexOf('OS X') >= 0){
+          return 'osx';
+        }
+      }(),
       '" id="',
       info.devices[i].iden,
       '">',

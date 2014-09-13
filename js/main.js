@@ -119,6 +119,12 @@ var card_button = function(){
       });
     });
   });
+  $('.delete').click(function(obj){
+    var id = obj.currentTarget.id.replace('delete','');
+    console.log(id, "Delete");
+    $('#'+id).remove();
+    return require('./js/pushcullet/delete_push')(id);
+  });
 };
 
 //card expand
@@ -144,5 +150,8 @@ setTimeout(function(){
   card_button();
   card_expand();
 }, 200);
+
+//start ws
+require('./js/pushcullet/ws');
 
 require('nw.gui').Window.get().showDevTools();

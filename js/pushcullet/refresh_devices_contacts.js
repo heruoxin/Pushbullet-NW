@@ -1,4 +1,4 @@
-module.exports = function(){
+module.exports = function(next){
   var fs = require('fs');
   var https = require('https');
 
@@ -23,6 +23,7 @@ module.exports = function(){
       'Authorization': 'Basic ' + new Buffer(token+':').toString('base64')
     }
   };
+  var check = 0;
   var req = https.request(devices_options, function(res) {
     var d = '';
     res.setEncoding('utf8');
@@ -47,7 +48,7 @@ module.exports = function(){
       'Authorization': 'Basic ' + new Buffer(token+':').toString('base64')
     }
   };
-  var req = https.request(contacts_options, function(res) {
+  var req_2 = https.request(contacts_options, function(res) {
     var d = '';
     res.setEncoding('utf8');
     res.on('data', function(chunk) {
@@ -59,13 +60,18 @@ module.exports = function(){
       save();
     });
   });
-  req.end();
+  req_2.end();
 
   var file_path = process.env.HOME+'/Library/Preferences/com.1ittlecup.pushcullet.info.json';
   var save = function(){
     if (info.hasOwnProperty("devices") && info.hasOwnProperty("contacts")){
       fs.writeFile(file_path, JSON.stringify(info, null, 4), function(e){
-        if (e) {console.error(e);}
+        if (e) {return console.error(e);}
+        check += 1;
+        if (check >= 2){
+          console.log("here");
+          return next();
+        }
       });
     }
   };

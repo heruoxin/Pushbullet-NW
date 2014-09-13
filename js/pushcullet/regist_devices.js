@@ -1,38 +1,48 @@
 var https = require('https');
+var os = require('os');
 var bl = require('bl');
-var save_history = require('./save_history');
-
-var token = process.argv.slice(2)[0];
-if (!token) {
-  token = require(process.env.HOME+'/Library/Preferences/com.1ittlecup.pushcullet.info.json').token;
-}
-
-var file_path = process.env.HOME+'/Library/Preferences/com.1ittlecup.pushcullet.history.json';
+var refresh_devices_contacts = require('./refresh_devices_contacts');
 
 //regist a new device
+module.exports = function () {
 
-module.exports = function (data, iden, cb) {
-  if (!data) { return console.error("No data given!");}
+  var fingerprint = {};
+  require('getmac').getMac(function(err,macAddress){
+    if (err)  throw err;
+    fingerprint.mac_address = macAddress;
+    fingerprint.cpu = os.cpus()[0].model;
+    fingerprint = JSON.stringify(fingerprint).replace(/"/g, '\\"');
+    console.log(fingerprint);
+  });
 
-  if (typeof(iden) === "function"){
-    cb = iden;
-  } else if ( iden !== "all"){
-    if (iden.indexOf('@') >= 0){
-      data.email = iden;
-    } else {
-      data.device_iden = iden;
+  try {
+    info = require(process.env.HOME+'/Library/Preferences/com.1ittlecup.pushcullet.info.json');
+  } catch (e) {
+    return console.error('No info file.');
+  }
+
+  for (var i in info.devices){
+    if (info.devices[i].fingerprint == fingerprint){ //has registed
+      return console.warn('this devices has registed.');
     }
   }
 
-  var post_data = JSON.stringify(data);
+  var post_data = JSON.stringify({
+    "type": "stream",
+    "kind": "mac",
+    "nickname": os.hostname(),
+    "manufacturer": "Apple",
+    "model": "Mac OS X 10."+(os.release().split('.')[0]-4),
+//    "fingerprint": fingerprint,
+  });
 
   var options = {
     hostname: 'api.pushbullet.com',
     port: 443,
-    path: '/v2/pushes',
+    path: '/v2/devices',
     method: 'POST',
     headers: {
-      'Authorization': 'Basic ' + new Buffer(token+':').toString('base64'),
+      'Authorization': 'Basic ' + new Buffer(info.token+':').toString('base64'),
       'Content-Type': 'application/json',
       'Content-Length': post_data.length
     }
@@ -44,20 +54,13 @@ module.exports = function (data, iden, cb) {
     res.pipe(bl(function(e, d){
       d = JSON.parse(d);
       if (e) {return console.error(e);}
-      save_history({'new pushes': d});
-      if (cb){cb(d);}
+      console.log(d);
+      refresh_devices_contacts();
     }));
   });
   req.write(post_data);
   req.end();
 
-
 };
 
-//______
-
-//module.exports({
-//  'type': 'note',
-//  'title': '233',
-//  'body': '2323233'
-//},'udfZpddgpV', console.log);
+module.exports();

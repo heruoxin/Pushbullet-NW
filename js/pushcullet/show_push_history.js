@@ -80,7 +80,9 @@ module.exports = function (ids){
     //      '</item>'
     //    ];
     var tmp_string = [
-      '<div class="push-card">',
+      '<div class="push-card" id="',
+      pushes[i].iden,
+      '">',
       '<div class="card-left">',
       '<div class="card-logo">',
       '<img src="icons/',
@@ -101,7 +103,7 @@ module.exports = function (ids){
       ' arg="',
       xml_p(info_type[pushes[i].type].arg(pushes[i])),
       '" id="',
-      pushes[i].iden,
+      pushes[i].iden + 'open',
       '" type="',
       pushes[i].type,
       '" usage="',
@@ -111,7 +113,9 @@ module.exports = function (ids){
       '" other="',
       '">Open</span>',
       '<hr class="card-hr-horizonal" />',
-      '<span class="control delete">Delete</span>',
+      '<span class="control delete" id="',
+      pushes[i].iden+'delete',
+      '">Delete</span>',
       '</div>',
       '</div>',
       '</div>',
