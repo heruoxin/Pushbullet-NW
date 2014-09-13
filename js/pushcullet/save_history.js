@@ -9,10 +9,10 @@ var write = function(d){
 
 //save push history
 
-module.exports = function (j, refresh_all) {
+module.exports = function (j, option) {
 
   var old_j = {};
-  if (!refresh_all){ //refresh all
+  if (option !== 'refresh all'){ //refresh all
     try {
       old_j = require(file_path);
     } catch(e) {
@@ -20,7 +20,8 @@ module.exports = function (j, refresh_all) {
     }
   }
 
-  if (Object.getOwnPropertyNames(j).length === 1){ //delete option
+  if (option === 'delete'){ //delete option
+    console.log("start delete");
     for (var k in j){
       if (j[k].active === false){
         for (var q in old_j){

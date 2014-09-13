@@ -75,6 +75,8 @@ var menubar_click = function (){
   $(".menber").click(function(obj){
     console.log(obj.currentTarget.id);
     show_push_history(obj.currentTarget.id);
+    card_button();
+    card_expand();
   });
 };
 
@@ -110,12 +112,12 @@ var card_button = function(){
       var notifier = new Notification();
       notifier.notify({
         "title": e.attr("usage"),
-//        "subtitle": e.attr("usage"),
+        //        "subtitle": e.attr("usage"),
         "message": e.attr("info"),
-//        "sound": "Funk", // case sensitive
+        //        "sound": "Funk", // case sensitive
         "contentImage": './icons/'+e.attr("type")+'.png',
         "appIcon": './icons/'+e.attr("type")+'.png',
-//        "open": "file://" + __dirname + "/coulson.jpg"
+        //        "open": "file://" + __dirname + "/coulson.jpg"
       });
     });
   });

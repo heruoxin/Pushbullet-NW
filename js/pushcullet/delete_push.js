@@ -34,13 +34,13 @@ module.exports = function (iden, cb) {
   var req = https.request(options, function(res) {
     res.pipe(bl(function(e, d){
       d = JSON.parse(d);
-      if (e) {return console.error(e);}
-      if (!isEmptyObject(d)) {return console.error(d);}
       save_history({iden: {
         "active": false,
         "iden": iden,
         "modified": Number(new Date())/1000.0,
-      }});
+      }},'delete');
+      if (e) {return console.error(e);}
+      if (!isEmptyObject(d)) {return console.error(d);}
       if (cb){cb(d);}
     }));
   });

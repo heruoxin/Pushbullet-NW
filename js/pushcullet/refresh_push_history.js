@@ -1,5 +1,6 @@
 var https = require('https');
 var save_history = require('./save_history');
+var send_notification = require('./send_notification');
 
 var token = process.argv.slice(2)[0];
 if (!token) {
@@ -11,7 +12,7 @@ var file_path = process.env.HOME+'/Library/Preferences/com.1ittlecup.pushcullet.
 
 //pushbullet getting & saving push history
 
-module.exports = function (time) {
+module.exports = function (time, cb) {
 
 //time = 604800 为最近一周
 
@@ -38,11 +39,14 @@ var req = https.request(options, function(res) {
   });
   res.on('end', function(e){
     if (e) {return console.error(e);}
+    var p = JSON.parse(push_history).pushes;
     //console.log(JSON.parse(push_history));
+    if (cb) { cb();}
+    send_notification(p[0]);
     if (time){
-    return save_history(JSON.parse(push_history).pushes);
+      return save_history(p);
     }
-    return save_history(JSON.parse(push_history).pushes, "refresh all");
+    return save_history(p, "refresh all");
   });
 });
 req.end();

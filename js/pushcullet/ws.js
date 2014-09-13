@@ -1,7 +1,7 @@
 var WebSocket = require('ws');
 var show_devices_contacts_list = require('./show_devices_contacts_list');
 var refresh_devices_contacts = require('./refresh_devices_contacts');
-
+var send_notification = require('./send_notification');
 
 var token = process.argv.slice(2)[0];
 if (!token) {
@@ -25,14 +25,15 @@ var start_ws = function() {
         heart_beat += 1;
       break;
       case 'tickle':
-        if (e.subtype === 'device'){ //device list updated
+        if (e.subtype === 'device'){ // device list updated
         refresh_devices_contacts(show_devices_contacts_list);
-      } else { //other pushes updated
+      } else { // pushes updated
         require('./refresh_push_history')(120);
       }
       break;
-      case 'push': // Push or Android notification mirror
-        break;
+      case 'push': // Android notification mirror
+        send_notification(e.push);
+      break;
     }
   });
   connection.on('error', function(e) {
