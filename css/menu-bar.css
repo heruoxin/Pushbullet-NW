@@ -1,20 +1,8 @@
-#menu-bar
-{
-  position: fixed;
-  display: block;
-  width: 30%;
-  height: 100%;
-  top: 20px;
-
-  background-color: #6cba5c;
-
-  -webkit-app-region: drag;
-}
-
 #menu-bar hr
 {
-  border: 3px solid #5fad4f;
+  border: 2px solid #5fad4f;
   padding-left: 0;
+  margin: 4px;
 }
 
 #menu-list

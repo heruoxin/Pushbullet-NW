@@ -15,23 +15,35 @@ body
   font-family: 'Helvetica';
 }
 
-#push-list
-{
-  position: fixed;
-  display: block;
-  overflow-y: scroll;
-  width: 70%;
-  height: 100%;
-  left: 50px;
-
-  background-color: #f5f5f5;
-}
-
 nav.control-window {
   background-color: #6cba5c;
   left:5px;
   top:3px;
   z-index:10;
   height:20px;
-
+  -webkit-app-region: drag;
 }
+
+#menu-bar
+{
+  position: fixed;
+  display: block;
+  width: 30%;
+  height: 100%;
+  top: 20px;
+  background-color: #6cba5c;
+  -webkit-app-region: drag;
+}
+
+#main
+{
+  position: fixed;
+  display: block;
+  overflow-y: scroll;
+  width: auto;
+  height: 100%;
+  left: 50px;
+
+  background-color: #f5f5f5;
+}
+
