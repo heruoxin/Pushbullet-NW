@@ -4,6 +4,7 @@
   display: block;
   width: 30%;
   height: 100%;
+  top: 20px;
 
   background-color: #6cba5c;
 
@@ -12,7 +13,8 @@
 
 #menu-bar hr
 {
-  border: 1px solid #5fad4f;
+  border: 3px solid #5fad4f;
+  padding-left: 0;
 }
 
 #menu-list
@@ -20,15 +22,14 @@
   overflow-x: hidden;
   overflow-y: scroll;
   max-height: 100%;
-  padding-left: 5px;
 
   -webkit-app-region: no-drag;
 }
 
 p.title
 {
-//  color: #1f6d0f;
-  font-size: 12px;
+  /*  color: #1f6d0f;*/
+  font-size: 8px;
 }
 
 #menu-list h5
@@ -39,37 +40,26 @@ p.title
 .menber
 {
   cursor: pointer;
-  background-size: 26px;
-  background-repeat: no-repeat;
-  padding-left: 35px;
-  background-position: 4px 40%;
+  padding-left: 10px;
+  /*  background-size: 26px;*/
+  /*  background-repeat: no-repeat;*/
+  /*  padding-left: 35px;*/
+  /*  background-position: 4px 40%;*/
 }
 
-.android
+.menber img
 {
-  background-image: url(../icons/android.png);
+  pointer-events: none;
+  height: 30px;
 }
-.ios
+
+.detail
 {
-  background-image: url(../icons/apple.png);
+  visibility: hidden;
+  display: inline-block;
 }
-.osx
+
+.detail p
 {
-  background-image: url(../icons/apple.png);
-}
-.chrome
-{
-  background-image: url(../icons/chrome.png);
-}
-.windows
-{
-  background-image: url(../icons/windows.png);
-}
-.contacts
-{
-  background-image: url(../icons/contacts.png);
-}
-.all
-{
-  background-image: url(../icons/undefined.png);
+  display: none;
 }

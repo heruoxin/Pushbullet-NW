@@ -1,10 +1,4 @@
-nav.control-window {
-  left:5px;
-  top:3px;
-  z-index:10;
-  height:19px;
 
-}
 nav.control-window a {
   display: inline-block;
   margin: 2px 0 3px 1px;
