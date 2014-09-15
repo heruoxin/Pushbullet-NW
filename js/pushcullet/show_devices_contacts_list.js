@@ -18,7 +18,6 @@ module.exports = function(){
     '</p>',
     '</div>',
     '</div>',
-    '<div id="devices-bar">',
  //   '<hr/><p class="title">Devices</p><hr/>',
     '<hr>',
   ].join('')
@@ -57,9 +56,7 @@ module.exports = function(){
     ];
     _out.push(device.join(''));
   }
-  _out.push('</div>');
 
-  _out.push('<div id="contacts-bar">');
 //  _out.push('<hr/><p class="title">Contacts</p><hr/>');
   _out.push('<hr/>');
 
@@ -71,7 +68,7 @@ module.exports = function(){
       '" id="',
       info.contacts[j].email_normalized,
       '">',
-      '<img src="./icons/undefined.png"/>',
+      '<img src="./icons/contacts.png"/>',
       '<div class="detail">',
       '<h5>',
       info.contacts[j].name,
@@ -84,7 +81,6 @@ module.exports = function(){
     ];
     _out.push(contact.join(''));
   }
-  _out.push('</div>');
 
   return $("#menu-list").html(_out.join('').toString());
 };

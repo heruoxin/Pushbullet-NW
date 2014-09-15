@@ -5,18 +5,17 @@
   margin: 10px;
   box-shadow: 0 1px 1px #d0d0d0;
   width: auto;
-  max-height: 150px;
+  height: 100px;
   overflow-y: hidden;
 
   background-color: white;
 }
-.card-left
+.card-main
 {
   position: relative;
   display: inline-block;
   float: left;
   width: 80%;
-  height: auto;
   overflow-y: hidden;
 }
 .card-logo
@@ -39,8 +38,14 @@
   float: right;
   width: 70%;
 }
-.card-right
+.card-content h2
 {
+  height: 28px;
+  overflow: hidden;
+}
+.card-control
+{
+  display: none;
   position: relative;
   display: inline-block;
   float: right;
@@ -59,4 +64,9 @@
   left: 0;
   width: 100% !important;
   height: 100% !important;
+}
+
+.push-card:hover
+{
+  height: 150px;
 }

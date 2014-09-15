@@ -73,7 +73,7 @@ var show_push_history = function(id){
 
 var menubar_click = function (){
   $(".menber").click(function(obj){
-    console.log(obj.currentTarget.id);
+    console.log('.menber click:',obj.currentTarget.id);
     show_push_history(obj.currentTarget.id);
     card_button();
     card_expand();
@@ -132,11 +132,11 @@ var card_button = function(){
 //card expand
 var card_expand = function(){
   $(".push-card").bind("click", function(){
-    if ($(this).css("max-height") === "none"){
-      $(this).css({"max-height": "150px"});
-      return false;
+    if ($(this).css("height") === "100px"){
+      $(this).css({"height": "150px"});
+    } else {
+    $(this).css({"height": "100px"});
     }
-    $(this).css({"max-height": "none"});
     return false;
   });
 };

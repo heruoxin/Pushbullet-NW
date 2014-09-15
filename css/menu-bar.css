@@ -5,22 +5,13 @@
   margin: 4px;
 }
 
-#menu-list
-{
-  overflow-x: hidden;
-  overflow-y: scroll;
-  max-height: 100%;
-
-  -webkit-app-region: no-drag;
-}
-
 p.title
 {
   /*  color: #1f6d0f;*/
   font-size: 8px;
 }
 
-#menu-list h5
+#menu-bar h5
 {
   padding-top: 3px;
 }
@@ -50,4 +41,10 @@ p.title
 .detail p
 {
   display: none;
+}
+
+#menu-notification
+{
+position: fixed;
+bottom: 2px;
 }
