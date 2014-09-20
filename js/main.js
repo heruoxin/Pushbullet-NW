@@ -26,9 +26,9 @@ var add_error_card = function(title, e){
     '        </div>',
     '        <div class="card-right">',
     '          <div class="card-control">',
-    '            <span class="control-one" id="control-one">Refresh</span>',
+    '            <span class="control open" id="control-one">Refresh</span>',
     '            <hr class="card-hr-horizonal" />',
-    '            <span class="control-two" id="control-two">Delete</span>',
+    '            <span class="control delete" id="control-two">Delete</span>',
     '          </div>',
     '        </div>',
     '      </div>',
@@ -132,11 +132,11 @@ var card_button = function(){
 //card expand
 var card_expand = function(){
   $(".push-card").bind("click", function(){
-    if ($(this).css("height") === "100px"){
-      $(this).css({"height": "150px"});
-    } else {
-    $(this).css({"height": "100px"});
-    }
+//    if ($(this).css("height") === "100px"){
+//      $(this).css({"height": "150px"});
+//    } else {
+//    $(this).css({"height": "100px"});
+//    }
     return false;
   });
 };
@@ -154,6 +154,6 @@ setTimeout(function(){
 }, 200);
 
 //start ws
-require('./js/pushcullet/ws');
+//require('./js/pushcullet/ws');
 
 require('nw.gui').Window.get().showDevTools();

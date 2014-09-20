@@ -5,17 +5,34 @@
   margin: 10px;
   box-shadow: 0 1px 1px #d0d0d0;
   width: auto;
-  height: 100px;
+  height: 80px;
+  transition: height 200ms ease;
   overflow-y: hidden;
 
   background-color: white;
+}
+.push-card:hover
+{
+  height: 110px;
+}
+.push-card:hover .card-control
+{
+  display: block;
+}
+.push-card:hover .card-main
+{
+  height: 85px;
+}
+.push-card hr
+{
+  color: #d0d0d0;
 }
 .card-main
 {
   position: relative;
   display: inline-block;
   float: left;
-  width: 80%;
+  width: 98%;
   overflow-y: hidden;
 }
 .card-logo
@@ -25,7 +42,7 @@
   pointer-events: none;
   display: inline-block;
   float: left;
-  width: 30%;
+  width: 20%;
 }
 .card-logo img
 {
@@ -36,7 +53,7 @@
   position: relative;
   display: inline-block;
   float: right;
-  width: 70%;
+  width: 80%;
 }
 .card-content h2
 {
@@ -46,10 +63,43 @@
 .card-control
 {
   display: none;
-  position: relative;
+  margin: 0 auto;
+  width: 100%;
+  height: 200%;
+}
+.control
+{
+  width: 50%;
+  height: 25px;
+  line-height: 150%;
   display: inline-block;
-  float: right;
-  width: 20%;
+  text-align: center;
+  cursor: pointer;
+  border-top-style: solid;
+  border-width: 1px;
+  border-color: #d0d0d0;
+  color: black;
+  transition: background-color 200ms ease;
+}
+.open
+{
+  border-right-style: solid;
+}
+.open:hover
+{
+  background-color: #82d072;
+}
+.open:active
+{
+  background-color: #62b052;
+}
+.delete:hover
+{
+  background-color: #f55038;
+}
+.delete:active
+{
+  background-color: #d53018;
 }
 
 .google-maps {
@@ -66,7 +116,3 @@
   height: 100% !important;
 }
 
-.push-card:hover
-{
-  height: 150px;
-}
