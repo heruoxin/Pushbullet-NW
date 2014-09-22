@@ -84,10 +84,10 @@ var menubar_click = function (){
 //window active or not
 var win = gui.Window.get();
 win.on('focus', function() {
-  $('nav.control-window a').removeClass('deactivate');
+  $('.traffice-light a').removeClass('deactivate');
 });
 win.on('blur', function() {
-  $('nav.control-window a').addClass('deactivate');
+  $('.traffice-light a').addClass('deactivate');
 });
 
 //button behave
@@ -146,14 +146,14 @@ var card_expand = function(){
 setTimeout(function(){
   show_menu_bar_list();
   show_push_history();
-  //  refresh_info();
-  //  refresh_history();
+    refresh_info();
+    refresh_history();
   menubar_click();
   card_button();
   card_expand();
 }, 200);
 
 //start ws
-//require('./js/pushcullet/ws');
+require('./js/pushcullet/ws');
 
 require('nw.gui').Window.get().showDevTools();

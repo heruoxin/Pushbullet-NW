@@ -88,6 +88,7 @@
 .open:hover
 {
   background-color: #82d072;
+  color: white;
 }
 .open:active
 {
@@ -96,6 +97,7 @@
 .delete:hover
 {
   background-color: #f55038;
+  color: white;
 }
 .delete:active
 {

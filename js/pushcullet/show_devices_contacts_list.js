@@ -7,7 +7,7 @@ module.exports = function(){
   _out.push(
 
     [
-    '<div class="menber ">',
+    '<div class="menber">',
     '<img src="./icons/undefined.png"/>',
     '<div class="detail">',
     '<h5>',

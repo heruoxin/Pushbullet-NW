@@ -19,6 +19,9 @@
     "toolbar": false,
     "frame": false
   },
+  "webkit": {
+    "page-cache": true
+  },
   "dependencies": {
     "bl": "^0.9.1",
     "getmac": "^1.0.6",

@@ -1,5 +1,4 @@
-
-nav.control-window a {
+.traffice-light a {
   display: inline-block;
   margin: 2px 0 3px 1px;
   width: 12px;
@@ -8,25 +7,34 @@ nav.control-window a {
   position: relative;
 }
 
-nav.control-window a.close:hover {
+.traffice-light a.close:hover {
   background: #FD4E4E url(../icons/buttons-hover.png) 1px 1px no-repeat;
 }
-nav.control-window a.minimize:hover {
+.traffice-light a.minimize:hover {
   background: #F3BB55 url(../icons/buttons-hover.png) -9px 1px no-repeat;
 }
-nav.control-window a.maximize:hover {
+.traffice-light a.maximize:hover {
   background: #96D16F url(../icons/buttons-hover.png) -19px 1px no-repeat;
 }
 
-nav.control-window .close {
+.traffice-light .close {
   background: #FD4E4E;
 }
-nav.control-window .minimize {
+.traffice-light .minimize {
   background: #F3BB55;
 }
-nav.control-window .maximize {
+.traffice-light .maximize {
   background: #96D16F;
 }
-nav.control-window .deactivate {
+.traffice-light .deactivate {
   background: #4c9a3c;
+}
+
+.add-new {
+  display: block;
+  position: fixed;
+  color: black;
+  font-size: 150%;
+  right: 10px;
+  top: 0;
 }

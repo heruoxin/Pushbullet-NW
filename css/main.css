@@ -18,7 +18,7 @@ nav.control-window {
   background-color: #6cba5c;
   left:5px;
   top:3px;
-  height:20px;
+  height:30px;
   -webkit-app-region: drag;
 }
 
@@ -28,7 +28,7 @@ nav.control-window {
   display: block;
   width: 40%;
   height: 100%;
-  top: 20px;
+  top: 30px;
   overflow-x: hidden;
   overflow-y: scroll;
   background-color: #6cba5c;
