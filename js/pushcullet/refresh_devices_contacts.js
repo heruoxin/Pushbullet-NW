@@ -1,11 +1,9 @@
-module.exports = function(next){
+module.exports = function(token, next){
   var fs = require('fs');
   var https = require('https');
 
-  var token = process.argv.slice(2)[0];
   if (!token) {
     token = require(process.env.HOME+'/Library/Preferences/com.1ittlecup.pushcullet.info.json').token;
-
   }
 
 
@@ -23,7 +21,6 @@ module.exports = function(next){
       'Authorization': 'Basic ' + new Buffer(token+':').toString('base64')
     }
   };
-  var check = 0;
   var req = https.request(devices_options, function(res) {
     var d = '';
     res.setEncoding('utf8');
@@ -32,6 +29,11 @@ module.exports = function(next){
     });
     res.on('end', function(e) {
       if (e) {return console.error(e);}
+      if (JSON.parse(d).hasOwnProperty('error')){
+        if (next){
+          return next(false, "Login Error. Check your token or network");
+        }
+      }
       info.devices = JSON.parse(d).devices;
       save();
     });
@@ -67,10 +69,8 @@ module.exports = function(next){
     if (info.hasOwnProperty("devices") && info.hasOwnProperty("contacts")){
       fs.writeFile(file_path, JSON.stringify(info, null, 4), function(e){
         if (e) {return console.error(e);}
-        check += 1;
-        if (check >= 2){
-          console.log("here");
-          return next();
+        if (next){
+          return next(true, "Success");
         }
       });
     }

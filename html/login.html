@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="UTF-8" />
+    <link href="../css/main.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/menu-bar.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/traffic-light.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/card.css" rel="stylesheet" type="text/css"/>
+    <title></title>
+  </head>
+
+  <body>
+
+    <nav class="control-window">
+      <div class="traffice-light">
+        <a href="#" class="close"></a>
+        <a href="#" class="minimize"></a>
+        <a href="#" class="maximize"></a>
+      </div>
+    </nav>
+    <p>Please Copy your <a class="openweb" href="https://www.pushbullet.com/account">Account's Access Token from Web</a> and Paste here:</p>
+    <form class="savetoken" method="get">
+      <input type="text" class="tokenbox" name="token" />
+      <img class="loadinggif" src="../img/loading.gif" style="display:none"/>
+      <input type="submit" value="Save" />
+    </form>
+    <p class="login-info"></p>
+
+  </body>
+  <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script>
+    var exec = require('child_process').exec;
+    $(document).ready(function(){
+      $(document).on('click', '.openweb', function(){
+        exec('open https://www.pushbullet.com/account', function(err, stdout, stderr){
+        });
+        return false;
+      });
+      $(document).on("submit", '.savetoken', function(e){
+        $('.loadinggif').css("display", "inline");
+        var token = $('.tokenbox').val();
+        require('./js/pushcullet/refresh_devices_contacts.js')(token, function(status, info){
+          console.log('token',token);
+          $('.loadinggif').css("display", "none");
+          $('.logininfo').html(info);
+          console.log(status, info)
+          if (status) {
+            require('nw.gui').Window.get().close();
+          }
+        });
+        return false;
+      });
+    });
+    require('nw.gui').Window.get().showDevTools();
+  </script>
+</html>

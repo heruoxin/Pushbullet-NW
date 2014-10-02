@@ -3,10 +3,10 @@ var show_devices_contacts_list = require('./show_devices_contacts_list');
 var refresh_devices_contacts = require('./refresh_devices_contacts');
 var send_notification = require('./send_notification');
 
-var token = process.argv.slice(2)[0];
-if (!token) {
-  token = require(process.env.HOME+'/Library/Preferences/com.1ittlecup.pushcullet.info.json').token;
-
+try {
+  var token = require(process.env.HOME+'/Library/Preferences/com.1ittlecup.pushcullet.info.json').token;
+} catch(e) {
+  return console.error(e);
 }
 
 var start_ws = function() {
@@ -22,7 +22,7 @@ var start_ws = function() {
     switch (e.type) {
       case 'nop': // HeartBeat
         console.log('HeartBeat', new Date());
-        heart_beat += 1;
+      heart_beat += 1;
       break;
       case 'tickle':
         if (e.subtype === 'device'){ // device list updated

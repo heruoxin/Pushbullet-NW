@@ -1,9 +1,9 @@
 var gui = require('nw.gui');
 var Notification = require('node-notifier');
-var $ = require('jquery');
+var JQ = require('jquery');
 
 var mb = new gui.Menu({type:"menubar"});
-mb.createMacBuiltin("your-app-name");
+mb.createMacBuiltin("Pushbullet");
 gui.Window.get().menu = mb;
 
 var add_error_card = function(title, e){
@@ -33,14 +33,21 @@ var add_error_card = function(title, e){
     '        </div>',
     '      </div>',
   ].join('');
-  $("#push-list").append(error_card);
+  JQ("#push-list").append(error_card);
 };
 
 var refresh_info = function(){
   try {
-    return require('./js/pushcullet/refresh_devices_contacts')();
+    require('./js/pushcullet/refresh_devices_contacts')();
   } catch (e) {
     add_error_card("Refresh account info error", e);
+    var new_win = gui.Window.get(
+      window.open('./html/login.html', {
+      position: 'center',
+      width: 100,
+      height: 100
+    })
+    );
   }
 };
 
@@ -64,8 +71,8 @@ var show_push_history = function(id){
   try {
     console.log('show_push_history:',id);
     require('./js/pushcullet/show_push_history')(id);
-    $.get('./html/addpushcard.html', function(data){
-      $("#push-list").prepend(data);
+    JQ.get('./html/addpushcard.html', function(data){
+      JQ("#push-list").prepend(data);
     });
   } catch (e) {
     add_error_card("Show push history error", e);
@@ -73,7 +80,7 @@ var show_push_history = function(id){
 };
 
 var menubar_click = function (){
-  $(".menber").on("click", function(obj){
+  JQ(".menber").on("click", function(obj){
     console.log('.menber click:',obj.currentTarget.id);
     show_push_history(obj.currentTarget.id);
     card_button();
@@ -85,20 +92,20 @@ var menubar_click = function (){
 //window active or not
 var win = gui.Window.get();
 win.on('focus', function() {
-  $('.traffice-light a').removeClass('deactivate');
+  JQ('.traffice-light a').removeClass('deactivate');
 });
 win.on('blur', function() {
-  $('.traffice-light a').addClass('deactivate');
+  JQ('.traffice-light a').addClass('deactivate');
 });
 
 //button behave
-$('.close').click(function(){
+JQ('.close').click(function(){
   win.close();
 });
-$('.minimize').click(function(){
+JQ('.minimize').click(function(){
   win.minimize();
 });
-$('.maximize').click(function(){
+JQ('.maximize').click(function(){
   win.toggleFullscreen();
 });
 
@@ -106,8 +113,8 @@ $('.maximize').click(function(){
 //card button
 var exec = require('child_process').exec;
 var card_button = function(){
-  $('.open').click(function(obj){
-    var e = $("#"+obj.currentTarget.id);
+  JQ('.open').click(function(obj){
+    var e = JQ("#"+obj.currentTarget.id);
     console.log(obj.currentTarget.id, e);
     exec(e.attr("arg"), function(err, stdout, stderr){
       var notifier = new Notification();
@@ -122,22 +129,22 @@ var card_button = function(){
       });
     });
   });
-  $('.delete').click(function(obj){
+  JQ('.delete').click(function(obj){
     var id = obj.currentTarget.id.replace('delete','');
     console.log(id, "Delete");
-    $('#'+id).remove();
+    JQ('#'+id).remove();
     return require('./js/pushcullet/delete_push')(id);
   });
 };
 
 //card expand
 var card_expand = function(){
-  $(".push-card").bind("click", function(){
-//    if ($(this).css("height") === "100px"){
-//      $(this).css({"height": "150px"});
-//    } else {
-//    $(this).css({"height": "100px"});
-//    }
+  JQ(".push-card").bind("click", function(){
+    //    if (JQ(this).css("height") === "100px"){
+    //      JQ(this).css({"height": "150px"});
+    //    } else {
+    //    JQ(this).css({"height": "100px"});
+    //    }
     return false;
   });
 };
@@ -146,10 +153,10 @@ var card_expand = function(){
 //loading
 setTimeout(function(){
 }, 200);
-$(document).ready(function(){
+JQ(document).ready(function(){
+  refresh_info();
   show_menu_bar_list();
   show_push_history();
-  refresh_info();
   refresh_history();
   menubar_click();
   card_button();
