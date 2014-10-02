@@ -62,6 +62,7 @@ var show_menu_bar_list = function(){
 
 var show_push_history = function(id){
   try {
+    console.log('show_push_history:',id);
     require('./js/pushcullet/show_push_history')(id);
     $.get('./html/addpushcard.html', function(data){
       $("#push-list").prepend(data);
@@ -72,7 +73,7 @@ var show_push_history = function(id){
 };
 
 var menubar_click = function (){
-  $(".menber").click(function(obj){
+  $(".menber").on("click", function(obj){
     console.log('.menber click:',obj.currentTarget.id);
     show_push_history(obj.currentTarget.id);
     card_button();
@@ -144,14 +145,16 @@ var card_expand = function(){
 
 //loading
 setTimeout(function(){
+}, 200);
+$(document).ready(function(){
   show_menu_bar_list();
   show_push_history();
-    refresh_info();
-    refresh_history();
+  refresh_info();
+  refresh_history();
   menubar_click();
   card_button();
   card_expand();
-}, 200);
+});
 
 //start ws
 require('./js/pushcullet/ws');
