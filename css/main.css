@@ -24,11 +24,12 @@ nav.control-window {
 
 #menu-bar
 {
+  z-index: 100;
   position: fixed;
   display: block;
-  width: 40%;
   height: 100%;
   top: 30px;
+  width: 50px;
   overflow-x: hidden;
   overflow-y: scroll;
   background-color: #6cba5c;
@@ -37,6 +38,7 @@ nav.control-window {
 
 #main
 {
+  z-index: -100;
   position: fixed;
   display: block;
   overflow-y: scroll;

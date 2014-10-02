@@ -13,6 +13,7 @@
 }
 .push-card:hover
 {
+  transition-delay: 0.3s;
   height: 110px;
 }
 .push-card:hover .card-control
