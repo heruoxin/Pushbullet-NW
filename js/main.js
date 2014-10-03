@@ -1,16 +1,18 @@
 var gui = require('nw.gui');
 var Notification = require('node-notifier');
-var JQ = require('jquery');
+var $ = require('jquery');
+
+var ID;
 
 var mb = new gui.Menu({type:"menubar"});
 mb.createMacBuiltin("Pushbullet");
 gui.Window.get().menu = mb;
 
-var add_error_card = function(title, e){
+global.add_error_card = function(title, e){
   console.log(title, e);
   var error_card = [
     '          <div class="push-card">',
-    '        <div class="card-left">',
+    '        <div class="card-main">',
     '          <div class="card-logo">',
     '            <img src="icons/error.png" />',
     '          </div>',
@@ -19,70 +21,68 @@ var add_error_card = function(title, e){
     title,
     '            </h2>',
     '            <hr class="card-hr-horizonal" />',
-    '            <p class="content-text">',
+    '            <div class="content-main">',
+    '            <p>',
     e.toString(),
     '            </p>',
     '          </div>',
-    '        </div>',
-    '        <div class="card-right">',
-    '          <div class="card-control">',
-    '            <span class="control open" id="control-one">Refresh</span>',
-    '            <hr class="card-hr-horizonal" />',
-    '            <span class="control delete" id="control-two">Delete</span>',
     '          </div>',
+    '        </div>',
+    '        <div class="card-control">',
+    '            <a href="#" class="control open">Refresh</a>',
+    '            <a href="#" class="control delete">Delete</a>',
     '        </div>',
     '      </div>',
   ].join('');
-  JQ("#push-list").append(error_card);
+  $("#push-list").append(error_card);
 };
 
-var refresh_info = function(){
+global.refresh_info = function(){
   try {
-    require('./js/pushcullet/refresh_devices_contacts')();
+    require('./js/pushcullet/refresh_devices_contacts')(undefined, function(){
+      show_info();
+    });
   } catch (e) {
-    add_error_card("Refresh account info error", e);
-    var new_win = gui.Window.get(
-      window.open('./html/login.html', {
-      position: 'center',
-      width: 100,
-      height: 100
-    })
-    );
+//    global.add_error_card("Refresh account info error", e);
+    require('./js/pushcullet/login');
   }
 };
 
-var refresh_history = function(time){
+global.refresh_history = function(time){
   try {
-    return require('./js/pushcullet/refresh_push_history')(time);
+    return require('./js/pushcullet/refresh_push_history')(time, function(){
+      show_history(ID);
+    });
   } catch (e) {
-    add_error_card("Refresh push history error", e);
+//    global.add_error_card("Refresh push history error", e);
   }
 };
 
-var show_menu_bar_list = function(){
+var show_info = function(){
   try {
     return require('./js/pushcullet/show_devices_contacts_list')();
   } catch (e) {
-    add_error_card("Refresh devices list error", e);
+//    global.add_error_card("Refresh devices list error", e);
   }
 };
 
-var show_push_history = function(id){
+var show_history = function(id){
   try {
-    console.log('show_push_history:',id);
+    ID = id;
+    console.log('show_history:',id);
     require('./js/pushcullet/show_push_history')(id);
-    JQ.get('./html/addpushcard.html', function(data){
-      JQ("#push-list").prepend(data);
+    $.get('./html/addpushcard.html', function(data){
+      $("#push-list").prepend(data);
     });
   } catch (e) {
-    add_error_card("Show push history error", e);
+//    global.add_error_card("Show push history error", e);
   }
 };
 
 var menubar_click = function (){
-  JQ(".menber").on("click", function(obj){
+  $(".menber").on("click", function(obj){
     console.log('.menber click:',obj.currentTarget.id);
-    show_push_history(obj.currentTarget.id);
+    show_history(obj.currentTarget.id);
     card_button();
     card_expand();
   });
@@ -92,20 +92,20 @@ var menubar_click = function (){
 //window active or not
 var win = gui.Window.get();
 win.on('focus', function() {
-  JQ('.traffice-light a').removeClass('deactivate');
+  $('.traffice-light a').removeClass('deactivate');
 });
 win.on('blur', function() {
-  JQ('.traffice-light a').addClass('deactivate');
+  $('.traffice-light a').addClass('deactivate');
 });
 
 //button behave
-JQ('.close').click(function(){
+$('.close').click(function(){
   win.close();
 });
-JQ('.minimize').click(function(){
+$('.minimize').click(function(){
   win.minimize();
 });
-JQ('.maximize').click(function(){
+$('.maximize').click(function(){
   win.toggleFullscreen();
 });
 
@@ -113,8 +113,8 @@ JQ('.maximize').click(function(){
 //card button
 var exec = require('child_process').exec;
 var card_button = function(){
-  JQ('.open').click(function(obj){
-    var e = JQ("#"+obj.currentTarget.id);
+  $('.open').click(function(obj){
+    var e = $("#"+obj.currentTarget.id);
     console.log(obj.currentTarget.id, e);
     exec(e.attr("arg"), function(err, stdout, stderr){
       var notifier = new Notification();
@@ -129,21 +129,21 @@ var card_button = function(){
       });
     });
   });
-  JQ('.delete').click(function(obj){
+  $('.delete').click(function(obj){
     var id = obj.currentTarget.id.replace('delete','');
     console.log(id, "Delete");
-    JQ('#'+id).remove();
+    $('#'+id).remove();
     return require('./js/pushcullet/delete_push')(id);
   });
 };
 
 //card expand
 var card_expand = function(){
-  JQ(".push-card").bind("click", function(){
-    //    if (JQ(this).css("height") === "100px"){
-    //      JQ(this).css({"height": "150px"});
+  $(".push-card").bind("click", function(){
+    //    if ($(this).css("height") === "100px"){
+    //      $(this).css({"height": "150px"});
     //    } else {
-    //    JQ(this).css({"height": "100px"});
+    //    $(this).css({"height": "100px"});
     //    }
     return false;
   });
@@ -153,11 +153,11 @@ var card_expand = function(){
 //loading
 setTimeout(function(){
 }, 200);
-JQ(document).ready(function(){
-  refresh_info();
-  show_menu_bar_list();
-  show_push_history();
-  refresh_history();
+$(document).ready(function(){
+  global.refresh_info();
+  global.refresh_history();
+  show_info();
+  show_history();
   menubar_click();
   card_button();
   card_expand();

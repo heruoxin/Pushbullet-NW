@@ -14,35 +14,37 @@ var file_path = process.env.HOME+'/Library/Preferences/com.1ittlecup.pushcullet.
 
 module.exports = function (time, cb) {
 
-//time = 604800 为最近一周
+  //time = 604800 为最近一周
 
-var options = {
-  hostname: 'api.pushbullet.com',
-  port: 443,
-  method: 'GET',
-  headers: {
-    'Authorization': 'Basic ' + new Buffer(token+':').toString('base64')
+  var options = {
+    hostname: 'api.pushbullet.com',
+    port: 443,
+    method: 'GET',
+    headers: {
+      'Authorization': 'Basic ' + new Buffer(token+':').toString('base64')
+    }
+  };
+
+  if (time) {
+    options.path = '/v2/pushes?modified_after=' + (Date.parse(new Date())/1000 - time);
+  } else {
+    options.path = '/v2/pushes';
   }
-};
 
-if (time) {
-  options.path = '/v2/pushes?modified_after=' + (Date.parse(new Date())/1000 - time);
-} else {
-  options.path = '/v2/pushes';
-}
-
-var req = https.request(options, function(res) {
-  var push_history ='';
-  res.setEncoding('utf8');
-  res.on('data', function(d) {
-    push_history += d;
-  });
-  res.on('end', function(e){
-    if (e) {return console.error(e);}
-    var p = JSON.parse(push_history).pushes;
-    //console.log(JSON.parse(push_history));
-    if (cb) { cb();}
-    send_notification(p[0]);
+  var req = https.request(options, function(res) {
+    var push_history ='';
+    res.setEncoding('utf8');
+    res.on('data', function(d) {
+      push_history += d;
+    });
+    res.on('end', function(e){
+      if (e) {return console.error(e);}
+      var p = JSON.parse(push_history).pushes;
+      //console.log(JSON.parse(push_history));
+      if (cb) { cb();}
+      if (p) {
+        send_notification(p[0]);
+      }
     if (time){
       return save_history(p);
     }

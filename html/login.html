@@ -29,28 +29,6 @@
   </body>
   <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
   <script>
-    var exec = require('child_process').exec;
-    $(document).ready(function(){
-      $(document).on('click', '.openweb', function(){
-        exec('open https://www.pushbullet.com/account', function(err, stdout, stderr){
-        });
-        return false;
-      });
-      $(document).on("submit", '.savetoken', function(e){
-        $('.loadinggif').css("display", "inline");
-        var token = $('.tokenbox').val();
-        require('./js/pushcullet/refresh_devices_contacts.js')(token, function(status, info){
-          console.log('token',token);
-          $('.loadinggif').css("display", "none");
-          $('.logininfo').html(info);
-          console.log(status, info)
-          if (status) {
-            require('nw.gui').Window.get().close();
-          }
-        });
-        return false;
-      });
-    });
-    require('nw.gui').Window.get().showDevTools();
+
   </script>
 </html>
