@@ -4,7 +4,7 @@ var file_path = process.env.HOME+'/Library/Preferences/com.1ittlecup.pushcullet.
 var write = function(d, cb){
   fs.writeFile(file_path, JSON.stringify(d, null, 4), function(e){
     if (e) {console.error(e);}
-    cb();
+    if (cb) {cb();}
   });
 };
 

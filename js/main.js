@@ -57,7 +57,8 @@ global.refresh_history = function(time){
       show_history(ID);
     });
   } catch (e) {
-//    global.add_error_card("Refresh push history error", e);
+    //    global.add_error_card("Refresh push history error", e);
+    console.log(e);
   }
 };
 
@@ -65,7 +66,7 @@ var show_info = function(){
   try {
     return require('./js/pushcullet/show_devices_contacts_list')();
   } catch (e) {
-//    global.add_error_card("Refresh devices list error", e);
+    //    global.add_error_card("Refresh devices list error", e);
   }
 };
 
@@ -78,7 +79,7 @@ var show_history = function(id){
       $("#push-list").prepend(data);
     });
   } catch (e) {
-//    global.add_error_card("Show push history error", e);
+    //    global.add_error_card("Show push history error", e);
     console.log(e);
   }
 };

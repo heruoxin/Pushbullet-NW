@@ -35,6 +35,9 @@ module.exports = function (time, cb) {
     var push_history ='';
     res.setEncoding('utf8');
     res.on('data', function(d) {
+      if (global.hasOwnProperty("ADD_PUSH_NUMBERS")){
+        global.ADD_PUSH_NUMBERS();
+      }
       push_history += d;
     });
     res.on('end', function(e){
@@ -45,6 +48,9 @@ module.exports = function (time, cb) {
         send_notification(p[0]);
       }
       if (time){
+        if (cb){
+          return save_history(p, undefined, cb);
+        }
         return save_history(p);
       }
       if (cb) {
