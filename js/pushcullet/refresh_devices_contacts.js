@@ -24,6 +24,9 @@ module.exports = function(token, next){
   var req = https.request(devices_options, function(res) {
     var d = '';
     res.setEncoding('utf8');
+    res.on('error', function(e){
+      console.error(e);
+    });
     res.on('data', function(chunk) {
       d += chunk;
     });
@@ -53,6 +56,9 @@ module.exports = function(token, next){
   var req_2 = https.request(contacts_options, function(res) {
     var d = '';
     res.setEncoding('utf8');
+    res.on('error', function(e){
+      console.error(e);
+    });
     res.on('data', function(chunk) {
       d += chunk;
     });
