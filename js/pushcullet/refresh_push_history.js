@@ -48,7 +48,9 @@ module.exports = function (time, cb) {
       var p = JSON.parse(push_history).pushes;
       //console.log(JSON.parse(push_history));
       if (p) {
-        send_notification(p[0]);
+        if (Object.getOwnPropertyNames(p).length === 1) {
+          send_notification(p[0]);
+        }
       }
       if (time){
         if (cb){
