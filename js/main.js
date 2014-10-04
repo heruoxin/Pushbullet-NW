@@ -37,9 +37,12 @@ global.add_error_card = function(title, e){
   $("#push-list").append(error_card);
 };
 
-global.refresh_info = function(){
+global.refresh_info = function(token, cb){
   try {
-    require('./js/pushcullet/refresh_devices_contacts')(undefined, function(){
+    require('./js/pushcullet/refresh_devices_contacts')(token, function(status, info){
+      if (typeof cb === 'function'){
+        cb(status, info);
+      }
       show_info();
     });
   } catch (e) {
@@ -76,6 +79,7 @@ var show_history = function(id){
     });
   } catch (e) {
 //    global.add_error_card("Show push history error", e);
+    console.log(e);
   }
 };
 

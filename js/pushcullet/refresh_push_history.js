@@ -41,17 +41,19 @@ module.exports = function (time, cb) {
       if (e) {return console.error(e);}
       var p = JSON.parse(push_history).pushes;
       //console.log(JSON.parse(push_history));
-      if (cb) { cb();}
       if (p) {
         send_notification(p[0]);
       }
-    if (time){
-      return save_history(p);
-    }
-    return save_history(p, "refresh all");
+      if (time){
+        return save_history(p);
+      }
+      if (cb) {
+        return save_history(p, "refresh all", cb);
+      }
+      return save_history(p, "refresh all");
+    });
   });
-});
-req.end();
+  req.end();
 
 
 };

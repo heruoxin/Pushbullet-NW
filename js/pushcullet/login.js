@@ -15,9 +15,8 @@ var login_card = [
   '            <div class="content-main">',
 
   '<p>Copy your <a class="openweb" href="https://www.pushbullet.com/account">Token</a> and Paste here:</p>',
-  '<form class="savetoken" method="get">',
+  '<form id="savetoken" action="">',
   '<input type="text" class="tokenbox" name="token" />',
-  '<img class="loadinggif" src="../img/loading.gif" style="display:none"/>',
   '<input type="submit" value="Save" />',
   '</form>',
   '<p class="login-info"></p>',
@@ -32,24 +31,28 @@ var login_card = [
   '      </div>',
 ].join('');
 
-$("#push-list").append(login_card);
+$("#push-list").html(login_card);
 
-$('.openweb').on('click', function(){
-  exec('open https://www.pushbullet.com/account', function(err, stdout, stderr){
+$('#push-list').ready(function(){
+  $('.openweb').click(function(){
+    exec('open https://www.pushbullet.com/account', function(err, stdout, stderr){
+    });
+    return false;
   });
-  return false;
-});
-$('.savetoken').submit(function(e){
-  $('.loadinggif').css("display", "inline");
-  var token = $('.tokenbox').val();
-  console.log('token',token);
-  global.refresh_info(token, function(status, info){
-    $('.loadinggif').css("display", "none");
-    $('.logininfo').html(info);
-    console.log(status, info);
-    if (status) {
-      global.refresh_history(604800);
-    }
+  $('form#savetoken').submit(function(e){
+    $('.card-logo').html('<img src="img/loading.gif" />');
+    var token = $('.tokenbox').val();
+    console.log('token',token);
+    global.refresh_info(token, function(status, info){
+      $('.content-title:first').html(info);
+      console.log(status, info);
+      if (status) {
+        $('.content-main:first').html("Loading pushes...");
+        global.refresh_history();
+      } else {
+        $('.card-logo:first').html('<img src="icons/error.png" />');
+      }
+    });
+    return false;
   });
-  return false;
 });
