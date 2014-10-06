@@ -7,14 +7,13 @@
   width: auto;
   height: 80px;
   transition: height 200ms ease 0.3s;
-  transition: min-height 200ms ease 0.3s;
   overflow-y: hidden;
 
   background-color: white;
 }
 .push-card:hover
 {
-  height: calc(auto + 5px);
+  height: auto;
   min-height: 110px;
 }
 .push-card:hover .card-control
@@ -23,7 +22,7 @@
 }
 .push-card:hover .card-main
 {
-  height: calc(auto + 5px);
+  height: auto;
   min-height: 85px;
 }
 .push-card hr
