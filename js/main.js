@@ -144,7 +144,8 @@ var card_button = function(){
 
 //card expand
 var card_expand = function(){
-  $(".push-card").bind("click", function(){
+  $(".push-card").click(function(){
+    console.log(".push-card click");
     //    if ($(this).css("height") === "100px"){
     //      $(this).css({"height": "150px"});
     //    } else {
