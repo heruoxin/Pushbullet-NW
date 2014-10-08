@@ -1,12 +1,10 @@
 var WebSocket = require('ws');
-var show_devices_contacts_list = require('./show_devices_contacts_list');
-var refresh_devices_contacts = require('./refresh_devices_contacts');
 var send_notification = require('./send_notification');
 
-var token = process.argv.slice(2)[0];
-if (!token) {
-  token = require(process.env.HOME+'/Library/Preferences/com.1ittlecup.pushcullet.info.json').token;
-
+try {
+  var token = require(process.env.HOME+'/Library/Preferences/com.1ittlecup.pushcullet.info.json').token;
+} catch(e) {
+  return console.error(e);
 }
 
 var start_ws = function() {
@@ -14,7 +12,7 @@ var start_ws = function() {
 
   var connection = new WebSocket('wss://stream.pushbullet.com/websocket/' + token);
   connection.on('open', function(e) {
-    console.log('open: %s', new Date());
+    console.log('ws open: %s', new Date());
   });
   connection.on('message', function(e) {
     e = JSON.parse(e);
@@ -22,13 +20,13 @@ var start_ws = function() {
     switch (e.type) {
       case 'nop': // HeartBeat
         console.log('HeartBeat', new Date());
-        heart_beat += 1;
+      heart_beat += 1;
       break;
       case 'tickle':
         if (e.subtype === 'device'){ // device list updated
-        refresh_devices_contacts(show_devices_contacts_list);
+        global.refresh_info();
       } else { // pushes updated
-        require('./refresh_push_history')(120);
+        global.refresh_history(15);
       }
       break;
       case 'push': // Android notification mirror
@@ -37,10 +35,7 @@ var start_ws = function() {
     }
   });
   connection.on('error', function(e) {
-    console.log('error: %s',e);
-    setTimeout(function(){
-      return restart_ws();
-    }, 10000);
+    console.log('ws error: %s',e);
   });
   connection.on('close', function(e) {
     console.log('close: %s', new Date());

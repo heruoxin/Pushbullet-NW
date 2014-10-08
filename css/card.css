@@ -5,23 +5,24 @@
   margin: 10px;
   box-shadow: 0 1px 1px #d0d0d0;
   width: auto;
-  height: 80px;
-  transition: height 200ms ease;
+  min-height: 80px;
+  max-height: 80px;
+  transition: max-height 0.5s ease 0.3s;
   overflow-y: hidden;
 
   background-color: white;
 }
 .push-card:hover
 {
-  height: 110px;
+  max-height: 500px;
 }
 .push-card:hover .card-control
 {
-  display: block;
+  visibility:visible;
 }
 .push-card:hover .card-main
 {
-  height: 85px;
+  min-height: 85px;
 }
 .push-card hr
 {
@@ -33,6 +34,7 @@
   display: inline-block;
   float: left;
   width: 98%;
+  transition: min-height 0.5s ease 0.3s;
   overflow-y: hidden;
 }
 .card-logo
@@ -60,12 +62,18 @@
   height: 28px;
   overflow: hidden;
 }
+.card-content img
+{
+  width: 100%;
+  height: auto;
+}
 .card-control
 {
-  display: none;
+  visibility:hidden;
   margin: 0 auto;
   width: 100%;
   height: 200%;
+  transition: visibility 0 linear 0.8s;
 }
 .control
 {
@@ -79,7 +87,7 @@
   border-width: 1px;
   border-color: #d0d0d0;
   color: black;
-  transition: background-color 200ms ease;
+  transition: background-color 0.2s ease;
 }
 .open
 {
@@ -88,6 +96,7 @@
 .open:hover
 {
   background-color: #82d072;
+  color: white;
 }
 .open:active
 {
@@ -96,6 +105,7 @@
 .delete:hover
 {
   background-color: #f55038;
+  color: white;
 }
 .delete:active
 {
