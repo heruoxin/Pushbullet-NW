@@ -30,6 +30,15 @@ global.add_error_card = function(title, e){
     e.toString(),
     '            </p>',
     '          </div>',
+<<<<<<< HEAD
+=======
+    '        </div>',
+    '        <div class="card-right">',
+    '          <div class="card-control">',
+    '            <span class="control-one" id="control-one">Refresh</span>',
+    '            <hr class="card-hr-horizonal" />',
+    '            <span class="control-two" id="control-two">Delete</span>',
+>>>>>>> parent of f9d070e... control button
     '          </div>',
     '        </div>',
     '        <div class="card-control">',
@@ -150,6 +159,7 @@ var card_button = function(){
 
 //card expand
 var card_expand = function(){
+<<<<<<< HEAD
   $(".push-card").on("click", function(){
     console.log(".push-card click");
     //    if ($(this).css("height") === "100px"){
@@ -157,10 +167,19 @@ var card_expand = function(){
     //    } else {
     //    $(this).css({"height": "100px"});
     //    }
+=======
+  $(".push-card").bind("click", function(){
+    if ($(this).css("height") === "100px"){
+      $(this).css({"height": "150px"});
+    } else {
+    $(this).css({"height": "100px"});
+    }
+>>>>>>> parent of f9d070e... control button
     return false;
   });
 };
 
+<<<<<<< HEAD
 show_info();
 show_history();
 global.refresh_info();
@@ -177,5 +196,21 @@ $(document).ready(function(){
     require('./js/pushcullet/ws');
   }, 200);
 });
+=======
+
+//loading
+setTimeout(function(){
+  show_menu_bar_list();
+  show_push_history();
+  //  refresh_info();
+  //  refresh_history();
+  menubar_click();
+  card_button();
+  card_expand();
+}, 200);
+
+//start ws
+require('./js/pushcullet/ws');
+>>>>>>> parent of f9d070e... control button
 
 require('nw.gui').Window.get().showDevTools();
