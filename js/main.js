@@ -1,5 +1,6 @@
 var gui = require('nw.gui');
 var Notification = require('node-notifier');
+var login = require('./js/pushcullet/login');
 
 if (!global.hasOwnProperty("$")){
   global.$ = require('jquery');
@@ -50,8 +51,8 @@ global.refresh_info = function(token, cb){
       show_info();
     });
   } catch (e) {
-//    global.add_error_card("Refresh account info error", e);
-    require('./js/pushcullet/login');
+    //    global.add_error_card("Refresh account info error", e);
+    login();
   }
 };
 
@@ -74,7 +75,7 @@ var show_info = function(){
   }
 };
 
-var show_history = function(id){
+var show_history = function(id, cb){
   try {
     ID = id;
     console.log('show_history:',id);
@@ -83,6 +84,7 @@ var show_history = function(id){
       console.log(data);
       $("#push-list").prepend(data);
     });
+    card_button();
   } catch (e) {
     //    global.add_error_card("Show push history error", e);
     console.log(e);
@@ -91,10 +93,12 @@ var show_history = function(id){
 
 var menubar_click = function (){
   $(".menber").on("click", function(obj){
+    if (obj.currentTarget.id === "msf") return;
     console.log('.menber click:',obj.currentTarget.id);
     show_history(obj.currentTarget.id);
-    card_button();
-    card_expand();
+  });
+  $("#menu-setting").on("click", function(){
+    login();
   });
 };
 
@@ -146,10 +150,7 @@ var card_button = function(){
     $('#'+id).remove();
     return require('./js/pushcullet/delete_push')(id);
   });
-};
-
-//card expand
-var card_expand = function(){
+  //card expand
   $(".push-card").on("click", function(){
     console.log(".push-card click");
     //    if ($(this).css("height") === "100px"){
@@ -161,6 +162,7 @@ var card_expand = function(){
   });
 };
 
+
 show_info();
 show_history();
 global.refresh_info();
@@ -168,12 +170,12 @@ global.refresh_history();
 process.on("uncaughtException", function(e){
   console.error("uncaughtException:", e);
 });
+
 $(document).ready(function(){
   setTimeout(function(){
-    menubar_click();
-    card_button();
-    card_expand();
     traffic_light();
+    menubar_click();
+    menu_setting();
     //start ws
     require('./js/pushcullet/ws');
   }, 200);

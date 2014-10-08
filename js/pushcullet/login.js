@@ -9,16 +9,16 @@ var login_card = [
   '          <div class="push-card">',
   '        <div class="card-main">',
   '          <div class="card-logo login">',
-  '            <img src="icons/error.png" />',
+//  '            <img src="icons/error.png" />',
   '          </div>',
   '          <div class="card-content">',
   '            <h2 class="content-title login">',
-  'Please Login',
+  'Login',
   '            </h2>',
   '            <hr class="card-hr-horizonal" />',
   '            <div class="content-main login">',
 
-  '<p>Copy <a id="openweb" href="https://www.pushbullet.com/account">Token</a>. Paste here:</p>',
+  '<p>Copy <a id="openweb" href="https://www.pushbullet.com/account">Token</a> & Paste here:</p>',
   '<form id="loginform" action="">',
   '<input type="text" id="tokenbox" name="token" />',
   '</form>',
@@ -33,16 +33,17 @@ var login_card = [
   '      </div>',
 ].join('');
 
-$("#push-list").html(login_card);
+module.exports = function(){
+  $("#push-list").html(login_card);
 
-global.PUSH_NUMBERS = 0;
-global.ADD_PUSH_NUMBERS = function(){
-  if (!global.LOGIN) {
-    global.PUSH_NUMBERS += 1;
-    $('.card-logo.login').html('<h1>'+global.PUSH_NUMBERS+'</h1>');
-  }
-};
-var form_action = function(){
+  global.PUSH_NUMBERS = 0;
+  global.ADD_PUSH_NUMBERS = function(){
+    if (!global.LOGIN) {
+      global.PUSH_NUMBERS += 1;
+      $('.card-logo.login').html('<h1>'+global.PUSH_NUMBERS+'</h1>');
+    }
+  };
+  var form_action = function(){
     $('.card-logo.login').html('<img src="img/loading.gif" />');
     var token = $('#tokenbox').val();
     console.log('token',token);
@@ -62,12 +63,13 @@ var form_action = function(){
     return false;
   };
 
-$('#push-list').ready(function(){
-  $('#openweb').click(function(){
-    exec('open https://www.pushbullet.com/account', function(err, stdout, stderr){
+  $('#push-list').ready(function(){
+    $('#openweb').click(function(){
+      exec('open https://www.pushbullet.com/account', function(err, stdout, stderr){
+      });
+      return false;
     });
-    return false;
+    $('#loginsave').click(form_action);
+    $('#loginform').submit(form_action);
   });
-  $('#loginsave').click(form_action);
-  $('#loginform').submit(form_action);
-});
+};
