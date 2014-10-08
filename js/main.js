@@ -170,6 +170,7 @@ process.on("uncaughtException", function(e){
 });
 $(document).ready(function(){
   setTimeout(function(){
+    menubar_click();
     card_button();
     card_expand();
     traffic_light();
