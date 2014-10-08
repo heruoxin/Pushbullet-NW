@@ -9,12 +9,21 @@
   "author": "heruoxin",
   "license": "MIT",
   "window": {
-    "width": 800,
-    "height": 500,
-    "min_width": 800,
-    "min_height": 500,
+    "position": "mouse",
+    "width": 350,
+    "height": 700,
+    "min_width": 300,
+    "min_height": 600,
+    "max_height": 900,
+    "transparent": true,
     "toolbar": false,
     "frame": false
+  },
+  "chromium-args": "--ignore-gpu-blacklist",
+  "js-flags": "--harmony_proxies --harmony_collections",
+  "webkit": {
+    "plugin": true,
+    "page-cache": true
   },
   "dependencies": {
     "bl": "^0.9.1",

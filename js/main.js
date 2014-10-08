@@ -1,16 +1,22 @@
 var gui = require('nw.gui');
 var Notification = require('node-notifier');
-var $ = require('jquery');
+
+if (!global.hasOwnProperty("$")){
+  global.$ = require('jquery');
+}
+var $ = global.$;
+
+var ID;
 
 var mb = new gui.Menu({type:"menubar"});
-mb.createMacBuiltin("your-app-name");
+mb.createMacBuiltin("Pushbullet");
 gui.Window.get().menu = mb;
 
-var add_error_card = function(title, e){
+global.add_error_card = function(title, e){
   console.log(title, e);
   var error_card = [
     '          <div class="push-card">',
-    '        <div class="card-left">',
+    '        <div class="card-main">',
     '          <div class="card-logo">',
     '            <img src="icons/error.png" />',
     '          </div>',
@@ -19,93 +25,105 @@ var add_error_card = function(title, e){
     title,
     '            </h2>',
     '            <hr class="card-hr-horizonal" />',
-    '            <p class="content-text">',
+    '            <div class="content-main">',
+    '            <p>',
     e.toString(),
     '            </p>',
     '          </div>',
-    '        </div>',
-    '        <div class="card-right">',
-    '          <div class="card-control">',
-    '            <span class="control open" id="control-one">Refresh</span>',
-    '            <hr class="card-hr-horizonal" />',
-    '            <span class="control delete" id="control-two">Delete</span>',
     '          </div>',
+    '        </div>',
+    '        <div class="card-control">',
+    '            <a href="#" class="control open">Refresh</a>',
+    '            <a href="#" class="control delete">Delete</a>',
     '        </div>',
     '      </div>',
   ].join('');
   $("#push-list").append(error_card);
 };
 
-var refresh_info = function(){
+global.refresh_info = function(token, cb){
   try {
-    return require('./js/pushcullet/refresh_devices_contacts')();
+    require('./js/pushcullet/refresh_devices_contacts')(token, function(status, info){
+      if (typeof cb === 'function'){
+        cb(status, info);
+      }
+      show_info();
+    });
   } catch (e) {
-    add_error_card("Refresh account info error", e);
+//    global.add_error_card("Refresh account info error", e);
+    require('./js/pushcullet/login');
   }
 };
 
-var refresh_history = function(time){
+global.refresh_history = function(time){
   try {
-    return require('./js/pushcullet/refresh_push_history')(time);
+    return require('./js/pushcullet/refresh_push_history')(time, function(){
+      show_history(ID);
+    });
   } catch (e) {
-    add_error_card("Refresh push history error", e);
+    //    global.add_error_card("Refresh push history error", e);
+    console.log(e);
   }
 };
 
-var show_menu_bar_list = function(){
+var show_info = function(){
   try {
     return require('./js/pushcullet/show_devices_contacts_list')();
   } catch (e) {
-    add_error_card("Refresh devices list error", e);
+    //    global.add_error_card("Refresh devices list error", e);
   }
 };
 
-var show_push_history = function(id){
+var show_history = function(id){
   try {
+    ID = id;
+    console.log('show_history:',id);
     require('./js/pushcullet/show_push_history')(id);
     $.get('./html/addpushcard.html', function(data){
       $("#push-list").prepend(data);
     });
   } catch (e) {
-    add_error_card("Show push history error", e);
+    //    global.add_error_card("Show push history error", e);
+    console.log(e);
   }
 };
 
 var menubar_click = function (){
-  $(".menber").click(function(obj){
+  $(".menber").on("click", function(obj){
     console.log('.menber click:',obj.currentTarget.id);
-    show_push_history(obj.currentTarget.id);
+    show_history(obj.currentTarget.id);
     card_button();
     card_expand();
   });
 };
 
 
-//window active or not
-var win = gui.Window.get();
-win.on('focus', function() {
-  $('nav.control-window a').removeClass('deactivate');
-});
-win.on('blur', function() {
-  $('nav.control-window a').addClass('deactivate');
-});
-
-//button behave
-$('.close').click(function(){
-  win.close();
-});
-$('.minimize').click(function(){
-  win.minimize();
-});
-$('.maximize').click(function(){
-  win.toggleFullscreen();
-});
+var traffic_light = function(){
+  //button behave
+  $('.close').on("click", function(){
+    win.close();
+  });
+  $('.minimize').on("click", function(){
+    win.minimize();
+  });
+  $('.maximize').on("click", function(){
+    win.toggleFullscreen();
+  });
+  //window active or not
+  var win = gui.Window.get();
+  win.on('focus', function() {
+    $('.traffice-light a').removeClass('deactivate');
+  });
+  win.on('blur', function() {
+    $('.traffice-light a').addClass('deactivate');
+  });
+};
 
 
 //card button
 var exec = require('child_process').exec;
 var card_button = function(){
-  $('.open').click(function(obj){
+  $('.open').on("click", function(obj){
     var e = $("#"+obj.currentTarget.id);
     console.log(obj.currentTarget.id, e);
     exec(e.attr("arg"), function(err, stdout, stderr){
@@ -121,7 +139,7 @@ var card_button = function(){
       });
     });
   });
-  $('.delete').click(function(obj){
+  $('.delete').on("click", function(obj){
     var id = obj.currentTarget.id.replace('delete','');
     console.log(id, "Delete");
     $('#'+id).remove();
@@ -131,29 +149,29 @@ var card_button = function(){
 
 //card expand
 var card_expand = function(){
-  $(".push-card").bind("click", function(){
-//    if ($(this).css("height") === "100px"){
-//      $(this).css({"height": "150px"});
-//    } else {
-//    $(this).css({"height": "100px"});
-//    }
+  $(".push-card").on("click", function(){
+    console.log(".push-card click");
+    //    if ($(this).css("height") === "100px"){
+    //      $(this).css({"height": "150px"});
+    //    } else {
+    //    $(this).css({"height": "100px"});
+    //    }
     return false;
   });
 };
 
-
-//loading
-setTimeout(function(){
-  show_menu_bar_list();
-  show_push_history();
-  //  refresh_info();
-  //  refresh_history();
-  menubar_click();
-  card_button();
-  card_expand();
-}, 200);
-
-//start ws
-//require('./js/pushcullet/ws');
+show_info();
+show_history();
+global.refresh_info();
+global.refresh_history();
+$(document).ready(function(){
+  setTimeout(function(){
+    card_button();
+    card_expand();
+    traffic_light();
+    //start ws
+    require('./js/pushcullet/ws');
+  }, 200);
+});
 
 require('nw.gui').Window.get().showDevTools();
