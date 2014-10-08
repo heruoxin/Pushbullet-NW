@@ -4,8 +4,6 @@
   box-sizing: border-box;
   outline: none;
   text-decoration: none;
-  -webkit-user-select: none;
-  -webkit-app-region: drag;
 }
 
 body
@@ -20,6 +18,7 @@ nav.control-window {
   left:5px;
   top:3px;
   height:30px;
+  -webkit-app-region: drag;
 }
 
 #menu-bar
