@@ -164,6 +164,9 @@ show_info();
 show_history();
 global.refresh_info();
 global.refresh_history();
+process.on("uncaughtException", function(e){
+  console.error("uncaughtException:", e);
+});
 $(document).ready(function(){
   setTimeout(function(){
     card_button();
