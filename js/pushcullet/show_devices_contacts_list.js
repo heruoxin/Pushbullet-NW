@@ -1,24 +1,13 @@
-if (!global.hasOwnProperty("$")){
-  global.$ = require('jquery');
-}
-var $ = global.$;
-
-
-
+var $ = require('jquery');
+var info = require(process.env.HOME+'/Library/Preferences/com.1ittlecup.pushcullet.info.json');
 module.exports = function(){
 
-  try {
-    var info = require(process.env.HOME+'/Library/Preferences/com.1ittlecup.pushcullet.info.json');
-  } catch (e) {
-    console.error(e);
-    return;
-  }
   var _out = [];
 
   _out.push(
 
     [
-    '<div class="menber">',
+    '<div class="menber ">',
     '<img src="./icons/undefined.png"/>',
     '<div class="detail">',
     '<h5>',
@@ -29,7 +18,7 @@ module.exports = function(){
     '</p>',
     '</div>',
     '</div>',
-    //   '<hr/><p class="title">Devices</p><hr/>',
+ //   '<hr/><p class="title">Devices</p><hr/>',
     '<hr>',
   ].join('')
 
@@ -68,7 +57,7 @@ module.exports = function(){
     _out.push(device.join(''));
   }
 
-  //  _out.push('<hr/><p class="title">Contacts</p><hr/>');
+//  _out.push('<hr/><p class="title">Contacts</p><hr/>');
   _out.push('<hr/>');
 
   //contacts list.
