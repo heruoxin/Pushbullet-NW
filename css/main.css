@@ -32,6 +32,7 @@ nav.control-window {
   overflow-x: hidden;
   overflow-y: scroll;
   background-color: #6cba5c;
+  -webkit-app-region: drag;
 }
 
 #main
@@ -39,7 +40,7 @@ nav.control-window {
   position: fixed;
   display: block;
   overflow-y: scroll;
-  width: 100%;
+  width: calc(100% - 50px);
   height: 100%;
   left: 50px;
 
@@ -49,5 +50,4 @@ nav.control-window {
 #push-list
 {
   display: block;
-  width: 50%;
 }
