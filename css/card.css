@@ -5,47 +5,34 @@
   margin: 10px;
   box-shadow: 0 1px 1px #d0d0d0;
   width: auto;
-<<<<<<< HEAD
-  min-height: 80px;
-  max-height: 80px;
-  transition: max-height 0.5s ease 0.3s;
-=======
-  height: 100px;
->>>>>>> parent of f9d070e... control button
+  height: 80px;
+  transition: height 200ms ease;
   overflow-y: hidden;
 
   background-color: white;
 }
-<<<<<<< HEAD
 .push-card:hover
 {
-  max-height: 500px;
+  height: 110px;
 }
 .push-card:hover .card-control
 {
-  visibility:visible;
+  display: block;
 }
 .push-card:hover .card-main
 {
-  min-height: 85px;
+  height: 85px;
 }
 .push-card hr
 {
   color: #d0d0d0;
 }
-=======
->>>>>>> parent of f9d070e... control button
 .card-main
 {
   position: relative;
   display: inline-block;
   float: left;
-<<<<<<< HEAD
   width: 98%;
-  transition: min-height 0.5s ease 0.3s;
-=======
-  width: 80%;
->>>>>>> parent of f9d070e... control button
   overflow-y: hidden;
 }
 .card-logo
@@ -55,7 +42,7 @@
   pointer-events: none;
   display: inline-block;
   float: left;
-  width: 30%;
+  width: 20%;
 }
 .card-logo img
 {
@@ -66,26 +53,19 @@
   position: relative;
   display: inline-block;
   float: right;
-  width: 70%;
+  width: 80%;
 }
 .card-content h2
 {
   height: 28px;
   overflow: hidden;
 }
-.card-content img
-{
-  width: 100%;
-  height: auto;
-}
 .card-control
 {
-<<<<<<< HEAD
-  visibility:hidden;
+  display: none;
   margin: 0 auto;
   width: 100%;
   height: 200%;
-  transition: visibility 0 linear 0.8s;
 }
 .control
 {
@@ -99,7 +79,7 @@
   border-width: 1px;
   border-color: #d0d0d0;
   color: black;
-  transition: background-color 0.2s ease;
+  transition: background-color 200ms ease;
 }
 .open
 {
@@ -108,7 +88,6 @@
 .open:hover
 {
   background-color: #82d072;
-  color: white;
 }
 .open:active
 {
@@ -117,18 +96,10 @@
 .delete:hover
 {
   background-color: #f55038;
-  color: white;
 }
 .delete:active
 {
   background-color: #d53018;
-=======
-  display: none;
-  position: relative;
-  display: inline-block;
-  float: right;
-  width: 20%;
->>>>>>> parent of f9d070e... control button
 }
 
 .google-maps {
@@ -145,7 +116,3 @@
   height: 100% !important;
 }
 
-.push-card:hover
-{
-  height: 150px;
-}

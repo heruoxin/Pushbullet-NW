@@ -1,4 +1,5 @@
-.traffice-light a {
+
+nav.control-window a {
   display: inline-block;
   margin: 2px 0 3px 1px;
   width: 12px;
@@ -7,34 +8,25 @@
   position: relative;
 }
 
-.traffice-light a.close:hover {
+nav.control-window a.close:hover {
   background: #FD4E4E url(../icons/buttons-hover.png) 1px 1px no-repeat;
 }
-.traffice-light a.minimize:hover {
+nav.control-window a.minimize:hover {
   background: #F3BB55 url(../icons/buttons-hover.png) -9px 1px no-repeat;
 }
-.traffice-light a.maximize:hover {
+nav.control-window a.maximize:hover {
   background: #96D16F url(../icons/buttons-hover.png) -19px 1px no-repeat;
 }
 
-.traffice-light .close {
+nav.control-window .close {
   background: #FD4E4E;
 }
-.traffice-light .minimize {
+nav.control-window .minimize {
   background: #F3BB55;
 }
-.traffice-light .maximize {
+nav.control-window .maximize {
   background: #96D16F;
 }
-.traffice-light .deactivate {
+nav.control-window .deactivate {
   background: #4c9a3c;
-}
-
-.add-new {
-  display: block;
-  position: fixed;
-  color: black;
-  font-size: 150%;
-  right: 10px;
-  top: 0;
 }
