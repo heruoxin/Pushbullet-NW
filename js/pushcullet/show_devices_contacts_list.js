@@ -1,4 +1,9 @@
-var $ = require('jquery');
+if (!global.hasOwnProperty("$")){
+  global.$ = require('jquery');
+}
+var $ = global.$;
+
+
 
 module.exports = function(){
 

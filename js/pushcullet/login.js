@@ -1,4 +1,8 @@
-var $ = require('jquery');
+if (!global.hasOwnProperty("$")){
+  global.$ = require('jquery');
+}
+var $ = global.$;
+
 var exec = require('child_process').exec;
 
 var login_card = [

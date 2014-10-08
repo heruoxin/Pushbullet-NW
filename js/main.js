@@ -1,6 +1,10 @@
 var gui = require('nw.gui');
 var Notification = require('node-notifier');
-var $ = require('jquery');
+
+if (!global.hasOwnProperty("$")){
+  global.$ = require('jquery');
+}
+var $ = global.$;
 
 var ID;
 
@@ -94,31 +98,32 @@ var menubar_click = function (){
 };
 
 
-//window active or not
-var win = gui.Window.get();
-win.on('focus', function() {
-  $('.traffice-light a').removeClass('deactivate');
-});
-win.on('blur', function() {
-  $('.traffice-light a').addClass('deactivate');
-});
-
-//button behave
-$('.close').click(function(){
-  win.close();
-});
-$('.minimize').click(function(){
-  win.minimize();
-});
-$('.maximize').click(function(){
-  win.toggleFullscreen();
-});
+var traffic_light = function(){
+  //button behave
+  $('.close').on("click", function(){
+    win.close();
+  });
+  $('.minimize').on("click", function(){
+    win.minimize();
+  });
+  $('.maximize').on("click", function(){
+    win.toggleFullscreen();
+  });
+  //window active or not
+  var win = gui.Window.get();
+  win.on('focus', function() {
+    $('.traffice-light a').removeClass('deactivate');
+  });
+  win.on('blur', function() {
+    $('.traffice-light a').addClass('deactivate');
+  });
+};
 
 
 //card button
 var exec = require('child_process').exec;
 var card_button = function(){
-  $('.open').click(function(obj){
+  $('.open').on("click", function(obj){
     var e = $("#"+obj.currentTarget.id);
     console.log(obj.currentTarget.id, e);
     exec(e.attr("arg"), function(err, stdout, stderr){
@@ -134,7 +139,7 @@ var card_button = function(){
       });
     });
   });
-  $('.delete').click(function(obj){
+  $('.delete').on("click", function(obj){
     var id = obj.currentTarget.id.replace('delete','');
     console.log(id, "Delete");
     $('#'+id).remove();
@@ -144,7 +149,7 @@ var card_button = function(){
 
 //card expand
 var card_expand = function(){
-  $(".push-card").click(function(){
+  $(".push-card").on("click", function(){
     console.log(".push-card click");
     //    if ($(this).css("height") === "100px"){
     //      $(this).css({"height": "150px"});
@@ -155,21 +160,18 @@ var card_expand = function(){
   });
 };
 
-
-//loading
-setTimeout(function(){
-}, 200);
+show_info();
+show_history();
+global.refresh_info();
+global.refresh_history();
 $(document).ready(function(){
-  global.refresh_info();
-  global.refresh_history();
-  show_info();
-  show_history();
-  menubar_click();
-  card_button();
-  card_expand();
+  setTimeout(function(){
+    card_button();
+    card_expand();
+    traffic_light();
+    //start ws
+    require('./js/pushcullet/ws');
+  }, 200);
 });
-
-//start ws
-require('./js/pushcullet/ws');
 
 require('nw.gui').Window.get().showDevTools();
