@@ -14,16 +14,10 @@
     "height": 700,
     "min_width": 300,
     "min_height": 600,
+    "max_width": 400,
     "max_height": 900,
-    "transparent": true,
     "toolbar": false,
     "frame": false
-  },
-  "chromium-args": "--ignore-gpu-blacklist",
-  "js-flags": "--harmony_proxies --harmony_collections",
-  "webkit": {
-    "plugin": true,
-    "page-cache": true
   },
   "dependencies": {
     "bl": "^0.9.1",

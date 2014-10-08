@@ -19,9 +19,7 @@ p.title
 .menber
 {
   cursor: pointer;
-  position: relative;
   padding-left: 10px;
-  z-index: 99;
   /*  background-size: 26px;*/
   /*  background-repeat: no-repeat;*/
   /*  padding-left: 35px;*/
@@ -37,26 +35,12 @@ p.title
 .detail
 {
   visibility: hidden;
-  position: absolute;
-  left: 45px;
-  top: 0;
-  background-color: #6cba5c;
-  z-index: 0;
+  display: inline-block;
 }
 
 .detail p
 {
   display: none;
-}
-
-.menber:hover .detail
-{
-  visibility: visible;
-}
-
-#menu-list
-{
-position: fixed;
 }
 
 #menu-notification

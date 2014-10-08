@@ -5,7 +5,6 @@
   outline: none;
   text-decoration: none;
   -webkit-user-select: none;
-  -webkit-app-region: drag;
 }
 
 body
@@ -19,25 +18,25 @@ nav.control-window {
   background-color: #6cba5c;
   left:5px;
   top:3px;
-  height:30px;
+  height:20px;
+  -webkit-app-region: drag;
 }
 
 #menu-bar
 {
-  z-index: 100;
   position: fixed;
   display: block;
+  width: 40%;
   height: 100%;
-  top: 30px;
-  width: 50px;
+  top: 20px;
   overflow-x: hidden;
   overflow-y: scroll;
   background-color: #6cba5c;
+  -webkit-app-region: drag;
 }
 
 #main
 {
-  z-index: -100;
   position: fixed;
   display: block;
   overflow-y: scroll;

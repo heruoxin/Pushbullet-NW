@@ -1,8 +1,5 @@
-if (!global.hasOwnProperty("$")){
-  global.$ = require('jquery');
-}
-var $ = global.$;
 
+var $ = require('jquery');
 //pushbullet showing push history
 
 var xml_p = function(s){
