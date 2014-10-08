@@ -80,6 +80,7 @@ var show_history = function(id){
     console.log('show_history:',id);
     require('./js/pushcullet/show_push_history')(id);
     $.get('./html/addpushcard.html', function(data){
+      console.log(data);
       $("#push-list").prepend(data);
     });
   } catch (e) {
