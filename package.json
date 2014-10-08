@@ -9,8 +9,13 @@
   "author": "heruoxin",
   "license": "MIT",
   "window": {
-    "width": 800,
-    "height": 500,
+    "position": "mouse",
+    "width": 350,
+    "height": 700,
+    "min_width": 300,
+    "min_height": 600,
+    "max_width": 400,
+    "max_height": 900,
     "toolbar": false,
     "frame": false
   },
