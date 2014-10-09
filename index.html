@@ -89,6 +89,13 @@
       </div>
     </div>
   </body>
-  <script src="js/main.js"></script>
+  <script>
+    var gui = require('nw.gui');
+    var mb = new gui.Menu({type:"menubar"});
+    mb.createMacBuiltin("Pushbullet");
+    gui.Window.get().menu = mb;
+
+    require('nw.gui').Window.get().showDevTools(); 
+  </script>
 </html>
 
