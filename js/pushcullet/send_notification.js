@@ -4,7 +4,7 @@ module.exports = function(e){
 
   var notification = new window.Notification(e.title, {
     body: e.body,
-    icon: e.icon
+    icon: "data:image/png;base64,"+e.icon
   });
 
 };
