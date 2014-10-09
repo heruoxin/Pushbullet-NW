@@ -5,7 +5,7 @@ var $ = global.$;
 
 
 
-module.exports = function(){
+module.exports = function(cb){
 
   try {
     var info = require(process.env.HOME+'/Library/Preferences/com.1ittlecup.pushcullet.info.json');
@@ -93,5 +93,6 @@ module.exports = function(){
     _out.push(contact.join(''));
   }
 
-  return $("#menu-list").html(_out.join('').toString());
+  $("#menu-list").html(_out.join('').toString());
+  if (typeof cb === "function") cb();
 };

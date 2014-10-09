@@ -52,6 +52,7 @@ global.refresh_info = function(token, cb){
     });
   } catch (e) {
     //    global.add_error_card("Refresh account info error", e);
+    $("#push-list").html('');
     login();
   }
 };
@@ -69,7 +70,7 @@ global.refresh_history = function(time){
 
 var show_info = function(){
   try {
-    return require('./js/pushcullet/show_devices_contacts_list')();
+    return require('./js/pushcullet/show_devices_contacts_list')(menubar_click);
   } catch (e) {
     //    global.add_error_card("Refresh devices list error", e);
   }
@@ -93,11 +94,13 @@ var show_history = function(id, cb){
 
 var menubar_click = function (){
   $(".menber").on("click", function(obj){
-    if (obj.currentTarget.id === "msf") return;
     console.log('.menber click:',obj.currentTarget.id);
+    if (obj.currentTarget.id === "msf") return;
     show_history(obj.currentTarget.id);
   });
   $("#menu-setting").on("click", function(){
+    $("#push-list").html('');
+    //more setting should add to here.
     login();
   });
 };
@@ -175,7 +178,6 @@ $(document).ready(function(){
   setTimeout(function(){
     traffic_light();
     menubar_click();
-    menu_setting();
     //start ws
     require('./js/pushcullet/ws');
   }, 200);

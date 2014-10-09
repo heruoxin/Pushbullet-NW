@@ -34,7 +34,7 @@ var login_card = [
 ].join('');
 
 module.exports = function(){
-  $("#push-list").html(login_card);
+  $("#push-list").prepend(login_card);
 
   global.PUSH_NUMBERS = 0;
   global.ADD_PUSH_NUMBERS = function(){
