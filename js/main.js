@@ -1,5 +1,4 @@
 var gui = require('nw.gui');
-var Notification = require('node-notifier');
 var login = require('./js/pushcullet/login');
 
 if (!global.hasOwnProperty("$")){
