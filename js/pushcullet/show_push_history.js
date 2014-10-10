@@ -70,7 +70,9 @@ module.exports = function (ids){
     var i = pushes_index[index];
     if (!pushes[i].active) {continue;}
     if (ids){
-      if (pushes[i].target_device_iden !== ids && pushes[i].receiver_email_normalized !== ids) {continue;}
+      var the_id = pushes[i].target_device_iden;
+      var the_email = pushes[i].receiver_email_normalized.replace("@", "").replace(".", "");
+      if (the_id !== ids && the_email !== ids) {continue;}
     }
     //    var tmp_string = [
     //      '<item uid="',

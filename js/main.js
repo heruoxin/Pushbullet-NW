@@ -75,11 +75,20 @@ var show_info = function(){
   }
 };
 
-var show_history = function(id, cb){
+var show_history = function(id){
   try {
-    ID = id;
-    console.log('show_history:',id);
-    require('./js/pushcullet/show_push_history')(id);
+    ID = id || "everypush";
+    //
+    console.log("the ID is:", ID);
+    $(".menber").removeClass("star");
+    $("#"+ID).addClass("star");
+    //
+    console.log('show_history:',ID);
+    if (ID === "everypush"){
+      require('./js/pushcullet/show_push_history')();
+    } else {
+      require('./js/pushcullet/show_push_history')(ID);
+    }
     $.get('./html/addpushcard.html', function(data){
       console.log(data);
       $("#push-list").prepend(data);
@@ -109,52 +118,52 @@ var traffic_light = function(){
   //button behave
   $('.close').on("click", function(){
     win.close();
-  });
-  $('.minimize').on("click", function(){
+    });
+    $('.minimize').on("click", function(){
     win.minimize();
-  });
-  $('.maximize').on("click", function(){
+    });
+    $('.maximize').on("click", function(){
     win.toggleFullscreen();
-  });
-  //window active or not
-  var win = gui.Window.get();
-  win.on('focus', function() {
+    });
+    //window active or not
+    var win = gui.Window.get();
+    win.on('focus', function() {
     $('.traffice-light a').removeClass('deactivate');
-  });
-  win.on('blur', function() {
+    });
+    win.on('blur', function() {
     $('.traffice-light a').addClass('deactivate');
-  });
-};
+    });
+    };
 
 
-//card button
-var exec = require('child_process').exec;
-var card_button = function(){
-  $('.open').on("click", function(obj){
+    //card button
+    var exec = require('child_process').exec;
+    var card_button = function(){
+    $('.open').on("click", function(obj){
     var e = $("#"+obj.currentTarget.id);
     console.log(obj.currentTarget.id, e);
     exec(e.attr("arg"), function(err, stdout, stderr){
-      var notifier = new Notification();
-      notifier.notify({
-        "title": e.attr("usage"),
-        //        "subtitle": e.attr("usage"),
-        "message": e.attr("info"),
-        //        "sound": "Funk", // case sensitive
-        "contentImage": './icons/'+e.attr("type")+'.png',
-        "appIcon": './icons/'+e.attr("type")+'.png',
-        //        "open": "file://" + __dirname + "/coulson.jpg"
-      });
+    var notifier = new Notification();
+    notifier.notify({
+    "title": e.attr("usage"),
+    //        "subtitle": e.attr("usage"),
+    "message": e.attr("info"),
+    //        "sound": "Funk", // case sensitive
+    "contentImage": './icons/'+e.attr("type")+'.png',
+    "appIcon": './icons/'+e.attr("type")+'.png',
+    //        "open": "file://" + __dirname + "/coulson.jpg"
     });
-  });
-  $('.delete').on("click", function(obj){
+    });
+    });
+    $('.delete').on("click", function(obj){
     var id = obj.currentTarget.id.replace('delete','');
     var created = obj.currentTarget.created;
     console.log(id, "Delete");
     $('#'+id).remove();
     return require('./js/pushcullet/delete_push')(id, created);
-  });
-  //card expand
-  $(".push-card").on("click", function(){
+    });
+    //card expand
+    $(".push-card").on("click", function(){
     console.log(".push-card click");
     //    if ($(this).css("height") === "100px"){
     //      $(this).css({"height": "150px"});
@@ -162,25 +171,25 @@ var card_button = function(){
     //    $(this).css({"height": "100px"});
     //    }
     return false;
-  });
-};
+    });
+    };
 
 
-show_info();
-show_history();
-global.refresh_info();
-global.refresh_history();
-process.on("uncaughtException", function(e){
-  console.error("uncaughtException:", e);
-});
+    show_info();
+    show_history();
+    global.refresh_info();
+    global.refresh_history();
+    process.on("uncaughtException", function(e){
+    console.error("uncaughtException:", e);
+    });
 
-$(document).ready(function(){
-  setTimeout(function(){
+    $(document).ready(function(){
+    setTimeout(function(){
     traffic_light();
     menubar_click();
     //start ws
     require('./js/pushcullet/ws');
-  }, 200);
-});
+    }, 200);
+    });
 
-require('nw.gui').Window.get().showDevTools();
+    require('nw.gui').Window.get().showDevTools();

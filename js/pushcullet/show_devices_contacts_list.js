@@ -7,18 +7,13 @@ var $ = global.$;
 
 module.exports = function(cb){
 
-  try {
-    var info = require(process.env.HOME+'/Library/Preferences/com.1ittlecup.pushcullet.info.json');
-  } catch (e) {
-    console.error(e);
-    return;
-  }
+  var info = require(process.env.HOME+'/Library/Preferences/com.1ittlecup.pushcullet.info.json');
   var _out = [];
 
   _out.push(
 
     [
-    '<div class="menber">',
+    '<div class="menber" id="everypush">',
     '<img src="./icons/undefined.png"/>',
     '<div class="detail">',
     '<h5>',
@@ -45,12 +40,10 @@ module.exports = function(cb){
       '">',
       '<img src="./icons/',
       function(){
-        if (info.devices[i].type !== 'stream'){
-          return info.devices[i].type;
-        }
-        if (info.devices[i].model.indexOf('OS X') >= 0){
+        if (info.devices[i].type === 'stream' && info.devices[i].model.indexOf('OS X') >= 0){
           return 'apple';
         }
+        return info.devices[i].type;
       }(),
       '.png"/>',
       '<div class="detail">',
@@ -77,7 +70,7 @@ module.exports = function(cb){
     var contact = [
       '<div class="menber ',
       '" id="',
-      info.contacts[j].email_normalized,
+      info.contacts[j].email_normalized.replace("@", "").replace(".", ""),
       '">',
       '<img src="./icons/contacts.png"/>',
       '<div class="detail">',

@@ -28,6 +28,11 @@ p.title
   /*  background-position: 4px 40%;*/
 }
 
+.star
+{
+  background-color: #57a547;
+}
+
 .menber img
 {
   pointer-events: none;
