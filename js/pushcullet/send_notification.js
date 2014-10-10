@@ -12,5 +12,8 @@ module.exports = function(e){
   }
   var notification = new window.Notification(e.title || e.type, options);
 
+  notification.onClick(function (){
+    if (e.active) global.show_history(e.target_device_iden || e.receiver_email_normalized.replace("@", "").replace(".", ""));
+  });
 };
 

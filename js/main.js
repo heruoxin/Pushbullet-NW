@@ -59,7 +59,7 @@ global.refresh_info = function(token, cb){
 global.refresh_history = function(time){
   try {
     return require('./js/pushcullet/refresh_push_history')(time, function(){
-      show_history(ID);
+      global.show_history(ID);
     });
   } catch (e) {
     //    global.add_error_card("Refresh push history error", e);
@@ -67,15 +67,7 @@ global.refresh_history = function(time){
   }
 };
 
-var show_info = function(){
-  try {
-    return require('./js/pushcullet/show_devices_contacts_list')(menubar_click);
-  } catch (e) {
-    //    global.add_error_card("Refresh devices list error", e);
-  }
-};
-
-var show_history = function(id){
+global.show_history = function(id){
   try {
     ID = id || "everypush";
     //
@@ -100,11 +92,19 @@ var show_history = function(id){
   }
 };
 
+var show_info = function(){
+  try {
+    return require('./js/pushcullet/show_devices_contacts_list')(menubar_click);
+  } catch (e) {
+    //    global.add_error_card("Refresh devices list error", e);
+  }
+};
+
 var menubar_click = function (){
   $(".menber").on("click", function(obj){
     console.log('.menber click:',obj.currentTarget.id);
     if (obj.currentTarget.id === "msf") return;
-    show_history(obj.currentTarget.id);
+    global.show_history(obj.currentTarget.id);
   });
   $("#menu-setting").on("click", function(){
     $("#push-list").html('');
@@ -118,52 +118,52 @@ var traffic_light = function(){
   //button behave
   $('.close').on("click", function(){
     win.close();
-    });
-    $('.minimize').on("click", function(){
+  });
+  $('.minimize').on("click", function(){
     win.minimize();
-    });
-    $('.maximize').on("click", function(){
+  });
+  $('.maximize').on("click", function(){
     win.toggleFullscreen();
-    });
-    //window active or not
-    var win = gui.Window.get();
-    win.on('focus', function() {
+  });
+  //window active or not
+  var win = gui.Window.get();
+  win.on('focus', function() {
     $('.traffice-light a').removeClass('deactivate');
-    });
-    win.on('blur', function() {
+  });
+  win.on('blur', function() {
     $('.traffice-light a').addClass('deactivate');
-    });
-    };
+  });
+};
 
 
-    //card button
-    var exec = require('child_process').exec;
-    var card_button = function(){
-    $('.open').on("click", function(obj){
+//card button
+var exec = require('child_process').exec;
+var card_button = function(){
+  $('.open').on("click", function(obj){
     var e = $("#"+obj.currentTarget.id);
     console.log(obj.currentTarget.id, e);
     exec(e.attr("arg"), function(err, stdout, stderr){
-    var notifier = new Notification();
-    notifier.notify({
-    "title": e.attr("usage"),
-    //        "subtitle": e.attr("usage"),
-    "message": e.attr("info"),
-    //        "sound": "Funk", // case sensitive
-    "contentImage": './icons/'+e.attr("type")+'.png',
-    "appIcon": './icons/'+e.attr("type")+'.png',
-    //        "open": "file://" + __dirname + "/coulson.jpg"
+      var notifier = new Notification();
+      notifier.notify({
+        "title": e.attr("usage"),
+        //        "subtitle": e.attr("usage"),
+        "message": e.attr("info"),
+        //        "sound": "Funk", // case sensitive
+        "contentImage": './icons/'+e.attr("type")+'.png',
+        "appIcon": './icons/'+e.attr("type")+'.png',
+        //        "open": "file://" + __dirname + "/coulson.jpg"
+      });
     });
-    });
-    });
-    $('.delete').on("click", function(obj){
+  });
+  $('.delete').on("click", function(obj){
     var id = obj.currentTarget.id.replace('delete','');
     var created = obj.currentTarget.created;
     console.log(id, "Delete");
     $('#'+id).remove();
     return require('./js/pushcullet/delete_push')(id, created);
-    });
-    //card expand
-    $(".push-card").on("click", function(){
+  });
+  //card expand
+  $(".push-card").on("click", function(){
     console.log(".push-card click");
     //    if ($(this).css("height") === "100px"){
     //      $(this).css({"height": "150px"});
@@ -171,25 +171,25 @@ var traffic_light = function(){
     //    $(this).css({"height": "100px"});
     //    }
     return false;
-    });
-    };
+  });
+};
 
 
-    show_info();
-    show_history();
-    global.refresh_info();
-    global.refresh_history();
-    process.on("uncaughtException", function(e){
-    console.error("uncaughtException:", e);
-    });
+show_info();
+global.show_history();
+global.refresh_info();
+global.refresh_history();
+process.on("uncaughtException", function(e){
+  console.error("uncaughtException:", e);
+});
 
-    $(document).ready(function(){
-    setTimeout(function(){
+$(document).ready(function(){
+  setTimeout(function(){
     traffic_light();
     menubar_click();
     //start ws
     require('./js/pushcullet/ws');
-    }, 200);
-    });
+  }, 200);
+});
 
-    require('nw.gui').Window.get().showDevTools();
+require('nw.gui').Window.get().showDevTools();
