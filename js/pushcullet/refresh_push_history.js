@@ -47,18 +47,17 @@ module.exports = function (time, cb) {
       if (e) {return console.error(e);}
       var p = JSON.parse(push_history).pushes;
       //console.log(JSON.parse(push_history));
-      if (p) {
-        if (Object.getOwnPropertyNames(p).length === 1) {
+      if (time){
+        if (time == 15){
+          //it's a dirty hack.
           send_notification(p[0]);
         }
-      }
-      if (time){
-        if (cb){
+        if (typeof cb === "function"){
           return save_history(p, undefined, cb);
         }
         return save_history(p);
       }
-      if (cb) {
+      if (typeof cb === "function") {
         return save_history(p, "refresh all", cb);
       }
       return save_history(p, "refresh all");

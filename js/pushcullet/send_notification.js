@@ -1,11 +1,16 @@
 module.exports = function(e){
   console.log("Notification: ", e);
-  if (e.type === "dismissal") return;
+  if (e.type === "dismissal" || e.active === false) return;
 
-  var notification = new window.Notification(e.title, {
-    body: e.body,
-    icon: "data:image/png;base64,"+e.icon
-  });
+  var options = {
+    body: e.body || e.url || e.address || e.file_url || "",
+  };
+  if (e.icon){
+    options.icon = "data:image/png;base64,"+e.icon;
+  } else {
+    options.icon = "./icons/"+e.type+".png";
+  }
+  var notification = new window.Notification(e.title || e.type, options);
 
 };
 
