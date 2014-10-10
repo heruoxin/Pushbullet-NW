@@ -1,3 +1,4 @@
+var fs = require('fs');
 if (!global.hasOwnProperty("$")){
   global.$ = require('jquery');
 }
@@ -7,7 +8,7 @@ var $ = global.$;
 
 module.exports = function(cb){
 
-  var info = require(process.env.HOME+'/Library/Preferences/com.1ittlecup.pushcullet.info.json');
+  var info = JSON.parse( fs.readFileSync(process.env.HOME+'/Library/Preferences/com.1ittlecup.pushcullet.info.json', {encoding: 'utf8'}) );
   var _out = [];
 
   _out.push(

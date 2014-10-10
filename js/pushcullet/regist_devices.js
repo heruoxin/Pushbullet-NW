@@ -1,4 +1,5 @@
 var https = require('https');
+var fs = require('fs');
 var os = require('os');
 var bl = require('bl');
 var refresh_devices_contacts = require('./refresh_devices_contacts');
@@ -15,11 +16,7 @@ module.exports = function () {
     console.log(fingerprint);
   });
 
-  try {
-    info = require(process.env.HOME+'/Library/Preferences/com.1ittlecup.pushcullet.info.json');
-  } catch (e) {
-    return console.error('No info file.');
-  }
+  info = JSON.parse( fs.readFileSync(process.env.HOME+'/Library/Preferences/com.1ittlecup.pushcullet.info.json', {encoding: 'utf8'}) );
 
   for (var i in info.devices){
     if (info.devices[i].fingerprint == fingerprint){ //has registed
@@ -33,7 +30,7 @@ module.exports = function () {
     "nickname": os.hostname(),
     "manufacturer": "Apple",
     "model": "Mac OS X 10."+(os.release().split('.')[0]-4),
-//    "fingerprint": fingerprint,
+    //    "fingerprint": fingerprint,
   });
 
   var options = {

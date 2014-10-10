@@ -1,3 +1,4 @@
+var fs = require('fs');
 if (!global.hasOwnProperty("$")){
   global.$ = require('jquery');
 }
@@ -60,7 +61,7 @@ var info_type = {
 
 module.exports = function (ids){
   var _out = [];
-  var pushes = require(process.env.HOME+'/Library/Preferences/com.1ittlecup.pushcullet.history.json');
+  var pushes = JSON.parse( fs.readFileSync(process.env.HOME+'/Library/Preferences/com.1ittlecup.pushcullet.history.json', {encoding: 'utf8'}) );
   var pushes_index = [];
   for (var items in pushes){
     pushes_index.push(items);
