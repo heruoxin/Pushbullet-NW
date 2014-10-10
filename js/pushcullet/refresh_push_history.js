@@ -8,8 +8,6 @@ if (!token) {
 
 }
 
-var file_path = process.env.HOME+'/Library/Preferences/com.1ittlecup.pushcullet.history.json';
-
 //pushbullet getting & saving push history
 
 module.exports = function (time, cb) {

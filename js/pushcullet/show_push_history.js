@@ -16,7 +16,6 @@ var xml_p = function(s){
   }
 };
 
-
 var info_type = {
   note: {
     usage: "Copyed to Clipboard.",
@@ -62,7 +61,13 @@ var info_type = {
 module.exports = function (ids){
   var _out = [];
   var pushes = require(process.env.HOME+'/Library/Preferences/com.1ittlecup.pushcullet.history.json');
-  for (var i in pushes){
+  var pushes_index = [];
+  for (var items in pushes){
+    pushes_index.push(items);
+  }
+  pushes_index.sort();
+  for (var index in pushes_index){
+    var i = pushes_index[index];
     if (!pushes[i].active) {continue;}
     if (ids){
       if (pushes[i].target_device_iden !== ids && pushes[i].receiver_email_normalized !== ids) {continue;}

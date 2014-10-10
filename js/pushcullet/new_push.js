@@ -40,9 +40,10 @@ module.exports = function (data, iden, cb) {
   var req = https.request(options, function(res) {
     res.setEncoding('utf8');
     res.pipe(bl(function(e, d){
-      d = JSON.parse(d);
       if (e) {return console.error(e);}
-      save_history({'new pushes': d});
+      d = JSON.parse(d);
+      var created = d.created;
+      save_history({created: d});
       if (cb){cb(d);}
     }));
   });

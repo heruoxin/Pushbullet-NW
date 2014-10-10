@@ -32,7 +32,7 @@ module.exports = function (iden, created, cb) {
   var req = https.request(options, function(res) {
     res.pipe(bl(function(e, d){
       d = JSON.parse(d);
-      save_history({iden: {
+      save_history({created: {
         "active": false,
         "iden": iden,
         "created": created,
