@@ -7,8 +7,6 @@ if (!token) {
   token = require(process.env.HOME+'/Library/Preferences/com.1ittlecup.pushcullet.info.json').token;
 }
 
-var file_path = process.env.HOME+'/Library/Preferences/com.1ittlecup.pushcullet.history.json';
-
 //pushbullet send new push
 
 module.exports = function (data, iden, cb) {

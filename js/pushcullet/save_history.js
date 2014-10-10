@@ -21,25 +21,9 @@ module.exports = function (j, option, cb) {
     }
   }
 
-  if (option === 'delete'){ //delete option
-    console.log("start delete");
-    for (var k in j){
-      if (j[k].active === false){
-        for (var q in old_j){
-          if (old_j[q].iden === j[k].iden){
-            old_j[q].active = false;
-            return write(old_j, cb);
-          }
-        }
-      }
-    }
-  }
-
-
-  var modified;
   for (var i in j){
-    modified = (9999999999 - Number(j[i].modified.toString().split('.')[0])).toString();
-    old_j[modified] = j[i];
+    var created = (9999999999 - Number(j[i].created.toString().split('.')[0])).toString();
+    old_j[created] = j[i];
   }
   return write(old_j, cb);
 };

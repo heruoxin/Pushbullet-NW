@@ -114,6 +114,8 @@ module.exports = function (ids){
       (info_type[pushes[i].type].usage || "Opened"),
       '" info="',
       xml_p(pushes[i].title || pushes[i].file_name || pushes[i].name || pushes[i].type),
+      '" created="',
+      pushes[i].created,
       '" other="',
       '">Open</a>',
       //'<hr class="card-hr-horizonal" />',

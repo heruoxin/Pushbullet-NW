@@ -148,9 +148,10 @@ var card_button = function(){
   });
   $('.delete').on("click", function(obj){
     var id = obj.currentTarget.id.replace('delete','');
+    var created = obj.currentTarget.created;
     console.log(id, "Delete");
     $('#'+id).remove();
-    return require('./js/pushcullet/delete_push')(id);
+    return require('./js/pushcullet/delete_push')(id, created);
   });
   //card expand
   $(".push-card").on("click", function(){

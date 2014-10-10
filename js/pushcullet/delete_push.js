@@ -7,11 +7,9 @@ if (!token) {
   token = require(process.env.HOME+'/Library/Preferences/com.1ittlecup.pushcullet.info.json').token;
 }
 
-var file_path = process.env.HOME+'/Library/Preferences/com.1ittlecup.pushcullet.history.json';
-
 //pushbullet delete push
 
-module.exports = function (iden, cb) {
+module.exports = function (iden, created, cb) {
   if (!iden) {return console.error("No iden!");}
 
   var options = {
@@ -37,6 +35,7 @@ module.exports = function (iden, cb) {
       save_history({iden: {
         "active": false,
         "iden": iden,
+        "created": created,
         "modified": Number(new Date())/1000.0,
       }},'delete');
       if (e) {return console.error(e);}
