@@ -3,8 +3,6 @@ if (!global.hasOwnProperty("$")){
 }
 var $ = global.$;
 
-var exec = require('child_process').exec;
-
 var login_card = [
   '          <div class="push-card">',
   '        <div class="card-main">',
@@ -18,7 +16,7 @@ var login_card = [
   '            <hr class="card-hr-horizonal" />',
   '            <div class="content-main login">',
 
-  '<p>Copy <a id="openweb" href="https://www.pushbullet.com/account">Token</a> & Paste here:</p>',
+  '<p>Copy <a href="https://www.pushbullet.com/account">Token</a> & Paste here:</p>',
   '<form id="loginform" action="">',
   '<input type="text" id="tokenbox" name="token" />',
   '</form>',
@@ -34,7 +32,7 @@ var login_card = [
 ].join('');
 
 module.exports = function(){
-  $("#push-list").prepend(login_card);
+  $("#push-list").append(login_card);
 
   global.PUSH_NUMBERS = 0;
   global.ADD_PUSH_NUMBERS = function(){
@@ -64,11 +62,6 @@ module.exports = function(){
   };
 
   $('#push-list').ready(function(){
-    $('#openweb').click(function(){
-      exec('open https://www.pushbullet.com/account', function(err, stdout, stderr){
-      });
-      return false;
-    });
     $('#loginsave').click(form_action);
     $('#loginform').submit(form_action);
   });
