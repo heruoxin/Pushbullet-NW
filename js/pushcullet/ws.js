@@ -19,8 +19,8 @@ var start_ws = function() {
     console.log(e);
     switch (e.type) {
       case 'nop': // HeartBeat
-        console.log('HeartBeat', new Date());
-      heart_beat += 1;
+        //console.log('HeartBeat', new Date());
+        heart_beat += 1;
       break;
       case 'tickle':
         if (e.subtype === 'device'){ // device list updated

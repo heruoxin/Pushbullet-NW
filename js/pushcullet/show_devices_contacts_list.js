@@ -4,7 +4,12 @@ if (!global.hasOwnProperty("$")){
 }
 var $ = global.$;
 
-
+var check_type = function(obj){
+  if (obj.type === 'stream' && obj.model.indexOf('OS X') >= 0){
+    return 'apple';
+  }
+  return obj.type;
+};
 
 module.exports = function(cb){
 
@@ -40,12 +45,7 @@ module.exports = function(cb){
       info.devices[i].iden,
       '">',
       '<img src="./icons/',
-      function(){
-        if (info.devices[i].type === 'stream' && info.devices[i].model.indexOf('OS X') >= 0){
-          return 'apple';
-        }
-        return info.devices[i].type;
-      }(),
+      check_type(info.devices[i]),
       '.png"/>',
       '<div class="detail">',
       '<h5>',
