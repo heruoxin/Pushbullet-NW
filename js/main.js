@@ -1,4 +1,5 @@
 var gui = require('nw.gui');
+var fs = require('fs');
 var exec = require('child_process').exec;
 var login = require('./js/pushcullet/login');
 
@@ -81,9 +82,9 @@ global.show_history = function(id){
     } else {
       require('./js/pushcullet/show_push_history')(ID);
     }
-    $.get('./html/addpushcard.html', function(data){
-      console.log(data);
-      $("#push-list").prepend(data);
+    fs.readFile(process.env.PWD+"/html/addpushcard.html", {encoding: 'utf8'}, function(e, d){
+      if (e) return console.log;
+      $("#push-list").prepend(d);
     });
     card_button();
   } catch (e) {
@@ -101,23 +102,23 @@ global.show_info = function(){
 };
 
 var menubar_click = function (){
+
   $(".menber").on("click", function(obj){
     console.log('.menber click:',obj.currentTarget.id);
-    if (obj.currentTarget.id === "msf") return;
-    global.show_history(obj.currentTarget.id);
-  });
-  $("#menu-setting").on("click", function(){
-    $("#push-list").html('');
-    //more setting should add to here.
+    $('#push-list').html('');
+    if (obj.currentTarget.id !== "msf") return global.show_history(obj.currentTarget.id);
+    //more setting cards should add to here.
     about_me();
     login();
     card_button();
   });
+
 };
 
 var about_me = function(){
-  $.get('./html/aboutme.html', function(data){
-    $("#push-list").html(data);
+  fs.readFile(process.env.PWD+'/html/aboutme.html',{encoding: 'utf8'}, function(e, d){
+    if (e) return console.log;
+    $("#push-list").prepend(d);
   });
 };
 
@@ -193,7 +194,6 @@ process.on("uncaughtException", function(e){
 $(document).ready(function(){
   setTimeout(function(){
     traffic_light();
-    menubar_click();
     //start ws
     require('./js/pushcullet/ws');
   }, 200);

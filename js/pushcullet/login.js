@@ -31,36 +31,36 @@ var login_card = [
   '      </div>',
 ].join('');
 
+global.ADD_PUSH_NUMBERS = function(){
+  if (!global.LOGIN) {
+    global.PUSH_NUMBERS += 1;
+    $('.card-logo.login').html('<h1>'+global.PUSH_NUMBERS+'</h1>');
+  }
+};
+var form_action = function(){
+  $('.card-logo.login').html('<img src="img/loading.gif" />');
+  var token = $('#tokenbox').val();
+  console.log('token',token);
+  $('.card-control').css('display', 'none');
+  global.refresh_info(token, function(status, info){
+    $('.content-title.login').html(info);
+    console.log(status, info);
+    if (status) {
+      $('.content-main.login').html("Loading pushes...");
+      global.refresh_history(2592000);
+    } else {
+      $('.card-control').css('display', 'block');
+      $('.content-title.login').html("Login error");
+      $('.card-logo.login').html('<img src="icons/error.png" />');
+    }
+  });
+  return false;
+};
+
 module.exports = function(){
   $("#push-list").append(login_card);
 
   global.PUSH_NUMBERS = 0;
-  global.ADD_PUSH_NUMBERS = function(){
-    if (!global.LOGIN) {
-      global.PUSH_NUMBERS += 1;
-      $('.card-logo.login').html('<h1>'+global.PUSH_NUMBERS+'</h1>');
-    }
-  };
-  var form_action = function(){
-    $('.card-logo.login').html('<img src="img/loading.gif" />');
-    var token = $('#tokenbox').val();
-    console.log('token',token);
-    $('.card-control').css('display', 'none');
-    global.refresh_info(token, function(status, info){
-      $('.content-title.login').html(info);
-      console.log(status, info);
-      if (status) {
-        $('.content-main.login').html("Loading pushes...");
-        global.refresh_history(2592000);
-      } else {
-        $('.card-control').css('display', 'block');
-        $('.content-title.login').html("Login error");
-        $('.card-logo.login').html('<img src="icons/error.png" />');
-      }
-    });
-    return false;
-  };
-
   $('#push-list').ready(function(){
     $('#loginsave').click(form_action);
     $('#loginform').submit(form_action);
