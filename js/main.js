@@ -122,6 +122,15 @@ var about_me = function(){
   });
 };
 
+var push_type = function(){
+};
+
+var new_push = function(){
+};
+
+var cancel_push = function(){
+};
+
 var traffic_light = function(){
   //button behave
   $('.close').on("click", function(){
@@ -178,6 +187,16 @@ var card_button = function(){
       console.log("a click: ", obj.currentTarget.href);
       exec("open "+obj.currentTarget.href, function(err, stdout, stderr){});
       return false;
+    });
+    //new card
+    $(".bodybox").submit(function(){
+      new_push();
+    });
+    $(".send").on("click", function(){
+      new_push();
+    });
+    $(".cancel").on("click", function(){
+      cancel_push();
     });
   }, 100);
 };

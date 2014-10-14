@@ -1,20 +1,25 @@
-<div class="push-card" id="newcard">
+<div class="push-card">
   <div class="card-main">
-    <div class="card-logo">
-      <img src="icons/link.png">
+    <div class="card-logo typeselect">
+      <img class="note" src="icons/note.png" />
+      <img class="link" src="icons/link.png" />
+      <img class="address" src="icons/address.png" />
     </div>
     <div class="card-content">
       <div class="content-title">
-
+        <input type="text" class="titlebox" name="title" />
       </div>
-      <hr class="card-hr-horizonal">
+      <hr class="card-hr-horizonal" />
       <div class="content-main">
-
+        <input type="text" class="bodybox note" name="body" />
+        <input type="text" class="bodybox link" name="url" />
+        <input type="text" class="bodybox address" name="address" />
       </div>
     </div>
   </div>
   <div class="card-control">
-    <a href="#" class="control push" arg="" id="" type="" usage="" info="" other="">Push</a>
-    <a href="#" class="control cancel" id="">Cancel</a>
+    <a class="control open send" href="#">Send</a>
+    <a class="control delete cancel" href="#">Cancel</a>
   </div>
 </div>
+
