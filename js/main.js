@@ -82,10 +82,6 @@ global.show_history = function(id){
     } else {
       require('./js/pushcullet/show_push_history')(ID);
     }
-    fs.readFile(process.env.PWD+"/html/addpushcard.html", {encoding: 'utf8'}, function(e, d){
-      if (e) return console.log;
-      $("#push-list").prepend(d);
-    });
     card_button();
   } catch (e) {
     //    global.add_error_card("Show push history error", e);
@@ -122,13 +118,14 @@ var about_me = function(){
   });
 };
 
-var push_type = function(){
+var push_type_selecter = function(){
 };
 
 var new_push = function(){
 };
 
 var cancel_push = function(){
+  $('.push-card.new-card').remove();
 };
 
 var traffic_light = function(){
@@ -141,6 +138,12 @@ var traffic_light = function(){
   });
   $('.maximize').on("click", function(){
     win.toggleFullscreen();
+  });
+  $('.add-new').on("click", function(){
+    fs.readFile(process.env.PWD+"/html/addpushcard.html", {encoding: 'utf8'}, function(e, d){
+      if (e) return console.log;
+      $("#push-list").prepend(d);
+    });
   });
   //window active or not
   var win = gui.Window.get();
