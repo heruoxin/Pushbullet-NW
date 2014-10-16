@@ -2,10 +2,7 @@ var https = require('https');
 var bl = require('bl');
 var save_history = require('./save_history');
 
-var token = process.argv.slice(2)[0];
-if (!token) {
-  token = require(process.env.HOME+'/Library/Preferences/com.1ittlecup.pushcullet.info.json').token;
-}
+var token = require(process.env.HOME+'/Library/Preferences/com.1ittlecup.pushcullet.info.json').token;
 
 //pushbullet send new push
 
@@ -14,9 +11,9 @@ module.exports = function (data, iden, cb) {
 
   if (typeof(iden) === "function"){
     cb = iden;
-  } else if ( iden !== "all"){
-    if (iden.indexOf('@') >= 0){
-      data.email = iden;
+  } else if ( iden !== "everypush"){
+    if (iden.indexOf('DoTDoTDoT') >= 0){
+      data.email = iden.replace("DoTDoTDoT", ".").replace("AtAtAt", "@");
     } else {
       data.device_iden = iden;
     }
@@ -32,7 +29,7 @@ module.exports = function (data, iden, cb) {
     headers: {
       'Authorization': 'Basic ' + new Buffer(token+':').toString('base64'),
       'Content-Type': 'application/json',
-      'Content-Length': post_data.length
+      'Content-Length': Buffer.byteLength(post_data)
     }
   };
 
@@ -40,7 +37,7 @@ module.exports = function (data, iden, cb) {
   var req = https.request(options, function(res) {
     res.setEncoding('utf8');
     res.pipe(bl(function(e, d){
-      if (e) {return console.error(e);}
+      if (e) {return console.error("Error:", e);}
       d = JSON.parse(d);
       var created = d.created;
       save_history({created: d});
@@ -58,5 +55,5 @@ module.exports = function (data, iden, cb) {
 //module.exports({
 //  'type': 'note',
 //  'title': '233',
-//  'body': '2323233'
+//  'body': '23测试23233'
 //},'udfZpddgpV', console.log);

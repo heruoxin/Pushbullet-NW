@@ -72,7 +72,7 @@ module.exports = function (ids){
     if (!pushes[i].active) {continue;}
     if (ids){
       var the_id = pushes[i].target_device_iden;
-      var the_email = pushes[i].receiver_email_normalized.replace("@", "").replace(".", "");
+      var the_email = pushes[i].receiver_email_normalized.replace(".", "DoTDoTDoT").replace("@", "AtAtAt");
       if (the_id !== ids && the_email !== ids) {continue;}
     }
     //    var tmp_string = [

@@ -71,7 +71,7 @@ module.exports = function(cb){
     var contact = [
       '<div class="menber ',
       '" id="',
-      info.contacts[j].email_normalized.replace("@", "").replace(".", ""),
+      info.contacts[j].email_normalized.replace(".", "DoTDoTDoT").replace("@", "AtAtAt"),
       '">',
       '<img src="./icons/contacts.png"/>',
       '<div class="detail">',

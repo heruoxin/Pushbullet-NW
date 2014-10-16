@@ -2,12 +2,12 @@ var gui = require('nw.gui');
 var fs = require('fs');
 var exec = require('child_process').exec;
 var login = require('./js/pushcullet/login');
+var new_push = require('./js/pushcullet/new_push');
 
 if (!global.hasOwnProperty("$")){
   global.$ = require('jquery');
 }
 var $ = global.$;
-var ID;
 
 var mb = new gui.Menu({type:"menubar"});
 mb.createMacBuiltin("Pushbullet");
@@ -60,7 +60,7 @@ global.refresh_info = function(token, cb){
 global.refresh_history = function(time){
   try {
     return require('./js/pushcullet/refresh_push_history')(time, function(){
-      global.show_history(ID);
+      global.show_history(global.ID);
     });
   } catch (e) {
     //    global.add_error_card("Refresh push history error", e);
@@ -70,17 +70,17 @@ global.refresh_history = function(time){
 
 global.show_history = function(id){
   try {
-    ID = id || "everypush";
+    global.ID = id || "everypush";
     //
-    console.log("the ID is:", ID);
+    console.log("the ID is:", global.ID);
     $(".menber").removeClass("star");
-    $("#"+ID).addClass("star");
+    $("#"+global.ID).addClass("star");
     //
-    console.log('show_history:',ID);
-    if (ID === "everypush"){
+    console.log('show_history:',global.ID);
+    if (global.ID === "everypush"){
       require('./js/pushcullet/show_push_history')();
     } else {
-      require('./js/pushcullet/show_push_history')(ID);
+      require('./js/pushcullet/show_push_history')(global.ID);
     }
     card_button();
   } catch (e) {
@@ -121,7 +121,23 @@ var about_me = function(){
 var push_type_selecter = function(){
 };
 
-var new_push = function(){
+var send_new_push = function(){
+  var data = {};
+  data.title = $(".titlebox").val();
+  data.type = global.NEW_PUSH_TYPE;
+  switch (global.NEW_PUSH_TYPE) {
+    case "note":
+      data.body = $(".bodybox.note").val();
+    break;
+    case "link":
+      data.url = $(".bodybox.link").val();
+    break;
+    case "address":
+      data.address = $(".bodybox.address").val();
+    break;
+  }
+  console.log(data);
+  new_push(data, global.ID, console.log);
 };
 
 var cancel_push = function(){
@@ -143,6 +159,18 @@ var traffic_light = function(){
     fs.readFile(process.env.PWD+"/html/addpushcard.html", {encoding: 'utf8'}, function(e, d){
       if (e) return console.log;
       $("#push-list").prepend(d);
+      //new card
+      setTimeout(function(){
+        $(".bodybox").submit(function(){
+          send_new_push();
+        });
+        $(".send").on("click", function(){
+          send_new_push();
+        });
+        $(".cancel").on("click", function(){
+          cancel_push();
+        });
+      }, 100);
     });
   });
   //window active or not
@@ -190,16 +218,6 @@ var card_button = function(){
       console.log("a click: ", obj.currentTarget.href);
       exec("open "+obj.currentTarget.href, function(err, stdout, stderr){});
       return false;
-    });
-    //new card
-    $(".bodybox").submit(function(){
-      new_push();
-    });
-    $(".send").on("click", function(){
-      new_push();
-    });
-    $(".cancel").on("click", function(){
-      cancel_push();
     });
   }, 100);
 };
