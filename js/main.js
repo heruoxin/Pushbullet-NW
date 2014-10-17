@@ -119,6 +119,22 @@ var about_me = function(){
 };
 
 var push_type_selecter = function(){
+  global.NEW_PUSH_TYPE = 'note';
+  $(".imgbox").css({display: "none"});
+  $(".bodybox").css({display: "none"});
+  $("."+global.NEW_PUSH_TYPE).css({display: "block"});
+  var push_type_list = ["note", "link", "address"];
+  $(".new-card .card-main :not(.card-content)").on("click", function(){
+    for (var i in push_type_list) {
+      if (global.NEW_PUSH_TYPE == push_type_list[i]){
+        global.NEW_PUSH_TYPE = push_type_list[Number(i)+1] || push_type_list[0];
+        break;
+      }
+    }
+    $(".imgbox").css({display: "none"});
+    $(".bodybox").css({display: "none"});
+    $("."+global.NEW_PUSH_TYPE).css({display: "block"});
+  });
 };
 
 var send_new_push = function(){
@@ -137,7 +153,10 @@ var send_new_push = function(){
     break;
   }
   console.log(data);
-  new_push(data, global.ID, console.log);
+  new_push(data, global.ID, function(d){
+    console.log(d);
+    return global.refresh_history(3);
+  });
 };
 
 var cancel_push = function(){
@@ -160,6 +179,7 @@ var traffic_light = function(){
       if (e) return console.log;
       $("#push-list").prepend(d);
       //new card
+      push_type_selecter();
       setTimeout(function(){
         $(".bodybox").submit(function(){
           send_new_push();
