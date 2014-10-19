@@ -3,6 +3,7 @@ var fs = require('fs');
 var exec = require('child_process').exec;
 var login = require('./js/pushcullet/login');
 var new_push = require('./js/pushcullet/new_push');
+var send_notification = require('./js/pushcullet/send_notification');
 
 if (!global.hasOwnProperty("$")){
   global.$ = require('jquery');
@@ -105,6 +106,8 @@ var menubar_click = function (){
     $('#push-list').html('');
     if (obj.currentTarget.id !== "msf") return global.show_history(obj.currentTarget.id);
     //more setting cards should add to here.
+    $(".menber").removeClass("star");
+    global.ID = "history";
     about_me();
     login();
     card_button();
@@ -119,12 +122,14 @@ var about_me = function(){
   });
 };
 
+var push_type_selecter_change = function(){
+  $(".imgbox").css({display: "none"});
+  $(".bodybox").css({display: "none"});
+  $("."+global.NEW_PUSH_TYPE).css({display: "block"});
+};
+
 var push_type_selecter = function(){
-  var push_type_selecter_change = function(){
-    $(".imgbox").css({display: "none"});
-    $(".bodybox").css({display: "none"});
-    $("."+global.NEW_PUSH_TYPE).css({display: "block"});
-  }();
+  push_type_selecter_change();
   var push_type_list = ["note", "link", "address"];
   $(".new-card .card-main :not(.card-content)").on("click", function(){
     for (var i in push_type_list) {
@@ -180,6 +185,7 @@ var traffic_light = function(){
     fs.readFile(process.env.PWD+"/html/addpushcard.html", {encoding: 'utf8'}, function(e, d){
       if (e) return console.log;
       if (global.NEW_PUSH_TYPE) return console.log("Already adding");
+      if (global.ID === "history") return console.log("In history Page, not allow to add card");
       global.NEW_PUSH_TYPE = 'note';
       $("#push-list").prepend(d);
       //new card
@@ -215,22 +221,20 @@ var card_button = function(){
       var e = $("#"+obj.currentTarget.id);
       console.log(obj.currentTarget.id, e);
       exec(e.attr("arg"), function(err, stdout, stderr){
-        var notifier = new Notification();
-        notifier.notify({
-          "title": e.attr("usage"),
-          //        "subtitle": e.attr("usage"),
-          "message": e.attr("info"),
-          //        "sound": "Funk", // case sensitive
-          "contentImage": './icons/'+e.attr("type")+'.png',
-          "appIcon": './icons/'+e.attr("type")+'.png',
-          //        "open": "file://" + __dirname + "/coulson.jpg"
+        //23333
+        if (err || stderr) console.error("do open error:", err|| stderr);
+        send_notification({
+          title: e.attr('usage'),
+          body: e.attr('info'),
+          type: e.attr('type')
         });
       });
     });
     $('.delete').on("click", function(obj){
+      var e = $("#"+obj.currentTarget.id);
       var id = obj.currentTarget.id.replace('delete','');
-      var created = obj.currentTarget.created;
-      console.log(id, "Delete");
+      var created = e.attr('created');
+      console.log(id, "Delete:", created);
       $('#'+id).remove();
       return require('./js/pushcullet/delete_push')(id, created);
     });
@@ -251,9 +255,9 @@ global.show_info();
 global.show_history();
 global.refresh_info();
 global.refresh_history();
-process.on("uncaughtException", function(e){
-  console.error("uncaughtException:", e);
-});
+//process.on("uncaughtException", function(e){
+//  console.error("uncaughtException:", e);
+//});
 
 $(document).ready(function(){
   setTimeout(function(){

@@ -7,13 +7,16 @@ module.exports = function(e){
   };
   if (e.icon){
     options.icon = "data:image/png;base64,"+e.icon;
-  } else {
+  } else if (e.type){
     options.icon = "./icons/"+e.type+".png";
   }
+  if (e.title | e.type) return console.error("push obj error:", e);
   var notification = new window.Notification(e.title || e.type, options);
 
-  notification.onClick(function (){
-    if (e.active) global.show_history(e.target_device_iden || e.receiver_email_normalized.replace(".", "DoTDoTDoT").replace("@", "AtAtAt"));
-  });
+  if (e.active) {
+    notification.onClick(function (){
+      global.show_history(e.target_device_iden || e.receiver_email_normalized.replace(".", "DoTDoTDoT").replace("@", "AtAtAt"));
+    });
+  }
 };
 

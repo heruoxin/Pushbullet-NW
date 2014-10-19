@@ -43,7 +43,12 @@ module.exports = function (time, cb) {
     });
     res.on('end', function(e){
       if (e) {return console.error(e);}
-      var p = JSON.parse(push_history).pushes;
+      var p;
+      try{
+        p = JSON.parse(push_history).pushes;
+      } catch(error) {
+        return console.error(error);
+      }
       //console.log(JSON.parse(push_history));
       if (time){
         if (time == 15){

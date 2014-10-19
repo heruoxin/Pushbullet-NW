@@ -129,6 +129,8 @@ module.exports = function (ids){
       //'<hr class="card-hr-horizonal" />',
       '<a href="#" class="control delete" id="',
       pushes[i].iden+'delete',
+      '" created="',
+      pushes[i].created,
       '">Delete</a>',
       '</div>',
       '</div>',

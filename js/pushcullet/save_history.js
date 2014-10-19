@@ -22,6 +22,7 @@ module.exports = function (j, option, cb) {
   }
 
   for (var i in j){
+    if (!j[i].created) return console.error("Save error:", j[i]);
     var created = (9999999999 - Number(j[i].created.toString().split('.')[0])).toString();
     old_j[created] = j[i];
   }
