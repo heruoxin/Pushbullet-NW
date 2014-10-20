@@ -22,6 +22,7 @@ p.title
   position: relative;
   padding-left: 10px;
   z-index: 99;
+  height: 35px;
   /*  background-size: 26px;*/
   /*  background-repeat: no-repeat;*/
   /*  padding-left: 35px;*/
@@ -30,7 +31,7 @@ p.title
 
 .star
 {
-  background-color: #57a547;
+  border-left: 2px solid #68c14f;
 }
 
 .menber img

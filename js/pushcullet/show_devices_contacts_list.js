@@ -20,10 +20,10 @@ module.exports = function(cb){
 
     [
     '<div class="menber" id="everypush">',
-    '<img src="./icons/undefined.png"/>',
+    '<img src="./icons/everything.png"/>',
     '<div class="detail">',
     '<h5>',
-    'All',
+    'Everything',
     '</h5>',
     '<p>',
     'All of your pushes',
