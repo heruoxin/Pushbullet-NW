@@ -36,6 +36,7 @@
   width: 98%;
   transition: min-height 0.5s ease 0.3s;
   overflow-y: hidden;
+  overflow-x: hidden;
 }
 .card-logo
 {

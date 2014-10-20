@@ -13,7 +13,7 @@ var xml_p = function(s){
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;')
-    .replace(/'/g, '&apos;');
+    .replace(/'/g, '&apos;') || "";
   }
 };
 
@@ -25,10 +25,10 @@ var info_type = {
   },
   link: {
     arg: function(p){return ("open '"+p.url+"'");},
-    subtitle: function(s){return ('<a href="'+xml_p(s.url)+'">'+s.title+'</a>');},
+    subtitle: function(s){return ('<a href="'+xml_p(s.url)+'">'+xml_p(s.url)+'</a>');},
   },
   address: {
-    arg: function(p){return ("open 'https://maps.apple.com/?q="+p.address+"'");},
+    arg: function(p){return ("open 'https://maps.apple.com/?q="+xml_p(p.address)+"'");},
     subtitle: function(s){return ([
       '<div class="google-maps">',
       '<iframe src="https://www.google.com/maps/embed?q="',
@@ -42,7 +42,7 @@ var info_type = {
     subtitle: function(s){return (undefined);},
   },
   file: {
-    arg: function(p){return ("open '"+p.file_url+"'");},
+    arg: function(p){return ("open '"+xml_p(p.file_url)+"'");},
     subtitle: function(s){
       if (s.file_type.indexOf("image") >= 0) {
         //for image
@@ -102,7 +102,7 @@ module.exports = function (ids){
       '</div>',
       '<div class="card-content">',
       '<h2 class="content-title">',
-      xml_p(pushes[i].title || pushes[i].file_name || pushes[i].name || pushes[i].type),
+      xml_p(pushes[i].title || pushes[i].file_name || pushes[i].name || pushes[i].type) || "",
       '</h2>',
       '<hr class="card-hr-horizonal" />',
       '<div class="content-main">',
