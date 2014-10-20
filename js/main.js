@@ -72,6 +72,7 @@ global.refresh_history = function(time){
 global.show_history = function(id){
   try {
     global.ID = id || "everypush";
+    global.NEW_PUSH_TYPE = undefined;
     //
     console.log("the ID is:", global.ID);
     $(".menber").removeClass("star");
@@ -101,11 +102,11 @@ global.show_info = function(){
 var menubar_click = function (){
 
   $(".menber").on("click", function(obj){
-    global.NEW_PUSH_TYPE = undefined;
     console.log('.menber click:',obj.currentTarget.id);
     $('#push-list').html('');
     if (obj.currentTarget.id !== "msf") return global.show_history(obj.currentTarget.id);
     //more setting cards should add to here.
+    global.NEW_PUSH_TYPE = undefined;
     $(".menber").removeClass("star");
     global.ID = "history";
     about_me();
