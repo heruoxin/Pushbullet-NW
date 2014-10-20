@@ -45,13 +45,18 @@ p.title
   position: absolute;
   left: 45px;
   top: 0;
+  width: 140px;
   background-color: #6cba5c;
   z-index: 0;
+  text-align: center;
+  text-overflow: ellipsis;
 }
 
 .detail p
 {
-  display: none;
+  display: inline-block;
+  font-size: 12px;
+  width: 140px;
 }
 
 .menber:hover .detail
