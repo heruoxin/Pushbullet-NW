@@ -8,8 +8,7 @@ try {
 }
 
 var start_ws = function() {
-  var heart_beat = 2;
-
+  global.HEART_BEAT = 2;
   var connection = new WebSocket('wss://stream.pushbullet.com/websocket/' + token);
   connection.on('open', function(e) {
     console.log('ws open: %s', new Date());
@@ -20,7 +19,7 @@ var start_ws = function() {
     switch (e.type) {
       case 'nop': // HeartBeat
         //console.log('HeartBeat', new Date());
-        heart_beat += 1;
+        global.HEART_BEAT += 1;
       break;
       case 'tickle':
         if (e.subtype === 'device'){ // device list updated
@@ -39,21 +38,19 @@ var start_ws = function() {
   });
   connection.on('close', function(e) {
     console.log('close: %s', new Date());
-    return restart_ws();
   });
-
-  setInterval(function(){ //HeartBeat check
-    if (heart_beat <= 0){
-      return restart_ws();
-    }
-    heart_beat -= 1;
-  },30000);
-  var restart_ws = function(){
-    setTimeout(function(){
-      start_ws();
-      connection.close();
-    }, 10000);
-  };
+  return connection;
 };
 
-start_ws();
+global.HEART_BEAT = 2;
+var ws = new start_ws();
+setInterval(function(){ //HeartBeat check
+  if (global.HEART_BEAT-- <= 0){
+    global.HEART_BEAT = 2;
+    console.warn("ws restart", new Date());
+    ws.close();
+    ws = new start_ws();
+  }
+},30000);
+
+

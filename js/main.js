@@ -100,7 +100,6 @@ global.show_info = function(){
 };
 
 var menubar_click = function (){
-
   $(".menber").on("click", function(obj){
     console.log('.menber click:',obj.currentTarget.id);
     $('#push-list').html('');
@@ -117,10 +116,10 @@ var menubar_click = function (){
 };
 
 var about_me = function(){
-  fs.readFile(process.env.PWD+'/html/aboutme.html',{encoding: 'utf8'}, function(e, d){
-    if (e) return console.log;
-    $("#push-list").prepend(d);
-  });
+//  fs.readFile(process.env.PWD+'/html/aboutme.html',{encoding: 'utf8'}, function(e, d){
+//    if (e) return console.log;
+//    $("#push-list").prepend(d);
+//  });
 };
 
 var push_type_selecter_change = function(){
@@ -256,9 +255,9 @@ global.show_info();
 global.show_history();
 global.refresh_info();
 global.refresh_history();
-//process.on("uncaughtException", function(e){
-//  console.error("uncaughtException:", e);
-//});
+process.on("uncaughtException", function(e){
+  console.error("uncaughtException:", e);
+});
 
 $(document).ready(function(){
   setTimeout(function(){
