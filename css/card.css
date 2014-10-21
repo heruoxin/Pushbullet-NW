@@ -5,12 +5,26 @@
   margin: 10px;
   box-shadow: 0 1px 1px #d0d0d0;
   width: auto;
-  min-height: 80px;
-  max-height: 80px;
+  min-height: 74px;
+  max-height: 74px;
   transition: max-height 0.5s ease 0.3s;
   overflow-y: hidden;
 
   background-color: white;
+}
+.content-main
+{
+  color: #a8aeb0;
+}
+.content-main a
+{
+  color: #2e8ccf;
+}
+.content-title
+{
+  color: #4d5152;
+  margin-top: 6px;
+  margin-bottom: 6px;
 }
 .push-card:hover
 {
@@ -24,10 +38,6 @@
 {
   min-height: 85px;
 }
-.push-card hr
-{
-  color: #d0d0d0;
-}
 .card-main
 {
   position: relative;
@@ -40,7 +50,7 @@
 }
 .card-logo
 {
-  padding: 10px 5%;
+  padding: 10px 3%;
   position: relative;
   pointer-events: none;
   display: inline-block;
@@ -60,7 +70,9 @@
 }
 .card-content h2
 {
-  height: 28px;
+  height: 22px;
+  font-size: 20px;
+  font-weight: normal;
   overflow: hidden;
 }
 .card-content img

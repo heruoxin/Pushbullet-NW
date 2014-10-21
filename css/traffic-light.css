@@ -14,7 +14,7 @@
   background: #F3BB55 url(../icons/buttons-hover.png) -9px 1px no-repeat;
 }
 .traffice-light a.maximize:hover {
-  background: #96D16F url(../icons/buttons-hover.png) -19px 1px no-repeat;
+  background: #35CC4B url(../icons/buttons-hover.png) -19px 1px no-repeat;
 }
 
 .traffice-light .close {
@@ -24,10 +24,10 @@
   background: #F3BB55;
 }
 .traffice-light .maximize {
-  background: #96D16F;
+  background: #35CC4B;
 }
 .traffice-light .deactivate {
-  background: #4c9a3c;
+  background: #e1e1e1;
 }
 
 .add-new {
