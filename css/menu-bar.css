@@ -1,8 +1,8 @@
 #menu-bar hr
 {
-  border: 2px solid #5fad4f;
-  padding-left: 0;
+  border: 1px solid #dddddd;
   margin: 4px;
+  width: 42px;
 }
 
 p.title
@@ -31,7 +31,8 @@ p.title
 
 .star
 {
-  border-left: 2px solid #68c14f;
+  padding-left: 8px;
+  border-left: 2px solid #b0b0b0;
 }
 
 .menber img
@@ -47,7 +48,7 @@ p.title
   left: 45px;
   top: 0;
   width: 140px;
-  background-color: #6cba5c;
+  background-color: #f0f0f0;
   z-index: 0;
   text-align: center;
   text-overflow: ellipsis;
@@ -57,7 +58,7 @@ p.title
 {
   display: inline-block;
   font-size: 12px;
-  width: 140px;
+  width: 120px;
 }
 
 .menber:hover .detail

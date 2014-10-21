@@ -15,7 +15,7 @@ body
 }
 
 nav.control-window {
-  background-color: #6cba5c;
+  background-color: #f4f6f4;
   left:5px;
   top:3px;
   height:30px;
@@ -32,7 +32,7 @@ nav.control-window {
   width: 50px;
   overflow-x: hidden;
   overflow-y: scroll;
-  background-color: #6cba5c;
+  background-color: #f6f6f6;
 }
 
 #main
@@ -44,8 +44,7 @@ nav.control-window {
   width: calc(100% - 50px);
   height: 100%;
   left: 50px;
-
-  background-color: #f5f5f5;
+  background-color: #ffffff;
 }
 
 #push-list

@@ -79,7 +79,7 @@ module.exports = function(cb){
       info.contacts[j].name,
       '</h5>',
       '<p>',
-      info.contacts[j].email_normalized,
+      info.contacts[j].email_normalized.replace("@", "<wbr>"+"@"),
       '</p>',
       '</div>',
       '</div>',
