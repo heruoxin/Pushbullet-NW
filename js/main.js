@@ -255,6 +255,7 @@ var card_button = function(){
 global.show_info();
 global.show_history();
 regist_devices(global.refresh_info);
+global.refresh_info();
 global.refresh_history();
 process.on("uncaughtException", function(e){
   console.error("uncaughtException:", e);

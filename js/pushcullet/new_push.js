@@ -2,11 +2,13 @@ var https = require('https');
 var bl = require('bl');
 var save_history = require('./save_history');
 
-var token = require(process.env.HOME+'/Library/Preferences/com.1ittlecup.pushcullet.info.json').token;
 
 //pushbullet send new push
 
 module.exports = function (data, iden, cb) {
+
+  var token = require(process.env.HOME+'/Library/Preferences/com.1ittlecup.pushcullet.info.json').token;
+
   if (!data) { return console.error("No data given!");}
 
   if (typeof(iden) === "function"){

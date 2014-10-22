@@ -22,14 +22,14 @@ module.exports = function (cb) {
     return console.error("read info error:", e);
   }
 
-  var post_data = JSON.stringify({
+  var post_data = {
     "type": "stream",
     "kind": "mac",
     "nickname": os.hostname(),
     "manufacturer": "Apple",
     "model": "Mac OS X 10."+(os.release().split('.')[0]-4),
     //    "fingerprint": fingerprint,
-  });
+  };
 
   for (var i in info.devices) {
     if (info.devices[i].model === post_data.model) { //has registed
@@ -37,6 +37,8 @@ module.exports = function (cb) {
       return console.warn('this devices has registed.');
     }
   }
+
+  post_data = JSON.stringify(post_data);
 
   var options = {
     hostname: 'api.pushbullet.com',

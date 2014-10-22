@@ -1,3 +1,5 @@
+var regist_devices = require('./regist_devices');
+
 if (!global.hasOwnProperty("$")){
   global.$ = require('jquery');
 }
@@ -48,6 +50,7 @@ var form_action = function(){
     if (status) {
       $('.content-body.login').html("Loading pushes...");
       global.refresh_history(2592000);
+      regist_devices();
     } else {
       $('.card-control').css('display', 'block');
       $('.content-title.login').html("Login error");
