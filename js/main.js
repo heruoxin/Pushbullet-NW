@@ -131,7 +131,7 @@ var push_type_selecter_change = function(){
 var push_type_selecter = function(){
   push_type_selecter_change();
   var push_type_list = ["note", "link", "address"];
-  $(".new-card .card-main :not(.card-content)").on("click", function(){
+  $(".card-logo").on("click", function(){
     for (var i in push_type_list) {
       if (global.NEW_PUSH_TYPE == push_type_list[i]){
         global.NEW_PUSH_TYPE = push_type_list[Number(i)+1] || push_type_list[0];

@@ -75,6 +75,7 @@
 }
 .card-control
 {
+  display: inline-table;
   margin: 0 auto;
   width: 100%;
   height: 200%;

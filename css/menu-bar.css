@@ -43,12 +43,14 @@ p.title
 
 .detail
 {
-  visibility: hidden;
+  display: none;
+  /*  opacity: 0;*/
+  /*  transition: opacity 0.5s linear;*/
   position: absolute;
   left: 45px;
   top: 0;
   width: 140px;
-  background-color: #f0f0f0;
+  background-color: #f6f6f6;
   z-index: 0;
   text-align: center;
   text-overflow: ellipsis;
@@ -63,16 +65,17 @@ p.title
 
 .menber:hover .detail
 {
-  visibility: visible;
+  display: block;
+  /*  opacity: 1;*/
 }
 
 #menu-list
 {
-position: fixed;
+  position: fixed;
 }
 
 #menu-setting
 {
-position: fixed;
-bottom: 2px;
+  position: fixed;
+  bottom: 2px;
 }
