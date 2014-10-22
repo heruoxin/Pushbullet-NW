@@ -143,6 +143,7 @@ var push_type_selecter = function(){
 };
 
 var send_new_push = function(){
+  $('.pre-send').html('<p class="control sending">Sending...</p>');
   var data = {};
   data.title = $(".titlebox").val();
   data.type = global.NEW_PUSH_TYPE;

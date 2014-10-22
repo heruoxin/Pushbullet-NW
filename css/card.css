@@ -94,6 +94,11 @@
   color: #787e80;
   transition: background-color 0.2s ease;
 }
+.sending
+{
+  background-color: #82d072;
+  width: 100%;
+}
 .open
 {
   border-right-style: solid;
