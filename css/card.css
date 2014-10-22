@@ -27,10 +27,14 @@
 }
 .content-body
 {
-  line-height: 138%;
+  line-height: 140%;
   margin-bottom: 4px;
   word-wrap: break-word;
   color: #a8aeb0;
+}
+.content-body p
+{
+  -webkit-user-select: text;
 }
 .content-body a
 {
@@ -39,8 +43,8 @@
 .content-title
 {
   color: #4d5152;
-  margin-top: 8px;
-  margin-bottom: 6px;
+  margin-top: 9px;
+  margin-bottom: 8px;
 }
 .push-card:hover
 {
@@ -49,7 +53,6 @@
 .push-card:hover .content-body
 {
   overflow: visible;
-
 }
 .card-main
 {
@@ -78,15 +81,18 @@
 {
   position: relative;
   display: inline-block;
+  font-size: 14px;
   float: right;
   width: 80%;
 }
 .card-content h2
 {
-  height: 18px;
+  height: 20px;
+  line-height: 130%;
   font-size: 16px;
   font-weight: normal;
   overflow: hidden;
+  -webkit-user-select: text;
 }
 .card-content img
 {
