@@ -27,7 +27,7 @@ global.add_error_card = function(title, e){
     title,
     '            </h2>',
     '            <hr class="card-hr-horizonal" />',
-    '            <div class="content-main">',
+    '            <div class="content-body">',
     '            <p>',
     e.toString(),
     '            </p>',
@@ -143,7 +143,7 @@ var push_type_selecter = function(){
 };
 
 var send_new_push = function(){
-  $('.pre-send').html('<p class="control sending">Sending...</p>');
+  $('.pre-send').html('<p class="control expand loading">Sending...</p>');
   var data = {};
   data.title = $(".titlebox").val();
   data.type = global.NEW_PUSH_TYPE;

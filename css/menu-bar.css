@@ -1,8 +1,7 @@
 #menu-bar hr
 {
-  border: 1px solid #dddddd;
+  border: 0 solid #dddddd;
   margin: 4px;
-  width: 42px;
 }
 
 p.title
@@ -13,6 +12,7 @@ p.title
 
 #menu-bar h5
 {
+  font-weight: normal;
   padding-top: 3px;
 }
 
@@ -32,7 +32,8 @@ p.title
 .star
 {
   padding-left: 8px;
-  border-left: 2px solid #b0b0b0;
+/*  border-left: 2px solid #b0b0b0;*/
+  border-left: 2px solid #68c14f;
 }
 
 .menber img
@@ -59,6 +60,7 @@ p.title
 .detail p
 {
   display: inline-block;
+  color: #8f9c9d;
   font-size: 12px;
   width: 120px;
 }

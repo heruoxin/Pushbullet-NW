@@ -13,10 +13,10 @@ var login_card = [
   '            <h2 class="content-title login">',
   'Login',
   '            </h2>',
-  '            <hr class="card-hr-horizonal" />',
-  '            <div class="content-main login">',
+  '            <div class="content-body login">',
 
   '<p>Copy <a href="https://www.pushbullet.com/account">Token</a> & Paste here:</p>',
+  '<p style="color: white;font-size: 5px;height: 5px;"> _(:3 」∠)_ </p>',
   '<form id="loginform" action="">',
   '<input type="text" id="tokenbox" name="token" />',
   '</form>',
@@ -26,7 +26,7 @@ var login_card = [
   '          </div>',
   '        </div>',
   '        <div class="card-control">',
-  '            <a class="control open" id="loginsave">Save</a>',
+  '            <a class="control open expand" id="loginsave">Save</a>',
   '        </div>',
   '      </div>',
 ].join('');
@@ -46,7 +46,7 @@ var form_action = function(){
     $('.content-title.login').html(info);
     console.log(status, info);
     if (status) {
-      $('.content-main.login').html("Loading pushes...");
+      $('.content-body.login').html("Loading pushes...");
       global.refresh_history(2592000);
     } else {
       $('.card-control').css('display', 'block');

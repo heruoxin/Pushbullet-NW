@@ -5,19 +5,21 @@
   margin: 10px;
   box-shadow: 0 1px 0 #d0d0d0;
   width: auto;
-  min-height: 60px;
-  max-height: 60px;
+  min-height: 58px;
+  max-height: 58px;
   transition: max-height 0.5s ease 0.3s;
   overflow-y: hidden;
 
   background-color: white;
 }
-.content-main
+.content-body
 {
   line-height: 138%;
+  margin-bottom: 4px;
+  word-wrap: break-word;
   color: #a8aeb0;
 }
-.content-main a
+.content-body a
 {
   color: #2e8ccf;
 }
@@ -25,17 +27,16 @@
 {
   color: #4d5152;
   margin-top: 8px;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
 .push-card:hover
 {
   max-height: 500px;
 }
-.push-card:hover .card-content
+.push-card:hover .content-body
 {
   overflow: visible;
-  word-wrap: break-word;
-  word-break: normal;
+
 }
 .card-main
 {
@@ -49,7 +50,7 @@
 }
 .card-logo
 {
-  padding: 10px 3%;
+  padding: 10px 5%;
   position: relative;
   pointer-events: none;
   display: inline-block;
@@ -69,8 +70,8 @@
 }
 .card-content h2
 {
-  height: 22px;
-  font-size: 20px;
+  height: 18px;
+  font-size: 16px;
   font-weight: normal;
   overflow: hidden;
 }
@@ -100,11 +101,15 @@
   color: #787e80;
   transition: background-color 0.2s ease;
 }
-.sending
+.expand
 {
   color: white;
   background-color: #82d072;
   width: 100%;
+}
+.loading
+{
+  /* 动画加在这里 */
 }
 .open
 {
