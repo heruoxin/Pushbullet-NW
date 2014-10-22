@@ -13,8 +13,9 @@ var xml_p = function(s){
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;')
-    .replace(/'/g, '&apos;') || "";
+    .replace(/'/g, '&apos;');
   }
+  return "";
 };
 
 var info_type = {
@@ -30,11 +31,9 @@ var info_type = {
   address: {
     arg: function(p){return ("open 'https://maps.apple.com/?q="+xml_p(p.address)+"'");},
     subtitle: function(s){return ([
-      '<div class="google-maps">',
-      '<iframe src="https://www.google.com/maps/embed?q="',
+      '<img src="http://maps.googleapis.com/maps/api/staticmap?center=',
       xml_p(s.address),
-      '" width="400" height="120" frameborder="0" style="border:0"></iframe>',
-      '</div>',
+      '&zoom=12&size=300x240" />',
     ].join(''));},
   },
   list: {
