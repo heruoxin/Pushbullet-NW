@@ -4,6 +4,7 @@ var exec = require('child_process').exec;
 var login = require('./js/pushcullet/login');
 var new_push = require('./js/pushcullet/new_push');
 var send_notification = require('./js/pushcullet/send_notification');
+var regist_devices = require('./js/pushcullet/regist_devices');
 
 if (!global.hasOwnProperty("$")){
   global.$ = require('jquery');
@@ -251,10 +252,9 @@ var card_button = function(){
   }, 100);
 };
 
-
 global.show_info();
 global.show_history();
-global.refresh_info();
+regist_devices(global.refresh_info);
 global.refresh_history();
 process.on("uncaughtException", function(e){
   console.error("uncaughtException:", e);
