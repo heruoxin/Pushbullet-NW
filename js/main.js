@@ -268,4 +268,4 @@ $(document).ready(function(){
   }, 200);
 });
 
-require('nw.gui').Window.get().showDevTools();
+//require('nw.gui').Window.get().showDevTools();
