@@ -39,7 +39,13 @@ var info_type = {
   },
   list: {
     arg: function(p){return ("open 'https://www.pushbullet.com/pushes?push_iden="+p.iden+"'");},
-    subtitle: function(s){return (undefined);},
+    subtitle: function(s){
+      var lists = "";
+      for (var i in s.items) {
+        lists += '<div class="list-items">'+'<p>'+s.items[i].text+'</p>'+'</div>';
+      }
+      return lists;
+    },
   },
   file: {
     arg: function(p){return ("open '"+xml_p(p.file_url)+"'");},
