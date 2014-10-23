@@ -7,10 +7,12 @@ module.exports = function(token, next){
     token = require(process.env.HOME+'/Library/Preferences/com.1ittlecup.pushcullet.info.json').token;
   }
 
-
   var info = {
     token: token,
   };
+
+  var this_device_iden = require(process.env.HOME+'/Library/Preferences/com.1ittlecup.pushcullet.info.json').this_device_iden;
+  if (this_device_iden) info.this_device_iden = this_device_iden;
 
   //pushbullet getting devices list
   var devices_options = {
@@ -74,7 +76,7 @@ module.exports = function(token, next){
   var file_path = process.env.HOME+'/Library/Preferences/com.1ittlecup.pushcullet.info.json';
   var save = function(){
     if (info.hasOwnProperty("devices") && info.hasOwnProperty("contacts")){
-      fs.writeFile(file_path, JSON.stringify(info, null, 4), function(e){
+      fs.writeFile(file_path, JSON.stringify(info, null, 4), {encoding: 'utf8'}, function(e){
         if (e) {return console.error(e);}
         if (next){
           return next(true, "Success");

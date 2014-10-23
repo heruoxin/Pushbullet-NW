@@ -58,7 +58,7 @@ module.exports = function (cb) {
       d = JSON.parse(d);
       if (e) {return console.error(e);}
       console.log(d);
-      if (typeof cb === 'function') cb();
+      if (typeof cb === 'function') cb(d.iden);
     }));
   });
   req.write(post_data);

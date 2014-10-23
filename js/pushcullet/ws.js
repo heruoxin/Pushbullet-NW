@@ -1,5 +1,6 @@
 var WebSocket = require('ws');
 var send_notification = require('./send_notification');
+var regist_devices = require('./regist_devices');
 
 try {
   var token = require(process.env.HOME+'/Library/Preferences/com.1ittlecup.pushcullet.info.json').token;
@@ -24,6 +25,7 @@ var start_ws = function() {
       case 'tickle':
         if (e.subtype === 'device'){ // device list updated
         global.refresh_info();
+        setTimeout(regist_devices, 10000);
       } else { // pushes updated
         global.refresh_history(15);
       }
