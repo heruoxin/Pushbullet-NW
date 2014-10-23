@@ -186,11 +186,19 @@ var traffic_light = function(){
   $('.add-new').on("click", function(){
     fs.readFile(process.env.PWD+"/html/addpushcard.html", {encoding: 'utf8'}, function(e, d){
       if (e) return console.log;
-      if (global.NEW_PUSH_TYPE) return console.log("Already adding");
       if (global.ID === "history") return console.log("In history Page, not allow to add card");
+      if (global.NEW_PUSH_TYPE) {
+        $("#main").animate({
+          scrollTop: $("#card-top").offset().top - $("#main").offset().top + $("#main").scrollTop()
+        });
+        return console.log("Already adding");
+      }
       global.NEW_PUSH_TYPE = 'note';
       $("#push-list").prepend(d);
       //new card
+      $("#main").animate({
+        scrollTop: $("#card-top").offset().top - $("#main").offset().top + $("#main").scrollTop()
+      });
       push_type_selecter();
       setTimeout(function(){
         $(".bodybox").submit(function(){
