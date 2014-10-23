@@ -1,6 +1,7 @@
+var fs = require('fs');
+var https = require('https');
+
 module.exports = function(token, next){
-  var fs = require('fs');
-  var https = require('https');
 
   if (!token) {
     token = require(process.env.HOME+'/Library/Preferences/com.1ittlecup.pushcullet.info.json').token;
