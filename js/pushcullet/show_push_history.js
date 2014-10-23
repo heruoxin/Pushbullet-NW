@@ -15,7 +15,7 @@ var xml_p = function(s){
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&apos;');
   }
-  return "";
+  return "&nbsp";
 };
 
 var info_type = {

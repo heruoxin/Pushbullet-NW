@@ -15,7 +15,7 @@
 {
   position: relative;
   display: block;
-  margin: 10px;
+  margin: 8px;
   box-shadow: 0 1px 0 #d0d0d0;
   width: auto;
   min-height: 58px;
@@ -98,6 +98,10 @@
 {
   width: 100%;
   height: auto;
+}
+.card-content input
+{
+  margin-top: -1.5px;
 }
 .card-control
 {
