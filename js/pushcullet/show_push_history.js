@@ -41,7 +41,9 @@ var info_type = {
     subtitle: function(s){
       var lists = "";
       for (var i in s.items) {
-        lists += '<div class="list-items">'+'<p>'+s.items[i].text+'</p>'+'</div>';
+        var checked = "";
+        if (s.items[i].checked) checked = "checked";
+        lists += '<div class="list-items">'+'<p>'+s.items[i].text+'</p>'+'<input type="checkbox" '+checked+' />'+'</div>';
       }
       return lists;
     },

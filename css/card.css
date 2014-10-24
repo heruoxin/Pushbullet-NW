@@ -103,6 +103,17 @@
 {
   margin-top: -1.5px;
 }
+.list-items p
+{
+  display: inline-block;
+}
+.list-items input
+{
+  display: inline-block;
+  position: absolute;
+  right: 0;
+  height: 20px;
+}
 .card-control
 {
   display: inline-table;
@@ -132,7 +143,6 @@
 }
 .loading
 {
-  /* 动画加在这里 */
   animation: loading-frame 3s;
   -webkit-animation: loading-frame 3s;
   animation-iteration-count: infinite;

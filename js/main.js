@@ -248,7 +248,7 @@ var card_button = function(){
       $('#'+id).remove();
       return require('./js/pushcullet/delete_push')(id, created);
     });
-    //card expand
+    //a click
     $("a").on("click", function(obj){
       if (global.HREF === obj.currentTarget.href) return false;
       if (obj.currentTarget.href.indexOf(".app/Contents/Resources/app.nw") >= 0) return false;
@@ -256,6 +256,15 @@ var card_button = function(){
       console.log("a click: ", obj.currentTarget.href);
       exec("open "+obj.currentTarget.href, function(err, stdout, stderr){});
       return false;
+    });
+    //checkbox click
+    $(":checkbox").on("click", function(obj){
+      //get this  push's iden: this_iden
+      var val = [];
+      $('#'+this_iden+':checkbox').each(function(i){
+        val[i] = $(this).is(':checked');
+      });
+      //sync lits change
     });
   }, 100);
 };
