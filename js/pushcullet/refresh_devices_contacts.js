@@ -11,8 +11,9 @@ module.exports = function(token, next){
     token: token,
   };
 
-  var this_device_iden = require(process.env.HOME+'/Library/Preferences/com.1ittlecup.pushcullet.info.json').this_device_iden;
-  if (this_device_iden) info.this_device_iden = this_device_iden;
+  var options = require(process.env.HOME+'/Library/Preferences/com.1ittlecup.pushcullet.info.json').options;
+  if (options) info.options = options;
+  else info.options = {};
 
   //pushbullet getting devices list
   var devices_options = {

@@ -58,20 +58,20 @@ module.exports = function (time, cb) {
       if (time){
         if (time == 15){
           //it's a dirty hack.
-          if (!info.this_device_iden) {
+          if (!info.options.this_device_iden) {
             var os = require('os');
             var fs = require('fs');
             var model = "Mac OS X 10."+(os.release().split('.')[0]-4);
             var file_path = process.env.HOME+'/Library/Preferences/com.1ittlecup.pushcullet.info.json';
             for (var i in info.devices) {
               if (info.devices[i].model === model) {
-                info.this_device_iden = info.devices[i].iden;
+                info.options.this_device_iden = info.devices[i].iden;
                 fs.writeFile(file_path, JSON.stringify(info, null, 4), {encoding: 'utf8'}, function(e){console.error(e);});
                 break;
               }
             }
           }
-          if (p[0].target_device_iden === info.this_device_iden || (!p[0].target_device_iden)) { // target device is mac OR pushto evevryone
+          if (p[0].target_device_iden === info.options.this_device_iden || (!p[0].target_device_iden)) { // target device is mac OR pushto evevryone
             if (Number(p[0].modified) - Number(p[0].created) < 3) { //is new push, not modified.
               send_notification(p[0]);
             }
