@@ -14,8 +14,9 @@ body
   font-family: 'Helvetica';
 }
 
-nav.control-window {
+.control-window {
   background-color: #f6f6f6;
+  transition: background-color 0.6s ease;
   left:5px;
   top:3px;
   height:30px;
@@ -33,6 +34,7 @@ nav.control-window {
   overflow-x: hidden;
   overflow-y: scroll;
   background-color: #f6f6f6;
+  transition: background-color 0.6s ease;
 }
 
 #main

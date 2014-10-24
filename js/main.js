@@ -146,7 +146,7 @@ var push_type_selecter = function(){
 var send_new_push = function(){
   $('.card-control.pre-send').html('<a class="control expand loading send" href="#" stop="stop" >Sending</a>');
   setTimeout(function(){
-    $('.card-control.pre-send').html('<a class="control expand send" href="#">Resend?</a>');
+    $('.card-control.pre-send').html('<a class="control expand send" href="#">Resend ?</a>');
     $(".send").on("click", function(obj){
       if ($('.control.send').stop === "stop") return false;
       send_new_push();
@@ -254,7 +254,11 @@ var card_button = function(){
       var id = obj.currentTarget.id.replace('delete','');
       var created = e.attr('created');
       console.log(id, "Delete:", created);
-      $('#'+id).remove();
+      //$('#'+id).remove();
+      $('#'+id).css({
+        'max-height': 0,
+        'min-height': 0,
+      });
       return require('./js/pushcullet/delete_push')(id, created);
     });
     //a click
@@ -270,7 +274,7 @@ var card_button = function(){
     $(":checkbox").on("click", function(obj){
       //get this  push's iden: this_iden
       var val = [];
-      $('#'+this_iden+':checkbox').each(function(i){
+      $('#'+this_iden+' :checkbox').each(function(i){
         val[i] = $(this).is(':checked');
       });
       //sync lits change
