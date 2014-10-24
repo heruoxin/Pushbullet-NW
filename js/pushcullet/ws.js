@@ -64,9 +64,12 @@ var ws = new start_ws();
 setInterval(function(){ //HeartBeat check
   if (global.HEART_BEAT-- <= 0){
     global.HEART_BEAT = 2;
-    $('.control-window p').html("connect or login error");
     $('.control-window').css({'background-color': '#feeaac'});
     $('#menu-bar').css({'background-color': '#feeaac'});
+    $('.control-window p').html("connect or login error");
+    setTimeout(function(){
+      $('.control-window p').html("offline");
+    }, 5000);
     console.warn("ws try to restart", new Date());
     ws.close();
     ws = new start_ws();
