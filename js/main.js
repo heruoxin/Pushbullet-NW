@@ -144,7 +144,14 @@ var push_type_selecter = function(){
 };
 
 var send_new_push = function(){
-  $('.pre-send').html('<p class="control expand loading">Sending...</p>');
+  $('.card-control.pre-send').html('<a class="control expand loading send" href="#" stop="stop" >Sending</a>');
+  setTimeout(function(){
+    $('.card-control.pre-send').html('<a class="control expand send" href="#">Resend?</a>');
+    $(".send").on("click", function(obj){
+      if ($('.control.send').stop === "stop") return false;
+      send_new_push();
+    });
+  }, 6000);
   var data = {};
   data.title = $(".titlebox").val();
   data.type = global.NEW_PUSH_TYPE;
@@ -201,10 +208,12 @@ var traffic_light = function(){
       });
       push_type_selecter();
       setTimeout(function(){
-        $(".bodybox").submit(function(){
+        $(".bodybox").submit(function(obj){
+          if ($('.control.send').stop === "stop") return false;
           send_new_push();
         });
-        $(".send").on("click", function(){
+        $(".send").on("click", function(obj){
+          if ($('.control.send').stop === "stop") return false;
           send_new_push();
         });
         $(".cancel").on("click", function(){
