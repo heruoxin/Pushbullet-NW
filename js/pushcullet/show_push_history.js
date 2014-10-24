@@ -100,6 +100,8 @@ module.exports = function (ids){
     var tmp_string = [
       '<div class="push-card" id="',
       pushes[i].iden,
+      '" code="',
+      xml_p(JSON.stringify(pushes[i])),
       '">',
       '<div class="card-main">',
       '<div class="card-logo">',

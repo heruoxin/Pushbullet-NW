@@ -35,6 +35,9 @@ module.exports = function (data, iden, cb) {
     }
   };
 
+  if (data.iden) {
+    options.path = '/v2/pushes/'+data.iden;
+  }
 
   var req = https.request(options, function(res) {
     res.setEncoding('utf8');

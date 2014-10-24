@@ -271,13 +271,16 @@ var card_button = function(){
       return false;
     });
     //checkbox click
-    $(":checkbox").on("click", function(obj){
-      //get this  push's iden: this_iden
-      var val = [];
+    $(":checkbox").on("click", function(){
+      var this_iden = $(this).parents('.push-card').attr("id");
+      var code = JSON.parse($('#'+this_iden).attr("code"));
+      //var val = [];
       $('#'+this_iden+' :checkbox').each(function(i){
-        val[i] = $(this).is(':checked');
+        //val[i] = $(this).is(':checked');
+        code.items[i].checked = $(this).is(':checked');
       });
-      //sync lits change
+      console.log(code);
+      new_push(code, global.ID);
     });
   }, 100);
 };
