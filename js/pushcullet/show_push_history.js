@@ -22,24 +22,41 @@ var info_type = {
   note: {
     usage: "Copyed to Clipboard.",
     arg: function(p){return ("echo '"+p.body+"' | pbcopy");},
-    subtitle: function(s){return ('<p>'+xml_p(s.body)+'</p>');},
+    subtitle: function(s){return ('<p>'+xml_p(s.body).replace('\n', '</p><p>')+'</p>');},
   },
   link: {
     arg: function(p){return ("open '"+p.url+"'");},
-    subtitle: function(s){return ('<a href="'+xml_p(s.url)+'">'+xml_p(s.url)+'</a>');},
+    subtitle: function(s){
+      var message = "";
+      if (s.body) {
+        message = '<p>'+xml_p(s.body).replace('\n', '</p><p>')+'</p>';
+      }
+      return (message + '<a href="'+xml_p(s.url)+'">'+xml_p(s.url)+'</a>');
+    },
   },
   address: {
     arg: function(p){return ("open 'https://maps.apple.com/?q="+xml_p(p.address)+"'");},
-    subtitle: function(s){return ([
-      '<img src="http://maps.googleapis.com/maps/api/staticmap?center=',
-      xml_p(s.address),
-      '&zoom=12&size=300x240" />',
-    ].join(''));},
+    subtitle: function(s){
+      var message = "";
+      if (s.body) {
+        message = '<p>'+xml_p(s.body).replace('\n', '</p><p>')+'</p>';
+      }
+      return ([
+        message,
+        '<img src="http://maps.googleapis.com/maps/api/staticmap?center=',
+        xml_p(s.address),
+        '&zoom=12&size=300x240" />',
+      ].join(''));
+    },
   },
   list: {
     arg: function(p){return ("open 'https://www.pushbullet.com/pushes?push_iden="+p.iden+"'");},
     subtitle: function(s){
-      var lists = "";
+      var message = "";
+      if (s.body) {
+        message = '<p>'+xml_p(s.body).replace('\n', '</p><p>')+'</p>';
+      }
+      var lists = message+"";
       for (var i in s.items) {
         var checked = "";
         if (s.items[i].checked) checked = "checked";
@@ -51,9 +68,14 @@ var info_type = {
   file: {
     arg: function(p){return ("open '"+xml_p(p.file_url)+"'");},
     subtitle: function(s){
+      var message = "";
+      if (s.body) {
+        message = '<p>'+xml_p(s.body).replace('\n', '</p><p>')+'</p>';
+      }
       if (s.file_type.indexOf("image") >= 0) {
         //for image
         return ([
+          message,
           '<img src="',
           s.file_url,
           '"/>',
