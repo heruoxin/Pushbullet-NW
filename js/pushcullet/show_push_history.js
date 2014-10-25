@@ -119,13 +119,6 @@ module.exports = function (ids){
       '</div>',
       '</div>',
       '<div class="card-control">',
-
-      '<a href="#" class="control delete" id="',
-      pushes[i].iden+'delete',
-      '" created="',
-      pushes[i].created,
-      '">Delete</a>',
-
       '<a href="#" class="control open"',
       ' arg="',
       xml_p(info_type[pushes[i].type].arg(pushes[i])),
@@ -141,7 +134,11 @@ module.exports = function (ids){
       pushes[i].created,
       '" other="',
       '">Open</a>',
-
+      '<a href="#" class="control delete" id="',
+      pushes[i].iden+'delete',
+      '" created="',
+      pushes[i].created,
+      '">Delete</a>',
       '</div>',
       '</div>',
     ];
