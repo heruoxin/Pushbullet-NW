@@ -185,8 +185,14 @@ var send_new_push = function(){
 };
 
 var cancel_push = function(){
+  $('.push-card.new-card').css({
+    'max-height': 0,
+    'min-height': 0,
+  });
   global.NEW_PUSH_TYPE = undefined;
-  $('.push-card.new-card').remove();
+  setTimeout(function(){
+    $('.push-card.new-card').remove();
+  }, 801);
 };
 
 var traffic_light = function(){
