@@ -153,7 +153,7 @@ var send_new_push = function(){
       if ($('.control.send').stop === "stop") return false;
       send_new_push();
     });
-  }, 6000);
+  }, 9000);
   var data = {};
   data.title = $(".titlebox").val();
   data.type = global.NEW_PUSH_TYPE;
