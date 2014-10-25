@@ -50,7 +50,7 @@ var form_action = function(){
     console.log(status, info);
     if (status) {
       $('.content-body.login').html("Loading pushes...");
-      global.refresh_history(2592000);
+      global.refresh_history();
       regist_devices(global.refresh_info);
     } else {
       $('.card-control').css('display', 'block');

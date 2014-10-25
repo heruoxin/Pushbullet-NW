@@ -2,20 +2,20 @@ var https = require('https');
 var save_history = require('./save_history');
 var send_notification = require('./send_notification');
 
-var info;
-var token = process.argv.slice(2)[0];
-try {
-  info = require(process.env.HOME+'/Library/Preferences/com.1ittlecup.pushcullet.info.json');
-} catch (e) {
-  return console.error('No info config file!');
-}
-if (!token) {
-  token = info.token;
-}
-
 //pushbullet getting & saving push history
 
 module.exports = function (time, cb) {
+
+  var info;
+  var token = process.argv.slice(2)[0];
+  try {
+    info = require(process.env.HOME+'/Library/Preferences/com.1ittlecup.pushcullet.info.json');
+  } catch (e) {
+    return console.error('No info config file!');
+  }
+  if (!token) {
+    token = info.token;
+  }
 
   //time = 604800 为最近一周
 

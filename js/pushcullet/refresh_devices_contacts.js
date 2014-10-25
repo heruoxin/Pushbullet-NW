@@ -3,17 +3,18 @@ var https = require('https');
 
 module.exports = function(token, next){
 
+  var old_info;
+  var options = {};
   if (!token) {
-    token = require(process.env.HOME+'/Library/Preferences/com.1ittlecup.pushcullet.info.json').token;
+    old_info = require(process.env.HOME+'/Library/Preferences/com.1ittlecup.pushcullet.info.json');
+    token = old_info.token;
+    options = old_info.options;
   }
 
   var info = {
     token: token,
+    options: options
   };
-
-  var options = require(process.env.HOME+'/Library/Preferences/com.1ittlecup.pushcullet.info.json').options;
-  if (options) info.options = options;
-  else info.options = {};
 
   //pushbullet getting devices list
   var devices_options = {
