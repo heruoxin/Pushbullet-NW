@@ -145,5 +145,7 @@ module.exports = function (ids){
     _out.push(tmp_string.join(''));
   }
   _out.push('</items>');
+  _out.push('<div style="height: 24px"></div>');
+  _out.push('');
   return $("#push-list").html(_out.join(''));
 };

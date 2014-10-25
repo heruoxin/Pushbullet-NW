@@ -28,7 +28,7 @@ var login_card = [
   '          </div>',
   '        </div>',
   '        <div class="card-control">',
-  '            <a class="control open expand" id="loginsave">Save</a>',
+  '            <a class="control expand" id="loginsave">Save</a>',
   '        </div>',
   '      </div>',
 ].join('');
@@ -43,7 +43,8 @@ var form_action = function(){
   $('.card-logo.login').html('<img src="img/loading.gif" />');
   var token = $('#tokenbox').val();
   console.log('token',token);
-  $('.card-control').css('display', 'none');
+  $('.control.expand').addClass('loading');
+  $('.control.expand').html('<p>Saving...</p>');
   global.refresh_info(token, function(status, info){
     $('.content-title.login').html(info);
     console.log(status, info);
@@ -64,8 +65,8 @@ module.exports = function(){
   $("#push-list").append(login_card);
 
   global.PUSH_NUMBERS = 0;
-  $('#push-list').ready(function(){
+  setTimeout(function(){
     $('#loginsave').click(form_action);
     $('#loginform').submit(form_action);
-  });
+  }, 1000);
 };

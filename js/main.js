@@ -56,6 +56,7 @@ global.refresh_info = function(token, cb){
     //    global.add_error_card("Refresh account info error", e);
     $("#push-list").html('');
     login();
+    card_button();
   }
 };
 
