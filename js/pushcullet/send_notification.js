@@ -5,6 +5,13 @@ module.exports = function(e){
   var options = {
     body: e.body || e.url || e.address || e.file_url || "",
   };
+  if (e.type === 'list') {
+    var body = [];
+    for (var i in e.items) {
+      body.push(e.items[i].text);
+    }
+    options.body = body.join(' ');
+  }
   if (e.icon){
     options.icon = "data:image/png;base64,"+e.icon;
   } else if (e.type){

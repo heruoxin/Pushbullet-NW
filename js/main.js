@@ -171,10 +171,7 @@ var send_new_push = function(){
       data.items = [];
       $('.bodybox.list :text').each(function(i){
         if ($(this).val()) {
-          data.items.push({
-            text: $(this).val(),
-            checked: false,
-          });
+          data.items.push($(this).val());
         }
       });
     break;
