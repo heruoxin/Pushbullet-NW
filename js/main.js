@@ -55,7 +55,7 @@ global.refresh_info = function(token, cb){
   } catch (e) {
     //    global.add_error_card("Refresh account info error", e);
     $("#push-list").html('');
-    console.error("global.refresh_info", e);
+    console.error("global.refresh_info:", e);
     login();
     card_button();
   }
@@ -68,7 +68,7 @@ global.refresh_history = function(time){
     });
   } catch (e) {
     //    global.add_error_card("Refresh push history error", e);
-    console.error(e);
+    console.error('global.refresh_history:', e);
   }
 };
 
@@ -90,7 +90,7 @@ global.show_history = function(id){
     card_button();
   } catch (e) {
     //    global.add_error_card("Show push history error", e);
-    console.log(e);
+    console.error('global.show_history:',e);
   }
 };
 

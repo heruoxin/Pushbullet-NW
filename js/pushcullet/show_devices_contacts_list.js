@@ -1,14 +1,19 @@
 var fs = require('fs');
+var crypto = require('crypto');
 if (!global.hasOwnProperty("$")){
   global.$ = require('jquery');
 }
 var $ = global.$;
 
 var check_type = function(obj){
-  if (obj.type === 'stream' && obj.model.indexOf('OS X') >= 0){
-    return 'apple';
+  if (obj.model.indexOf('OS X') >= 0){
+    return 'mac';
   }
   return obj.type;
+};
+
+var md5 = function(text){
+  return crypto.createHash('md5').update(String(text)).digest('hex');
 };
 
 module.exports = function(cb){
@@ -21,6 +26,7 @@ module.exports = function(cb){
     [
     '<div class="menber" id="everypush">',
     '<img src="./icons/everything.png"/>',
+    '<img class="hide" src="./icons/green-menu-bar/everything.png"/>',
     '<div class="detail">',
     '<h5>',
     'Everything',
@@ -45,6 +51,9 @@ module.exports = function(cb){
       info.devices[i].iden,
       '">',
       '<img src="./icons/',
+      check_type(info.devices[i]),
+      '.png"/>',
+      '<img class="hide" src="./icons/green-menu-bar/',
       check_type(info.devices[i]),
       '.png"/>',
       '<div class="detail">',
@@ -74,6 +83,11 @@ module.exports = function(cb){
       info.contacts[j].email_normalized.replace(".", "DoTDoTDoT").replace("@", "AtAtAt"),
       '">',
       '<img src="./icons/contacts.png"/>',
+      //Gravatar
+      '<img class="hide" src="https://cdn.v2ex.com/gravatar/',
+      md5(info.contacts[j].email_normalized),
+      '.png" />',
+      //
       '<div class="detail">',
       '<h5>',
       info.contacts[j].name,

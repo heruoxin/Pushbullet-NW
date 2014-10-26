@@ -8,7 +8,7 @@ var $ = global.$;
 
 var xml_p = function(s){
   if (s) {
-    return s
+    return String(s)
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
@@ -22,10 +22,12 @@ var info_type = {
   note: {
     usage: "Copyed to Clipboard.",
     arg: function(p){return ("echo '"+p.body+"' | pbcopy");},
+    type: function(q) {return "note";},
     subtitle: function(s){return ('<p>'+xml_p(s.body).replace('\n', '</p><p>')+'</p>');},
   },
   link: {
     arg: function(p){return ("open '"+p.url+"'");},
+    type: function(q) {return "link";},
     subtitle: function(s){
       var message = "";
       if (s.body) {
@@ -36,6 +38,7 @@ var info_type = {
   },
   address: {
     arg: function(p){return ("open 'https://maps.apple.com/?q="+xml_p(p.address)+"'");},
+    type: function(q) {return "address";},
     subtitle: function(s){
       var message = "";
       if (s.body) {
@@ -51,6 +54,7 @@ var info_type = {
   },
   list: {
     arg: function(p){return ("open 'https://www.pushbullet.com/pushes?push_iden="+p.iden+"'");},
+    type: function(q) {return "list";},
     subtitle: function(s){
       var message = "";
       if (s.body) {
@@ -67,6 +71,13 @@ var info_type = {
   },
   file: {
     arg: function(p){return ("open '"+xml_p(p.file_url)+"'");},
+    type: function(q) {
+      if (q.file_type.indexOf("image") >= 0) {
+        return "picture";
+      } else {
+        return "file";
+      }
+    },
     subtitle: function(s){
       var message = "";
       if (s.body) {
@@ -128,7 +139,7 @@ module.exports = function (ids){
       '<div class="card-main">',
       '<div class="card-logo">',
       '<img src="icons/',
-      xml_p(pushes[i].type),
+      info_type[pushes[i].type].type(pushes[i]),
       '.png" />',
       '</div>',
       '<div class="card-content">',

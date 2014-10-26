@@ -65,10 +65,25 @@ p.title
   width: 120px;
 }
 
+.hide
+{
+  display: none;
+}
+
 .menber:hover .detail
 {
   display: block;
   /*  opacity: 1;*/
+}
+
+.menber:hover img
+{
+  display: none;
+}
+
+.menber:hover .hide
+{
+  display: block !important;
 }
 
 #menu-list
