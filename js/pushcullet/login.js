@@ -50,12 +50,15 @@ var form_action = function(){
     console.log(status, info);
     if (status) {
       $('.content-body.login').html("Loading pushes...");
+      $('.control.expand').html('<p>Please wait...</p>');
       global.refresh_history();
       regist_devices(global.refresh_info);
     } else {
       $('.card-control').css('display', 'block');
       $('.content-title.login').html("Login error");
       $('.card-logo.login').html('<img src="icons/error.png" />');
+      $('.control.expand').removeClass('loading');
+      $('.control.expand').html('<p>Save</p>');
     }
   });
   return false;
