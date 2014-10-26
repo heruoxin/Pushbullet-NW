@@ -1,3 +1,11 @@
+.control-window p
+{
+  color: #a8aeb0;
+  text-align: center;
+  font-size: 18px;
+  margin-top: -16px;
+}
+
 .traffice-light
 {
   margin-left: 2px;

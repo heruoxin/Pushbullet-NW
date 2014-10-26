@@ -8,51 +8,85 @@ var $ = global.$;
 
 var xml_p = function(s){
   if (s) {
-    return s
+    return String(s)
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;')
-    .replace(/'/g, '&apos;') || "";
+    .replace(/'/g, '&apos;');
   }
+  return "&nbsp";
 };
 
 var info_type = {
   note: {
     usage: "Copyed to Clipboard.",
     arg: function(p){return ("echo '"+p.body+"' | pbcopy");},
-    subtitle: function(s){return ('<p>'+xml_p(s.body)+'</p>');},
+    type: function(q) {return "note";},
+    subtitle: function(s){return ('<p>'+xml_p(s.body).replace('\n', '</p><p>')+'</p>');},
   },
   link: {
     arg: function(p){return ("open '"+p.url+"'");},
-    subtitle: function(s){return ('<a href="'+xml_p(s.url)+'">'+xml_p(s.url)+'</a>');},
+    type: function(q) {return "link";},
+    subtitle: function(s){
+      var message = "";
+      if (s.body) {
+        message = '<p>'+xml_p(s.body).replace('\n', '</p><p>')+'</p>';
+      }
+      return (message + '<a href="'+xml_p(s.url)+'">'+xml_p(s.url)+'</a>');
+    },
   },
   address: {
     arg: function(p){return ("open 'https://maps.apple.com/?q="+xml_p(p.address)+"'");},
-    subtitle: function(s){return ([
-      '<div class="google-maps">',
-      '<iframe src="https://www.google.com/maps/embed?q="',
-      xml_p(s.address),
-      '" width="400" height="120" frameborder="0" style="border:0"></iframe>',
-      '</div>',
-    ].join(''));},
+    type: function(q) {return "address";},
+    subtitle: function(s){
+      var message = "";
+      if (s.body) {
+        message = '<p>'+xml_p(s.body).replace('\n', '</p><p>')+'</p>';
+      }
+      return ([
+        message,
+        '<img src="http://maps.googleapis.com/maps/api/staticmap?center=',
+        xml_p(s.address),
+        '&zoom=12&size=300x240" />',
+      ].join(''));
+    },
   },
   list: {
     arg: function(p){return ("open 'https://www.pushbullet.com/pushes?push_iden="+p.iden+"'");},
+    type: function(q) {return "list";},
     subtitle: function(s){
-      var lists = "";
+      var message = "";
+      if (s.body) {
+        message = '<p>'+xml_p(s.body).replace('\n', '</p><p>')+'</p>';
+      }
+      var lists = message+"";
       for (var i in s.items) {
-        lists += '<div class="list-items">'+'<p>'+s.items[i].text+'</p>'+'</div>';
+        var checked = "";
+        if (s.items[i].checked) checked = "checked";
+        lists += '<div class="list-items">'+'<p>'+s.items[i].text+'</p>'+'<input type="checkbox" '+checked+' />'+'</div>';
       }
       return lists;
     },
   },
   file: {
     arg: function(p){return ("open '"+xml_p(p.file_url)+"'");},
+    type: function(q) {
+      if (q.file_type.indexOf("image") >= 0) {
+        return "picture";
+      } else {
+        return "file";
+      }
+    },
     subtitle: function(s){
+      var message = "";
+      if (s.body) {
+        message = '<p>'+xml_p(s.body).replace('\n', '</p><p>')+'</p>';
+      }
       if (s.file_type.indexOf("image") >= 0) {
         //for image
         return ([
+          message,
           '<img src="',
           s.file_url,
           '"/>',
@@ -99,11 +133,13 @@ module.exports = function (ids){
     var tmp_string = [
       '<div class="push-card" id="',
       pushes[i].iden,
+      '" code="',
+      xml_p(JSON.stringify(pushes[i])),
       '">',
       '<div class="card-main">',
       '<div class="card-logo">',
       '<img src="icons/',
-      xml_p(pushes[i].type),
+      info_type[pushes[i].type].type(pushes[i]),
       '.png" />',
       '</div>',
       '<div class="card-content">',
@@ -142,5 +178,7 @@ module.exports = function (ids){
     _out.push(tmp_string.join(''));
   }
   _out.push('</items>');
+  _out.push('<div style="height: 24px"></div>');
+  _out.push('');
   return $("#push-list").html(_out.join(''));
 };

@@ -55,7 +55,9 @@ global.refresh_info = function(token, cb){
   } catch (e) {
     //    global.add_error_card("Refresh account info error", e);
     $("#push-list").html('');
+    console.error("global.refresh_info:", e);
     login();
+    card_button();
   }
 };
 
@@ -66,7 +68,7 @@ global.refresh_history = function(time){
     });
   } catch (e) {
     //    global.add_error_card("Refresh push history error", e);
-    console.log(e);
+    console.error('global.refresh_history:', e);
   }
 };
 
@@ -88,7 +90,7 @@ global.show_history = function(id){
     card_button();
   } catch (e) {
     //    global.add_error_card("Show push history error", e);
-    console.log(e);
+    console.error('global.show_history:',e);
   }
 };
 
@@ -117,10 +119,10 @@ var menubar_click = function (){
 };
 
 var about_me = function(){
-//  fs.readFile(process.env.PWD+'/html/aboutme.html',{encoding: 'utf8'}, function(e, d){
-//    if (e) return console.log;
-//    $("#push-list").prepend(d);
-//  });
+  fs.readFile(process.env.PWD+'/html/aboutme.html',{encoding: 'utf8'}, function(e, d){
+    if (e) return console.log;
+    $("#push-list").prepend(d);
+  });
 };
 
 var push_type_selecter_change = function(){
@@ -131,8 +133,8 @@ var push_type_selecter_change = function(){
 
 var push_type_selecter = function(){
   push_type_selecter_change();
-  var push_type_list = ["note", "link", "address"];
-  $(".card-logo").on("click", function(){
+  var push_type_list = ["note", "link", "address", "list"];
+  $(".content-title img").on("click", function(){
     for (var i in push_type_list) {
       if (global.NEW_PUSH_TYPE == push_type_list[i]){
         global.NEW_PUSH_TYPE = push_type_list[Number(i)+1] || push_type_list[0];
@@ -144,7 +146,14 @@ var push_type_selecter = function(){
 };
 
 var send_new_push = function(){
-  $('.pre-send').html('<p class="control expand loading">Sending...</p>');
+  $('.card-control.pre-send').html('<a class="control expand loading send" href="#" stop="stop" >Sending</a>');
+  setTimeout(function(){
+    $('.card-control.pre-send').html('<a class="control expand send" href="#">Resend ?</a>');
+    $(".send").on("click", function(obj){
+      if ($('.control.send').stop === "stop") return false;
+      send_new_push();
+    });
+  }, 9000);
   var data = {};
   data.title = $(".titlebox").val();
   data.type = global.NEW_PUSH_TYPE;
@@ -158,6 +167,14 @@ var send_new_push = function(){
     case "address":
       data.address = $(".bodybox.address").val();
     break;
+    case "list":
+      data.items = [];
+      $('.bodybox.list :text').each(function(i){
+        if ($(this).val()) {
+          data.items.push($(this).val());
+        }
+      });
+    break;
   }
   console.log(data);
   new_push(data, global.ID, function(d){
@@ -168,8 +185,14 @@ var send_new_push = function(){
 };
 
 var cancel_push = function(){
+  $('.push-card.new-card').css({
+    'max-height': 0,
+    'min-height': 0,
+  });
   global.NEW_PUSH_TYPE = undefined;
-  $('.push-card.new-card').remove();
+  setTimeout(function(){
+    $('.push-card.new-card').remove();
+  }, 801);
 };
 
 var traffic_light = function(){
@@ -186,17 +209,27 @@ var traffic_light = function(){
   $('.add-new').on("click", function(){
     fs.readFile(process.env.PWD+"/html/addpushcard.html", {encoding: 'utf8'}, function(e, d){
       if (e) return console.log;
-      if (global.NEW_PUSH_TYPE) return console.log("Already adding");
       if (global.ID === "history") return console.log("In history Page, not allow to add card");
+      if (global.NEW_PUSH_TYPE) {
+        $("#main").animate({
+          scrollTop: $("#card-top").offset().top - $("#main").offset().top + $("#main").scrollTop()
+        });
+        return console.log("Already adding");
+      }
       global.NEW_PUSH_TYPE = 'note';
       $("#push-list").prepend(d);
       //new card
+      $("#main").animate({
+        scrollTop: $("#card-top").offset().top - $("#main").offset().top + $("#main").scrollTop()
+      });
       push_type_selecter();
       setTimeout(function(){
-        $(".bodybox").submit(function(){
+        $(".bodybox").submit(function(obj){
+          if ($('.control.send').stop === "stop") return false;
           send_new_push();
         });
-        $(".send").on("click", function(){
+        $(".send").on("click", function(obj){
+          if ($('.control.send').stop === "stop") return false;
           send_new_push();
         });
         $(".cancel").on("click", function(){
@@ -237,10 +270,14 @@ var card_button = function(){
       var id = obj.currentTarget.id.replace('delete','');
       var created = e.attr('created');
       console.log(id, "Delete:", created);
-      $('#'+id).remove();
+      //$('#'+id).remove();
+      $('#'+id).css({
+        'max-height': 0,
+        'min-height': 0,
+      });
       return require('./js/pushcullet/delete_push')(id, created);
     });
-    //card expand
+    //a click
     $("a").on("click", function(obj){
       if (global.HREF === obj.currentTarget.href) return false;
       if (obj.currentTarget.href.indexOf(".app/Contents/Resources/app.nw") >= 0) return false;
@@ -248,6 +285,18 @@ var card_button = function(){
       console.log("a click: ", obj.currentTarget.href);
       exec("open "+obj.currentTarget.href, function(err, stdout, stderr){});
       return false;
+    });
+    //checkbox click
+    $(":checkbox").on("click", function(){
+      var this_iden = $(this).parents('.push-card').attr("id");
+      var code = JSON.parse($('#'+this_iden).attr("code"));
+      //var val = [];
+      $('#'+this_iden+' :checkbox').each(function(i){
+        //val[i] = $(this).is(':checked');
+        code.items[i].checked = $(this).is(':checked');
+      });
+      console.log(code);
+      new_push(code, global.ID);
     });
   }, 100);
 };

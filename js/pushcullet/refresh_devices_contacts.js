@@ -1,14 +1,19 @@
+var fs = require('fs');
+var https = require('https');
+
 module.exports = function(token, next){
-  var fs = require('fs');
-  var https = require('https');
 
+  var old_info;
+  var options = {};
   if (!token) {
-    token = require(process.env.HOME+'/Library/Preferences/com.1ittlecup.pushcullet.info.json').token;
+    old_info = require(process.env.HOME+'/Library/Preferences/com.1ittlecup.pushcullet.info.json');
+    token = old_info.token;
+    options = old_info.options;
   }
-
 
   var info = {
     token: token,
+    options: options
   };
 
   //pushbullet getting devices list
@@ -73,7 +78,7 @@ module.exports = function(token, next){
   var file_path = process.env.HOME+'/Library/Preferences/com.1ittlecup.pushcullet.info.json';
   var save = function(){
     if (info.hasOwnProperty("devices") && info.hasOwnProperty("contacts")){
-      fs.writeFile(file_path, JSON.stringify(info, null, 4), function(e){
+      fs.writeFile(file_path, JSON.stringify(info, null, 4), {encoding: 'utf8'}, function(e){
         if (e) {return console.error(e);}
         if (next){
           return next(true, "Success");
