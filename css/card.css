@@ -142,6 +142,10 @@
   color: #787e80;
   transition: background-color 0.2s ease;
 }
+.list input
+{
+  height: 100%;
+}
 .expand
 {
   color: white;
