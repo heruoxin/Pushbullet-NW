@@ -1,8 +1,6 @@
 #Pushbullet-NW
 
-A third part of OS X client.
-
-Version 0.1.1
+Unofficial pushbullet node-webkit OS X client.
 
 ##Feature
 
