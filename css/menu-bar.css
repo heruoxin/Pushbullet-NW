@@ -31,8 +31,8 @@ p.title
 
 .star
 {
+  /*  border-left: 2px solid #b0b0b0;*/
   padding-left: 8px;
-/*  border-left: 2px solid #b0b0b0;*/
   border-left: 2px solid #68c14f;
 }
 
@@ -82,6 +82,16 @@ p.title
 }
 
 .menber:hover .hide
+{
+  display: block !important;
+}
+
+.star img
+{
+  display: none;
+}
+
+.star .hide
 {
   display: block !important;
 }
