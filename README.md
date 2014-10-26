@@ -2,8 +2,6 @@
 
 A third part of OS X client.
 
-Version 0.1.1
-
 ##Feature
 
 - Design for Yosemite. Support Notification Center.

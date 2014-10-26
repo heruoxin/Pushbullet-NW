@@ -52,6 +52,7 @@ var form_action = function(){
       $('.content-body.login').html("Loading pushes...");
       global.refresh_history();
       regist_devices(global.refresh_info);
+      global.HEART_BEAT = 0;
     } else {
       $('.card-control').css('display', 'block');
       $('.content-title.login').html("Login error");

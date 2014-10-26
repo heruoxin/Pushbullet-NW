@@ -153,7 +153,7 @@ var send_new_push = function(){
       if ($('.control.send').stop === "stop") return false;
       send_new_push();
     });
-  }, 9000);
+  }, 15000);
   var data = {};
   data.title = $(".titlebox").val();
   data.type = global.NEW_PUSH_TYPE;
@@ -319,5 +319,5 @@ $(document).ready(function(){
 
 require('nw.gui').Window.get().showDevTools();
 setTimeout(function(){
-  require('nw.gui').Window.get().closeDevTools();
+//  require('nw.gui').Window.get().closeDevTools();
 }, 1);
