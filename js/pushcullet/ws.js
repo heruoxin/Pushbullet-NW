@@ -12,11 +12,23 @@ try {
   return console.error(e);
 }
 
+var go_green = function(){
+  setTimeout(function(){
+    $('.control-window').css({'background-color': '#68c14f'});
+    $('#menu-bar').css({'background-color': '#68c14f'});
+  }, 10);
+  setTimeout(function(){
+    $('.control-window').css({'background-color': '#f6f6f6'});
+    $('#menu-bar').css({'background-color': '#f6f6f6'});
+  }, 620);
+};
+
 var start_ws = function() {
   global.HEART_BEAT = 2;
   var connection = new WebSocket('wss://stream.pushbullet.com/websocket/' + token);
   connection.on('open', function(e) {
     console.log('ws open: %s', new Date());
+    go_green();
   });
   connection.on('message', function(e) {
     $('.control-window p').html(" ");
@@ -30,14 +42,7 @@ var start_ws = function() {
         global.HEART_BEAT += 1;
       break;
       case 'tickle':
-        setTimeout(function(){
-          $('.control-window').css({'background-color': '#68c14f'});
-          $('#menu-bar').css({'background-color': '#68c14f'});
-        }, 10);
-        setTimeout(function(){
-          $('.control-window').css({'background-color': '#f6f6f6'});
-          $('#menu-bar').css({'background-color': '#f6f6f6'});
-        }, 620);
+        go_green();
         if (e.subtype === 'device'){ // device list updated
         global.refresh_info();
         setTimeout(regist_devices, 10000);
@@ -59,8 +64,15 @@ var start_ws = function() {
   return connection;
 };
 
+var restart_ws = function(){
+  try {
+    global.ws.close();
+  } catch(e) {}
+  global.ws = new start_ws();
+};
+
 global.HEART_BEAT = 2;
-var ws = new start_ws();
+restart_ws();
 setInterval(function(){ //HeartBeat check
   if (global.HEART_BEAT-- <= 0){
     global.HEART_BEAT = 2;
@@ -71,9 +83,8 @@ setInterval(function(){ //HeartBeat check
       $('.control-window p').html("offline");
     }, 5000);
     console.warn("ws try to restart", new Date());
-    ws.close();
-    ws = new start_ws();
+    restart_ws();
   }
 },30000);
 
-
+module.exports = restart_ws();
