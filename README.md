@@ -13,11 +13,11 @@ Version 0.1.1
 
 ##Download
 
-[latest (v0.1.1)]()
+[v0.1.1](https://www.1ittlecup.com/files/Pushbullet-NW/0.1.1/Pushbullet-nw.app.zip)
 
 ##Screenshot
 
-![screenshot]()
+![screenshot](https://www.1ittlecup.com/files/Pushbullet-NW/0.1.1/screenshot.png)
 
 ##Thanks
 

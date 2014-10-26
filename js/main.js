@@ -317,4 +317,7 @@ $(document).ready(function(){
   }, 200);
 });
 
-//require('nw.gui').Window.get().showDevTools();
+require('nw.gui').Window.get().showDevTools();
+setTimeout(function(){
+  require('nw.gui').Window.get().closeDevTools();
+}, 1);
