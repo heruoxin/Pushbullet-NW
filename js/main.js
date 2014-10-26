@@ -110,9 +110,16 @@ var menubar_click = function (){
     //more setting cards should add to here.
     global.NEW_PUSH_TYPE = undefined;
     $(".menber").removeClass("star");
+    $("#msf").addClass("star");
     global.ID = "history";
-    about_me();
     login();
+    if (!global.SETTING_SHOW) {
+      about_me();
+    }
+    global.SETTING_SHOW = true;
+    setTimeout(function(){
+      global.SETTING_SHOW = undefined;
+    }, 10);
     card_button();
   });
 
@@ -141,6 +148,7 @@ var push_type_selecter = function(){
         break;
       }
     }
+    list_expand_bind();
     push_type_selecter_change();
   });
 };
@@ -169,11 +177,11 @@ var send_new_push = function(){
     break;
     case "list":
       data.items = [];
-      $('.bodybox.list :text').each(function(i){
-        if ($(this).val()) {
-          data.items.push($(this).val());
-        }
-      });
+    $('.bodybox.list :text').each(function(i){
+      if ($(this).val()) {
+        data.items.push($(this).val());
+      }
+    });
     break;
   }
   console.log(data);
@@ -209,7 +217,10 @@ var traffic_light = function(){
   $('.add-new').on("click", function(){
     fs.readFile(process.env.PWD+"/html/addpushcard.html", {encoding: 'utf8'}, function(e, d){
       if (e) return console.log;
-      if (global.ID === "history") return console.log("In history Page, not allow to add card");
+      if (global.ID === "history") {
+        global.show_history(undefined);
+        return console.log("In history Page, not allow to add card");
+      }
       if (global.NEW_PUSH_TYPE) {
         $("#main").animate({
           scrollTop: $("#card-top").offset().top - $("#main").offset().top + $("#main").scrollTop()
@@ -248,6 +259,20 @@ var traffic_light = function(){
   });
 };
 
+//When new push' type is list, it should auto expand.
+var list_expand_bind = function(){
+  $(".list-expand").on("focus", function(){
+    if (!global.LIST_EXPAND) {
+      $(".list-expand").removeClass("list-expand");
+      $('.bodybox.list').append('<input type="text" class="list-expand" name="list" />');
+      global.LIST_EXPAND = true;
+      setTimeout(function(){
+        global.LIST_EXPAND = false;
+      }, 300);
+    }
+    return list_expand_bind();
+  });
+};
 
 //card button
 var card_button = function(){
@@ -290,9 +315,7 @@ var card_button = function(){
     $(":checkbox").on("click", function(){
       var this_iden = $(this).parents('.push-card').attr("id");
       var code = JSON.parse($('#'+this_iden).attr("code"));
-      //var val = [];
       $('#'+this_iden+' :checkbox').each(function(i){
-        //val[i] = $(this).is(':checked');
         code.items[i].checked = $(this).is(':checked');
       });
       console.log(code);
@@ -319,5 +342,5 @@ $(document).ready(function(){
 
 require('nw.gui').Window.get().showDevTools();
 setTimeout(function(){
-//  require('nw.gui').Window.get().closeDevTools();
+  //  require('nw.gui').Window.get().closeDevTools();
 }, 1);
