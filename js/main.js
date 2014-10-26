@@ -114,6 +114,7 @@ var menubar_click = function (){
     login();
     if (!global.SETTING_SHOW) {
       about_me();
+      alfred_workflow();
     }
     global.SETTING_SHOW = true;
     setTimeout(function(){
@@ -128,6 +129,15 @@ var about_me = function(){
   fs.readFile(process.env.PWD+'/html/aboutme.html',{encoding: 'utf8'}, function(e, d){
     if (e) return console.log;
     $("#push-list").prepend(d);
+  });
+};
+
+var alfred_workflow = function(){
+  fs.readFile(process.env.PWD+'/html/alfredworkflow.html',{encoding: 'utf8'}, function(e, d){
+    if (e) return console.log;
+    setTimeout(function(){
+      $("#push-list").prepend(d);
+    },50);
   });
 };
 
@@ -341,5 +351,5 @@ $(document).ready(function(){
 
 require('nw.gui').Window.get().showDevTools();
 setTimeout(function(){
-    require('nw.gui').Window.get().closeDevTools();
+  require('nw.gui').Window.get().closeDevTools();
 }, 1);
