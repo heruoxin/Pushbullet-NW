@@ -77,7 +77,6 @@ global.show_history = function(id){
     global.ID = id || "everypush";
     global.NEW_PUSH_TYPE = undefined;
     //
-    console.log("the ID is:", global.ID);
     $(".menber").removeClass("star");
     $("#"+global.ID).addClass("star");
     //
@@ -342,5 +341,5 @@ $(document).ready(function(){
 
 require('nw.gui').Window.get().showDevTools();
 setTimeout(function(){
-  //  require('nw.gui').Window.get().closeDevTools();
+    require('nw.gui').Window.get().closeDevTools();
 }, 1);
