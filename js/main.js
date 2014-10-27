@@ -351,5 +351,5 @@ $(document).ready(function(){
 
 require('nw.gui').Window.get().showDevTools();
 setTimeout(function(){
-  require('nw.gui').Window.get().closeDevTools();
+//  require('nw.gui').Window.get().closeDevTools();
 }, 1);

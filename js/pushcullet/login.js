@@ -17,7 +17,7 @@ var login_card = [
   '            </h2>',
   '            <div class="content-body login">',
 
-  '<p>Copy <a href="https://www.pushbullet.com/account">Token</a> & Paste here:</p>',
+  '<p>Copy Token <a href="https://www.pushbullet.com/account">from this link</a> and Paste here:</p>',
   '<p style="color: white;font-size: 5px;height: 5px;"> _(:3 」∠)_ </p>',
   '<form id="loginform" action="">',
   '<input type="text" id="tokenbox" name="token" />',
