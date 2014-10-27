@@ -25,6 +25,10 @@
 
   background-color: white;
 }
+.new-card .card-main
+{
+  min-height: 59px !important;
+}
 .content-body
 {
   line-height: 140%;

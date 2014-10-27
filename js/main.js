@@ -104,7 +104,6 @@ global.show_info = function(){
 
 var menubar_click = function (){
   $(".menber").on("click", function(obj){
-    console.log('.menber click:',obj.currentTarget.id);
     $('#push-list').html('');
     if (obj.currentTarget.id !== "msf") return global.show_history(obj.currentTarget.id);
     //more setting cards should add to here.
