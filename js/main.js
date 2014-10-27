@@ -99,6 +99,7 @@ global.show_info = function(){
     return require('./js/pushcullet/show_devices_contacts_list')(menubar_click);
   } catch (e) {
     //    global.add_error_card("Refresh devices list error", e);
+    console.error("global.show_info", e);
   }
 };
 
@@ -113,8 +114,8 @@ var menubar_click = function (){
     global.ID = "history";
     login();
     if (!global.SETTING_SHOW) {
-      about_me();
       alfred_workflow();
+      about_me();
     }
     global.SETTING_SHOW = true;
     setTimeout(function(){
@@ -135,20 +136,20 @@ var about_me = function(){
 var alfred_workflow = function(){
   fs.readFile(process.cwd()+'/html/alfredworkflow.html',{encoding: 'utf8'}, function(e, d){
     if (e) return console.log;
-    setTimeout(function(){
-      $("#push-list").prepend(d);
-    },50);
+    $("#push-list").prepend(d);
   });
 };
 
-var push_type_selecter_change = function(){
+var push_type_selecter_change = function(type){
   $(".imgbox").css({display: "none"});
   $(".bodybox").css({display: "none"});
-  $("."+global.NEW_PUSH_TYPE).css({display: "block"});
+  $("."+type).css({display: "block"});
+  if($('.titlebox').val()) return;
+  $('.titlebox').attr("placeholder", type+" title");
 };
 
 var push_type_selecter = function(){
-  push_type_selecter_change();
+  push_type_selecter_change(global.NEW_PUSH_TYPE);
   var push_type_list = ["note", "link", "address", "list"];
   $(".content-title img").on("click", function(){
     for (var i in push_type_list) {
@@ -158,7 +159,7 @@ var push_type_selecter = function(){
       }
     }
     list_expand_bind();
-    push_type_selecter_change();
+    push_type_selecter_change(global.NEW_PUSH_TYPE);
   });
 };
 
@@ -273,7 +274,7 @@ var list_expand_bind = function(){
   $(".list-expand").on("focus", function(){
     if (!global.LIST_EXPAND) {
       $(".list-expand").removeClass("list-expand");
-      $('.bodybox.list').append('<input type="text" class="list-expand" name="list" />');
+      $('.bodybox.list').append('<input type="text" class="list-expand" name="list" placeholder="item (optional)" />');
       global.LIST_EXPAND = true;
       setTimeout(function(){
         global.LIST_EXPAND = false;
@@ -333,23 +334,22 @@ var card_button = function(){
   }, 100);
 };
 
-global.show_info();
-global.show_history();
-global.refresh_info();
-global.refresh_history();
-process.on("uncaughtException", function(e){
-  console.error("uncaughtException:", e);
-});
-
 $(document).ready(function(){
   setTimeout(function(){
+    //show & bind
+    global.show_info();
+    global.show_history();
+    global.refresh_info();
+    global.refresh_history();
     traffic_light();
+    //catch error
+    process.on("uncaughtException", function(e){
+      console.error("uncaughtException:", e);
+    });
     //start ws
     require('./js/pushcullet/ws');
-  }, 200);
+  }, 10);
 });
 
-require('nw.gui').Window.get().showDevTools();
-setTimeout(function(){
-//  require('nw.gui').Window.get().closeDevTools();
-}, 1);
+//require('nw.gui').Window.get().showDevTools();
+
