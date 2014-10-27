@@ -51,7 +51,6 @@ var form_action = function(){
       $('.content-body.login').html("Loading pushes...");
       $('.control.expand').html('<p>Please wait...</p>');
       global.refresh_history();
-      global.refresh_info();
       global.HEART_BEAT = 0;
     } else {
       $('.card-control').css('display', 'block');
