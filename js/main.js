@@ -127,14 +127,14 @@ var menubar_click = function (){
 };
 
 var about_me = function(){
-  fs.readFile(process.env.PWD+'/html/aboutme.html',{encoding: 'utf8'}, function(e, d){
+  fs.readFile(process.cwd()+'/html/aboutme.html',{encoding: 'utf8'}, function(e, d){
     if (e) return console.log;
     $("#push-list").prepend(d);
   });
 };
 
 var alfred_workflow = function(){
-  fs.readFile(process.env.PWD+'/html/alfredworkflow.html',{encoding: 'utf8'}, function(e, d){
+  fs.readFile(process.cwd()+'/html/alfredworkflow.html',{encoding: 'utf8'}, function(e, d){
     if (e) return console.log;
     setTimeout(function(){
       $("#push-list").prepend(d);
@@ -225,7 +225,7 @@ var traffic_light = function(){
     win.toggleFullscreen();
   });
   $('.add-new').on("click", function(){
-    fs.readFile(process.env.PWD+"/html/addpushcard.html", {encoding: 'utf8'}, function(e, d){
+    fs.readFile(process.cwd()+"/html/addpushcard.html", {encoding: 'utf8'}, function(e, d){
       if (e) return console.log;
       if (global.ID === "history") {
         global.show_history(undefined);
