@@ -11,9 +11,7 @@ Unofficial pushbullet node-webkit OS X client.
 
 ##Download
 
-[v0.1.1](https://www.1ittlecup.com/files/Pushbullet-NW/0.1.1/Pushbullet-nw.app.zip)
-
-[v0.1.2(latest)](https://www.1ittlecup.com/files/Pushbullet-NW/0.1.2/Pushbullet-nw.app.zip)
+[v0.1.3](https://www.1ittlecup.com/files/Pushbullet-NW/0.1.3/Pushbullet-nw.app.zip)
 
 ##Screenshot
 
