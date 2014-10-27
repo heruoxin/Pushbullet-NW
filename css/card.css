@@ -50,6 +50,7 @@
 {
   width: auto !important;
   height: 15px !important;
+  min-height: 15px !important;
   display: inline-block;
   cursor: pointer;
 }
