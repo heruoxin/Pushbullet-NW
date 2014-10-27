@@ -44,12 +44,13 @@ global.add_error_card = function(title, e){
   $("#push-list").append(error_card);
 };
 
-global.refresh_info = function(token, cb){
+global.refresh_info = function(token, options, cb){
   try {
-    require('./js/pushcullet/refresh_devices_contacts')(token, function(status, info){
+    require('./js/pushcullet/refresh_devices_contacts')(token, options, function(status, info){
       if (typeof cb === 'function'){
         cb(status, info);
       }
+      regist_devices();
       global.show_info();
     });
   } catch (e) {
@@ -335,7 +336,7 @@ var card_button = function(){
 
 global.show_info();
 global.show_history();
-regist_devices(global.refresh_info);
+global.refresh_info();
 global.refresh_history();
 process.on("uncaughtException", function(e){
   console.error("uncaughtException:", e);

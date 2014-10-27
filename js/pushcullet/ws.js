@@ -1,6 +1,5 @@
 var WebSocket = require('ws');
 var send_notification = require('./send_notification');
-var regist_devices = require('./regist_devices');
 if (!global.hasOwnProperty("$")){
   global.$ = require('jquery');
 }
@@ -45,7 +44,6 @@ var start_ws = function() {
         go_green();
         if (e.subtype === 'device'){ // device list updated
         global.refresh_info();
-        setTimeout(regist_devices, 10000);
       } else { // pushes updated
         global.refresh_history(15);
       }

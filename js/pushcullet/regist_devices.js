@@ -33,6 +33,7 @@ module.exports = function (cb) {
 
   for (var i in info.devices) {
     if (info.devices[i].model === post_data.model) { //has registed
+      //这个要重写！！！
       if (typeof cb === 'function') cb();
       return console.warn('this devices has registed.');
     }
@@ -58,6 +59,7 @@ module.exports = function (cb) {
       d = JSON.parse(d);
       if (e) {return console.error(e);}
       console.log(d);
+      global.refresh_info(info.token, {this_device_iden: d.iden});
       if (typeof cb === 'function') cb(d.iden);
     }));
   });

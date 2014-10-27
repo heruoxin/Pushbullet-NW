@@ -1,14 +1,18 @@
 var fs = require('fs');
 var https = require('https');
 
-module.exports = function(token, next){
+module.exports = function(token, options, next){
 
+  options = options || {};
   var old_info;
-  var options = {};
   if (!token) {
     old_info = require(process.env.HOME+'/Library/Preferences/com.1ittlecup.pushcullet.info.json');
     token = old_info.token;
     options = old_info.options;
+    for (var i in old_info.options) {
+      if (options.hasOwnProperty(i)) continue;
+      options[i] =old_info.options[i];
+    }
   }
 
   var info = {

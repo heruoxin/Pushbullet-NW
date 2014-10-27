@@ -1,4 +1,3 @@
-var regist_devices = require('./regist_devices');
 
 if (!global.hasOwnProperty("$")){
   global.$ = require('jquery');
@@ -45,14 +44,14 @@ var form_action = function(){
   console.log('token',token);
   $('.control.expand').addClass('loading');
   $('.control.expand').html('<p>Saving...</p>');
-  global.refresh_info(token, function(status, info){
+  global.refresh_info(token, undefined, function(status, info){
     $('.content-title.login').html(info);
     console.log(status, info);
     if (status) {
       $('.content-body.login').html("Loading pushes...");
       $('.control.expand').html('<p>Please wait...</p>');
       global.refresh_history();
-      regist_devices(global.refresh_info);
+      global.refresh_info();
       global.HEART_BEAT = 0;
     } else {
       $('.card-control').css('display', 'block');
