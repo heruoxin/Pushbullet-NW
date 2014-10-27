@@ -6,13 +6,13 @@ var bl = require('bl');
 //regist a new device
 module.exports = function (cb) {
 
-  var fingerprint = {};
-  require('getmac').getMac(function(err,macAddress){
-    if (err)  throw err;
-    fingerprint.mac_address = macAddress;
-    fingerprint.cpu = os.cpus()[0].model;
-    fingerprint = JSON.stringify(fingerprint).replace(/"/g, '\\"');
-  });
+//  var fingerprint = {};
+//  require('getmac').getMac(function(err,macAddress){
+//    if (err)  throw err;
+//    fingerprint.mac_address = macAddress;
+//    fingerprint.cpu = os.cpus()[0].model;
+//    fingerprint = JSON.stringify(fingerprint).replace(/"/g, '\\"');
+//  });
 
   var info;
   try {
@@ -32,7 +32,7 @@ module.exports = function (cb) {
   };
 
   for (var i in info.devices) {
-    if (info.devices[i].model === post_data.model) { //has registed
+    if (info.devices[i].type === "stream") { //has registed
       //这个要重写！！！
       if (typeof cb === 'function') cb();
       return console.warn('this devices has registed.');
