@@ -84,7 +84,7 @@ module.exports = function(cb){
       '">',
       '<img src="./icons/contacts.png"/>',
       //Gravatar
-      '<img class="hide" src="https://cdn.v2ex.com/gravatar/',
+      '<img class="circular hide" src="https://cdn.v2ex.com/gravatar/',
       md5(info.contacts[j].email_normalized),
       '.png?s=150&d=https%3A%2F%2Fraw.githubusercontent.com%2Fheruoxin%2FPushbullet-NW%2Fmaster%2Ficons%2Fgreen-menu-bar%2Fcontacts.png" />',
       //

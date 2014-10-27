@@ -105,6 +105,7 @@
 {
   width: 100%;
   height: auto;
+  min-height: 30px;
 }
 .card-content input
 {
