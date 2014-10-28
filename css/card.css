@@ -1,16 +1,3 @@
-@keyframes loading-frame
-{
-  0% {background-color: #82d072;}
-  50% {background-color: #ffffff;}
-  100% {background-color: #82d072;}
-}
-@-webkit-keyframes loading-frame
-{
-  0% {background-color: #82d072;}
-  50% {background-color: #ffffff;}
-  100% {background-color: #82d072;}
-}
-
 .push-card
 {
   position: relative;
@@ -158,13 +145,7 @@
   background-color: #82d072;
   width: 100%;
 }
-.loading
-{
-  animation: loading-frame 3s;
-  -webkit-animation: loading-frame 3s;
-  animation-iteration-count: infinite;
-  -webkit-animation-iteration-count: infinite;
-}
+
 .open
 {
   border-right-style: solid;

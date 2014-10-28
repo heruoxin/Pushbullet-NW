@@ -1,0 +1,21 @@
+@-webkit-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+.fadein
+{
+  -webkit-animation: fadein 0.4s;
+}
+
+
+@-webkit-keyframes loading
+{
+  0% {background-color: #82d072;}
+  50% {background-color: #ffffff;}
+  100% {background-color: #82d072;}
+}
+.loading
+{
+  -webkit-animation: loading 3s;
+  -webkit-animation-iteration-count: infinite;
+}
