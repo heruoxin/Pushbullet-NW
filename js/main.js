@@ -162,6 +162,10 @@ global.add_new_push = function(){
     });
 };
 
+global.show_dev_tools = function(){
+  require('nw.gui').Window.get().showDevTools();
+};
+
 var menubar_click = function (){
   $(".menber").on("click", function(obj){
     if (obj.currentTarget.id !== "msf") return global.show_history(obj.currentTarget.id);
@@ -361,6 +365,3 @@ $(document).ready(function(){
     require('./js/pushcullet/ws');
   }, 10);
 });
-
-require('nw.gui').Window.get().showDevTools();
-

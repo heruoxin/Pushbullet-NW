@@ -14,5 +14,9 @@ $(window).keydown(function(event){
     case 84: //cmd+t add new card
       global.add_new_push();
     break;
+    case 73: //cmd+opt+i show dev tools
+    case 40: //cmd+opt+j show dev tools
+      global.show_dev_tools();
+    break;
   }
 });
