@@ -177,8 +177,10 @@ module.exports = function (ids){
     ];
     _out.push(tmp_string.join(''));
   }
-  _out.push('</items>');
-  _out.push('<div style="height: 24px"></div>');
-  _out.push('');
+  if (_out.length === 0){ //#push-list is empty
+    _out.push('<div class="center">No pushes</div>');
+  } else { //height fix
+    _out.push('<div style="height: 22px"></div>');
+  }
   return $("#push-list").html(_out.join(''));
 };

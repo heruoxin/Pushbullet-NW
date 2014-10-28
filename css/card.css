@@ -145,6 +145,12 @@
   background-color: #82d072;
   width: 100%;
 }
+#push-list .center
+{
+  position: absolute;
+  margin: 100% 100px;
+  color: #a8aeb0;
+}
 
 .open
 {
