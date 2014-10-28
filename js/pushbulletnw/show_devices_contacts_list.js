@@ -16,6 +16,11 @@ var md5 = function(text){
   return crypto.createHash('md5').update(String(text)).digest('hex');
 };
 
+var get_img =function(i){
+  if (i.image_url) return i.image_url;
+  return "https://cdn.v2ex.com/gravatar/"+md5(i.email_normalized)+".png?s=150&d=https%3A%2F%2Fraw.githubusercontent.com%2Fheruoxin%2FPushbullet-NW%2Fmaster%2Ficons%2Fgreen-menu-bar%2Fcontacts.png";
+};
+
 module.exports = function(cb){
 
   var info = JSON.parse( fs.readFileSync(process.env.HOME+'/Library/Preferences/com.1ittlecup.pushbulletnw.info.json', {encoding: 'utf8'}) );
@@ -84,9 +89,9 @@ module.exports = function(cb){
       '">',
       '<img src="./icons/contacts.png"/>',
       //Gravatar
-      '<img class="circular hide" src="https://cdn.v2ex.com/gravatar/',
-      md5(info.contacts[j].email_normalized),
-      '.png?s=150&d=https%3A%2F%2Fraw.githubusercontent.com%2Fheruoxin%2FPushbullet-NW%2Fmaster%2Ficons%2Fgreen-menu-bar%2Fcontacts.png" />',
+      '<img class="circular hide" src="',
+      get_img(info.contacts[j]),
+      '" />',
       //
       '<div class="detail">',
       '<h5>',
