@@ -6,6 +6,7 @@ var new_push = require('./js/pushcullet/new_push');
 var send_notification = require('./js/pushcullet/send_notification');
 var regist_devices = require('./js/pushcullet/regist_devices');
 var animate = require('./js/pushcullet/animation');
+var keybind = require('./js/pushcullet/keybind');
 
 if (!global.hasOwnProperty("$")){
   global.$ = require('jquery');
@@ -105,26 +106,30 @@ global.show_info = function(){
   }
 };
 
+global.open_setting = function(){
+  $('#push-list').html('');
+  global.NEW_PUSH_TYPE = undefined;
+  $(".menber").removeClass("star");
+  $("#msf").addClass("star");
+  global.ID = "history";
+  login();
+  if (!global.SETTING_SHOW) {
+    //more setting cards should add to here.
+    alfred_workflow();
+    about_me();
+  }
+  animate.fadein('#push-list');
+  global.SETTING_SHOW = true;
+  setTimeout(function(){
+    global.SETTING_SHOW = undefined;
+  }, 10);
+  card_button();
+};
+
 var menubar_click = function (){
   $(".menber").on("click", function(obj){
-    $('#push-list').html('');
     if (obj.currentTarget.id !== "msf") return global.show_history(obj.currentTarget.id);
-    //more setting cards should add to here.
-    global.NEW_PUSH_TYPE = undefined;
-    $(".menber").removeClass("star");
-    $("#msf").addClass("star");
-    global.ID = "history";
-    login();
-    if (!global.SETTING_SHOW) {
-      alfred_workflow();
-      about_me();
-    }
-    animate.fadein('#push-list');
-    global.SETTING_SHOW = true;
-    setTimeout(function(){
-      global.SETTING_SHOW = undefined;
-    }, 10);
-    card_button();
+    global.open_setting();
   });
 };
 
