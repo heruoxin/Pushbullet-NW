@@ -66,9 +66,20 @@ global.refresh_info = function(token, options, cb){
 
 global.refresh_history = function(time){
   try {
-    return require('./js/pushbulletnw/refresh_push_history')(time, function(){
-      global.show_history(global.ID);
-    });
+    if (time === "syncing_changes"){
+      var file_path = process.env.HOME+'/Library/Preferences/com.1ittlecup.pushbulletnw.history.json';
+      fs.stat(file_path, function (err, stats) {
+        if (err) throw err;
+        time = Number(new Date())/1000 - Number(new Date(stats.mtime))/1000;
+        return require('./js/pushbulletnw/refresh_push_history')(time, function(){
+          global.show_history(global.ID);
+        });
+      });
+    } else {
+      return require('./js/pushbulletnw/refresh_push_history')(time, function(){
+        global.show_history(global.ID);
+      });
+    }
   } catch (e) {
     //    global.add_error_card("Refresh push history error", e);
     console.error('global.refresh_history:', e);
@@ -83,7 +94,8 @@ global.show_history = function(id){
     $(".menber").removeClass("star");
     $("#"+global.ID).addClass("star");
     //
-    console.log('show_history:',global.ID);
+
+    //console.log('show_history:',global.ID);
     if (global.ID === "everypush"){
       require('./js/pushbulletnw/show_push_history')();
     } else {
@@ -127,39 +139,39 @@ global.open_setting = function(){
 };
 
 global.add_new_push = function(){
-    fs.readFile(process.cwd()+"/html/addpushcard.html", {encoding: 'utf8'}, function(e, d){
-      if (e) return console.log;
-      if (global.ID === "history") {
-        global.show_history(undefined);
-        return console.log("In history Page, not allow to add card");
-      }
-      if (global.NEW_PUSH_TYPE) {
-        $("#main").animate({
-          scrollTop: $("#card-top").offset().top - $("#main").offset().top + $("#main").scrollTop()
-        });
-        return console.log("Already adding");
-      }
-      global.NEW_PUSH_TYPE = 'note';
-      $("#push-list").prepend(d);
-      //new card
+  fs.readFile(process.cwd()+"/html/addpushcard.html", {encoding: 'utf8'}, function(e, d){
+    if (e) return console.log;
+    if (global.ID === "history") {
+      global.show_history(undefined);
+      return console.log("In history Page, not allow to add card");
+    }
+    if (global.NEW_PUSH_TYPE) {
       $("#main").animate({
         scrollTop: $("#card-top").offset().top - $("#main").offset().top + $("#main").scrollTop()
       });
-      push_type_selecter();
-      setTimeout(function(){
-        $(".bodybox").submit(function(obj){
-          if ($('.control.send').stop === "stop") return false;
-          send_new_push();
-        });
-        $(".send").on("click", function(obj){
-          if ($('.control.send').stop === "stop") return false;
-          send_new_push();
-        });
-        $(".cancel").on("click", function(){
-          cancel_push();
-        });
-      }, 100);
+      return console.log("Already adding");
+    }
+    global.NEW_PUSH_TYPE = 'note';
+    $("#push-list").prepend(d);
+    //new card
+    $("#main").animate({
+      scrollTop: $("#card-top").offset().top - $("#main").offset().top + $("#main").scrollTop()
     });
+    push_type_selecter();
+    setTimeout(function(){
+      $(".bodybox").submit(function(obj){
+        if ($('.control.send').stop === "stop") return false;
+        send_new_push();
+      });
+      $(".send").on("click", function(obj){
+        if ($('.control.send').stop === "stop") return false;
+        send_new_push();
+      });
+      $(".cancel").on("click", function(){
+        cancel_push();
+      });
+    }, 100);
+  });
 };
 
 global.show_dev_tools = function(){
@@ -357,7 +369,7 @@ $(document).ready(function(){
     global.show_info();
     global.show_history();
     global.refresh_info();
-    global.refresh_history();
+    global.refresh_history("syncing_changes");
     traffic_light();
     //catch error
     process.on("uncaughtException", function(e){

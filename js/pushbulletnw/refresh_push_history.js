@@ -39,7 +39,6 @@ module.exports = function (time, cb) {
       if (o.path.indexOf("?") > 0) o.path += ('&cursor='+cursor);
       else o.path += ('?cursor='+cursor);
     }
-    console.warn(o.path);
     var req = https.request(o, function(res) {
       var push_history ='';
       res.setEncoding('utf8');
@@ -61,7 +60,6 @@ module.exports = function (time, cb) {
           return console.error(error);
         }
         p = answers.pushes;
-        console.log(answers);
         for (var k in pre_answers_pushes) {
           if (p.hasOwnProperty(k)) continue;
           p[k] = pre_answers_pushes[k];

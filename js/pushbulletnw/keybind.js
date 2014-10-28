@@ -4,8 +4,8 @@ if (!global.hasOwnProperty("$")){
 var $ = global.$;
 
 $(window).keydown(function(event){
-  console.log(event.which);
   //cmd = 91
+  //console.log(event.which);
   switch (event.which) {
     case 188: //cmd+, setting
       global.open_setting();
