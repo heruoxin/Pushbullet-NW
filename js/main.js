@@ -87,6 +87,7 @@ global.show_history = function(id){
     } else {
       require('./js/pushcullet/show_push_history')(global.ID);
     }
+    fadein('#push-list');
     card_button();
   } catch (e) {
     //    global.add_error_card("Show push history error", e);
@@ -117,14 +118,22 @@ var menubar_click = function (){
       alfred_workflow();
       about_me();
     }
+    fadein('#push-list');
     global.SETTING_SHOW = true;
     setTimeout(function(){
       global.SETTING_SHOW = undefined;
     }, 10);
     card_button();
   });
-
 };
+
+var fadein = function(id){
+  $(id).removeClass('fadein');
+  $(id).addClass('fadein');
+  setTimeout(function(){
+    $(id).removeClass('fadein');
+  }, 400);
+}
 
 var about_me = function(){
   fs.readFile(process.cwd()+'/html/aboutme.html',{encoding: 'utf8'}, function(e, d){
@@ -351,5 +360,5 @@ $(document).ready(function(){
   }, 10);
 });
 
-//require('nw.gui').Window.get().showDevTools();
+require('nw.gui').Window.get().showDevTools();
 
