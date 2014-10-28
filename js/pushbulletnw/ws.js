@@ -20,7 +20,7 @@ var start_ws = function() {
   global.HEART_BEAT = 2;
   var token;
   try {
-    token = require(process.env.HOME+'/Library/Preferences/com.1ittlecup.pushcullet.info.json').token;
+    token = require(process.env.HOME+'/Library/Preferences/com.1ittlecup.pushbulletnw.info.json').token;
   } catch(e) {
     return console.error("No token file:", e);
   }

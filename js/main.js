@@ -1,12 +1,12 @@
 var gui = require('nw.gui');
 var fs = require('fs');
 var exec = require('child_process').exec;
-var login = require('./js/pushcullet/login');
-var new_push = require('./js/pushcullet/new_push');
-var send_notification = require('./js/pushcullet/send_notification');
-var regist_devices = require('./js/pushcullet/regist_devices');
-var animate = require('./js/pushcullet/animation');
-var keybind = require('./js/pushcullet/keybind');
+var login = require('./js/pushbulletnw/login');
+var new_push = require('./js/pushbulletnw/new_push');
+var send_notification = require('./js/pushbulletnw/send_notification');
+var regist_devices = require('./js/pushbulletnw/regist_devices');
+var animate = require('./js/pushbulletnw/animation');
+var keybind = require('./js/pushbulletnw/keybind');
 
 if (!global.hasOwnProperty("$")){
   global.$ = require('jquery');
@@ -48,7 +48,7 @@ global.add_error_card = function(title, e){
 
 global.refresh_info = function(token, options, cb){
   try {
-    require('./js/pushcullet/refresh_devices_contacts')(token, options, function(status, info){
+    require('./js/pushbulletnw/refresh_devices_contacts')(token, options, function(status, info){
       if (typeof cb === 'function'){
         cb(status, info);
       }
@@ -66,7 +66,7 @@ global.refresh_info = function(token, options, cb){
 
 global.refresh_history = function(time){
   try {
-    return require('./js/pushcullet/refresh_push_history')(time, function(){
+    return require('./js/pushbulletnw/refresh_push_history')(time, function(){
       global.show_history(global.ID);
     });
   } catch (e) {
@@ -85,9 +85,9 @@ global.show_history = function(id){
     //
     console.log('show_history:',global.ID);
     if (global.ID === "everypush"){
-      require('./js/pushcullet/show_push_history')();
+      require('./js/pushbulletnw/show_push_history')();
     } else {
-      require('./js/pushcullet/show_push_history')(global.ID);
+      require('./js/pushbulletnw/show_push_history')(global.ID);
     }
     animate.fadein('#push-list');
     card_button();
@@ -99,7 +99,7 @@ global.show_history = function(id){
 
 global.show_info = function(){
   try {
-    return require('./js/pushcullet/show_devices_contacts_list')(menubar_click);
+    return require('./js/pushbulletnw/show_devices_contacts_list')(menubar_click);
   } catch (e) {
     //    global.add_error_card("Refresh devices list error", e);
     console.error("global.show_info", e);
@@ -325,7 +325,7 @@ var card_button = function(){
         'max-height': 0,
         'min-height': 0,
       });
-      return require('./js/pushcullet/delete_push')(id, created);
+      return require('./js/pushbulletnw/delete_push')(id, created);
     });
     //a click
     $("a").on("click", function(obj){
@@ -352,7 +352,7 @@ var card_button = function(){
 $(document).ready(function(){
   setTimeout(function(){
     //start ws
-    require('./js/pushcullet/ws');
+    require('./js/pushbulletnw/ws');
     //show & bind
     global.show_info();
     global.show_history();

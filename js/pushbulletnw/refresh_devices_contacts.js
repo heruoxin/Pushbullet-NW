@@ -6,7 +6,7 @@ module.exports = function(token, options, next){
   options = options || {};
   var old_info;
   if (!token) {
-    old_info = require(process.env.HOME+'/Library/Preferences/com.1ittlecup.pushcullet.info.json');
+    old_info = require(process.env.HOME+'/Library/Preferences/com.1ittlecup.pushbulletnw.info.json');
     token = old_info.token;
     options = old_info.options;
     for (var i in old_info.options) {
@@ -79,7 +79,7 @@ module.exports = function(token, options, next){
   });
   req_2.end();
 
-  var file_path = process.env.HOME+'/Library/Preferences/com.1ittlecup.pushcullet.info.json';
+  var file_path = process.env.HOME+'/Library/Preferences/com.1ittlecup.pushbulletnw.info.json';
   var save = function(){
     if (info.hasOwnProperty("devices") && info.hasOwnProperty("contacts")){
       fs.writeFile(file_path, JSON.stringify(info, null, 4), {encoding: 'utf8'}, function(e){

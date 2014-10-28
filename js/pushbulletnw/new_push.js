@@ -7,7 +7,7 @@ var save_history = require('./save_history');
 
 module.exports = function (data, iden, cb) {
 
-  var token = require(process.env.HOME+'/Library/Preferences/com.1ittlecup.pushcullet.info.json').token;
+  var token = require(process.env.HOME+'/Library/Preferences/com.1ittlecup.pushbulletnw.info.json').token;
 
   if (!data) { return console.error("No data given!");}
 

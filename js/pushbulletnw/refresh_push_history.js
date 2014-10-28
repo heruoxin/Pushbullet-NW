@@ -9,7 +9,7 @@ module.exports = function (time, cb) {
   var info;
   var token = process.argv.slice(2)[0];
   try {
-    info = require(process.env.HOME+'/Library/Preferences/com.1ittlecup.pushcullet.info.json');
+    info = require(process.env.HOME+'/Library/Preferences/com.1ittlecup.pushbulletnw.info.json');
   } catch (e) {
     return console.error('No info config file!');
   }
@@ -60,7 +60,7 @@ module.exports = function (time, cb) {
           //it's a dirty hack.
 //          if (!info.options.this_device_iden) {
 //            var fs = require('fs');
-//            var file_path = process.env.HOME+'/Library/Preferences/com.1ittlecup.pushcullet.info.json';
+//            var file_path = process.env.HOME+'/Library/Preferences/com.1ittlecup.pushbulletnw.info.json';
 //            for (var i in info.devices) {
 //              if (info.devices[i].type === "stream") {
 //                info.options.this_device_iden = info.devices[i].iden;

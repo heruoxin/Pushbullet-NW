@@ -4,7 +4,7 @@ var save_history = require('./save_history');
 
 var token = process.argv.slice(2)[0];
 if (!token) {
-  token = require(process.env.HOME+'/Library/Preferences/com.1ittlecup.pushcullet.info.json').token;
+  token = require(process.env.HOME+'/Library/Preferences/com.1ittlecup.pushbulletnw.info.json').token;
 }
 
 //pushbullet delete push

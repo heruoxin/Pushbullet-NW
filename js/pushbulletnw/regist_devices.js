@@ -16,7 +16,7 @@ module.exports = function (cb) {
 
   var info;
   try {
-    info = JSON.parse( fs.readFileSync(process.env.HOME+'/Library/Preferences/com.1ittlecup.pushcullet.info.json', {encoding: 'utf8'}) );
+    info = JSON.parse( fs.readFileSync(process.env.HOME+'/Library/Preferences/com.1ittlecup.pushbulletnw.info.json', {encoding: 'utf8'}) );
   } catch (e) {
     if (typeof cb === 'function') cb();
     return console.error("read info error:", e);

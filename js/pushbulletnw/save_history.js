@@ -1,5 +1,5 @@
 var fs = require('fs');
-var file_path = process.env.HOME+'/Library/Preferences/com.1ittlecup.pushcullet.history.json';
+var file_path = process.env.HOME+'/Library/Preferences/com.1ittlecup.pushbulletnw.history.json';
 
 var write = function(d, cb){
   fs.writeFile(file_path, JSON.stringify(d, null, 4), function(e){

@@ -18,7 +18,7 @@ var md5 = function(text){
 
 module.exports = function(cb){
 
-  var info = JSON.parse( fs.readFileSync(process.env.HOME+'/Library/Preferences/com.1ittlecup.pushcullet.info.json', {encoding: 'utf8'}) );
+  var info = JSON.parse( fs.readFileSync(process.env.HOME+'/Library/Preferences/com.1ittlecup.pushbulletnw.info.json', {encoding: 'utf8'}) );
   var _out = [];
 
   _out.push(
