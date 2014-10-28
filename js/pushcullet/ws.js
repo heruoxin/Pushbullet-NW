@@ -5,12 +5,6 @@ if (!global.hasOwnProperty("$")){
 }
 var $ = global.$;
 
-try {
-  var token = require(process.env.HOME+'/Library/Preferences/com.1ittlecup.pushcullet.info.json').token;
-} catch(e) {
-  return console.error(e);
-}
-
 var go_green = function(){
   setTimeout(function(){
     $('.control-window').css({'background-color': '#68c14f'});
@@ -24,6 +18,12 @@ var go_green = function(){
 
 var start_ws = function() {
   global.HEART_BEAT = 2;
+  var token;
+  try {
+    token = require(process.env.HOME+'/Library/Preferences/com.1ittlecup.pushcullet.info.json').token;
+  } catch(e) {
+    return console.error("No token file:", e);
+  }
   var connection = new WebSocket('wss://stream.pushbullet.com/websocket/' + token);
   connection.on('open', function(e) {
     console.log('ws open: %s', new Date());
@@ -42,7 +42,7 @@ var start_ws = function() {
       break;
       case 'tickle':
         go_green();
-        if (e.subtype === 'device'){ // device list updated
+      if (e.subtype === 'device'){ // device list updated
         global.refresh_info();
       } else { // pushes updated
         global.refresh_history(15);
@@ -62,7 +62,7 @@ var start_ws = function() {
   return connection;
 };
 
-var restart_ws = function(){
+global.restart_ws = function(){
   try {
     global.ws.close();
   } catch(e) {}
@@ -70,7 +70,7 @@ var restart_ws = function(){
 };
 
 global.HEART_BEAT = 2;
-restart_ws();
+global.restart_ws();
 setInterval(function(){ //HeartBeat check
   if (global.HEART_BEAT-- <= 0){
     global.HEART_BEAT = 2;
@@ -81,8 +81,7 @@ setInterval(function(){ //HeartBeat check
       $('.control-window p').html("offline");
     }, 5000);
     console.warn("ws try to restart", new Date());
-    restart_ws();
+    global.restart_ws();
   }
 },30000);
 
-module.exports = restart_ws();

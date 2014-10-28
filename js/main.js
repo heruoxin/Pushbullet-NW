@@ -351,6 +351,8 @@ var card_button = function(){
 
 $(document).ready(function(){
   setTimeout(function(){
+    //start ws
+    require('./js/pushcullet/ws');
     //show & bind
     global.show_info();
     global.show_history();
@@ -361,7 +363,5 @@ $(document).ready(function(){
     process.on("uncaughtException", function(e){
       console.error("uncaughtException:", e);
     });
-    //start ws
-    require('./js/pushcullet/ws');
   }, 10);
 });

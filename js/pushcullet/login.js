@@ -1,4 +1,3 @@
-
 if (!global.hasOwnProperty("$")){
   global.$ = require('jquery');
 }
@@ -51,7 +50,7 @@ var form_action = function(){
       $('.content-body.login').html("Loading pushes...");
       $('.control.expand').html('<p>Please wait...</p>');
       global.refresh_history();
-      global.HEART_BEAT = 0;
+      global.restart_ws();
     } else {
       $('.card-control').css('display', 'block');
       $('.content-title.login').html("Login error");
