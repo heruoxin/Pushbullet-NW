@@ -126,6 +126,42 @@ global.open_setting = function(){
   card_button();
 };
 
+global.add_new_push = function(){
+    fs.readFile(process.cwd()+"/html/addpushcard.html", {encoding: 'utf8'}, function(e, d){
+      if (e) return console.log;
+      if (global.ID === "history") {
+        global.show_history(undefined);
+        return console.log("In history Page, not allow to add card");
+      }
+      if (global.NEW_PUSH_TYPE) {
+        $("#main").animate({
+          scrollTop: $("#card-top").offset().top - $("#main").offset().top + $("#main").scrollTop()
+        });
+        return console.log("Already adding");
+      }
+      global.NEW_PUSH_TYPE = 'note';
+      $("#push-list").prepend(d);
+      //new card
+      $("#main").animate({
+        scrollTop: $("#card-top").offset().top - $("#main").offset().top + $("#main").scrollTop()
+      });
+      push_type_selecter();
+      setTimeout(function(){
+        $(".bodybox").submit(function(obj){
+          if ($('.control.send').stop === "stop") return false;
+          send_new_push();
+        });
+        $(".send").on("click", function(obj){
+          if ($('.control.send').stop === "stop") return false;
+          send_new_push();
+        });
+        $(".cancel").on("click", function(){
+          cancel_push();
+        });
+      }, 100);
+    });
+};
+
 var menubar_click = function (){
   $(".menber").on("click", function(obj){
     if (obj.currentTarget.id !== "msf") return global.show_history(obj.currentTarget.id);
@@ -232,39 +268,7 @@ var traffic_light = function(){
     win.toggleFullscreen();
   });
   $('.add-new').on("click", function(){
-    fs.readFile(process.cwd()+"/html/addpushcard.html", {encoding: 'utf8'}, function(e, d){
-      if (e) return console.log;
-      if (global.ID === "history") {
-        global.show_history(undefined);
-        return console.log("In history Page, not allow to add card");
-      }
-      if (global.NEW_PUSH_TYPE) {
-        $("#main").animate({
-          scrollTop: $("#card-top").offset().top - $("#main").offset().top + $("#main").scrollTop()
-        });
-        return console.log("Already adding");
-      }
-      global.NEW_PUSH_TYPE = 'note';
-      $("#push-list").prepend(d);
-      //new card
-      $("#main").animate({
-        scrollTop: $("#card-top").offset().top - $("#main").offset().top + $("#main").scrollTop()
-      });
-      push_type_selecter();
-      setTimeout(function(){
-        $(".bodybox").submit(function(obj){
-          if ($('.control.send').stop === "stop") return false;
-          send_new_push();
-        });
-        $(".send").on("click", function(obj){
-          if ($('.control.send').stop === "stop") return false;
-          send_new_push();
-        });
-        $(".cancel").on("click", function(){
-          cancel_push();
-        });
-      }, 100);
-    });
+    global.add_new_push();
   });
   //window active or not
   var win = gui.Window.get();
