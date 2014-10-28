@@ -16,12 +16,10 @@ Unofficial pushbullet node-webkit OS X client.
 ##Screenshot
 
 <video >
-<source src="https://www.1ittlecup.com/files/Pushbullet-NW/0.1.3/screenRecord.mov" type="video/mp4">
+<source src="https://www.1ittlecup.com/files/Pushbullet-NW/0.1.3/screenRecord.mp4" type="video/mov">
 </video>
 
-<!--
 ![screenshot](https://www.1ittlecup.com/files/Pushbullet-NW/0.1.1/screenshot.png)
---!>
 
 ##Thanks
 
