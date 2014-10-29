@@ -47,7 +47,7 @@ var form_action = function(){
     $('.content-title.login').html(info);
     console.log(status, info);
     if (status) {
-      $('.content-body.login').html('Loading <p class="add-push-numbers">pushes</p>...');
+      $('.content-body.login').html('Loading <div class="add-push-numbers">pushes</div>...');
       $('.control.expand').html('<p>Please wait...</p>');
       global.refresh_history();
       global.restart_ws();

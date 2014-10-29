@@ -39,6 +39,7 @@ module.exports = function (time, cb) {
       if (o.path.indexOf("?") > 0) o.path += ('&cursor='+cursor);
       else o.path += ('?cursor='+cursor);
     }
+    console.log(o.path);
     var req = https.request(o, function(res) {
       var push_history ='';
       res.setEncoding('utf8');
@@ -61,11 +62,10 @@ module.exports = function (time, cb) {
         }
         p = answers.pushes;
         for (var k in pre_answers_pushes) {
-          if (p.hasOwnProperty(k)) continue;
+          //if (p.hasOwnProperty(k)) continue;
           p[k] = pre_answers_pushes[k];
         }
         if (answers.hasOwnProperty("cursor")){
-          console.warn(answers.cursor);
           return http_req(o, answers.cursor, p);
         }
         //console.log(JSON.parse(push_history));
