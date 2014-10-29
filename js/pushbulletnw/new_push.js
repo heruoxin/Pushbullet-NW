@@ -1,13 +1,14 @@
 var https = require('https');
 var bl = require('bl');
 var save_history = require('./save_history');
+var fs = require('fs');
 
 
 //pushbullet send new push
 
 module.exports = function (data, iden, cb) {
 
-  var token = require(process.env.HOME+'/Library/Preferences/com.1ittlecup.pushbulletnw.info.json').token;
+  var token = JSON.parse(fs.readFileSync(process.env.HOME+'/Library/Preferences/com.1ittlecup.pushbulletnw.info.json', {encoding: 'utf8'})).token;
 
   if (!data) { return console.error("No data given!");}
 
