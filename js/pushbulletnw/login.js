@@ -34,7 +34,7 @@ var login_card = [
 global.ADD_PUSH_NUMBERS = function(){
   if (!global.LOGIN) {
     global.PUSH_NUMBERS += 1;
-    $('.card-logo.login').html('<h1>'+global.PUSH_NUMBERS+'</h1>');
+    $('.add-push-numbers').html(global.PUSH_NUMBERS);
   }
 };
 var form_action = function(){
@@ -47,7 +47,7 @@ var form_action = function(){
     $('.content-title.login').html(info);
     console.log(status, info);
     if (status) {
-      $('.content-body.login').html("Loading pushes...");
+      $('.content-body.login').html('Loading <p class="add-push-numbers">pushes</p>...');
       $('.control.expand').html('<p>Please wait...</p>');
       global.refresh_history();
       global.restart_ws();
