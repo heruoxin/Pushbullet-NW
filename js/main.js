@@ -7,6 +7,7 @@ var send_notification = require('./js/pushbulletnw/send_notification');
 var regist_devices = require('./js/pushbulletnw/regist_devices');
 var animate = require('./js/pushbulletnw/animation');
 var keybind = require('./js/pushbulletnw/keybind');
+var drag_file = require('./js/pushbulletnw/drag_file');
 
 if (!global.hasOwnProperty("$")){
   global.$ = require('jquery');
@@ -158,6 +159,7 @@ global.add_new_push = function(){
       scrollTop: $("#card-top").offset().top - $("#main").offset().top + $("#main").scrollTop()
     });
     push_type_selecter();
+    drag_file.get_file_path('.bodybox.file');
     setTimeout(function(){
       $(".bodybox").submit(function(obj){
         if ($('.control.send').stop === "stop") return false;
@@ -209,7 +211,7 @@ var push_type_selecter_change = function(type){
 
 var push_type_selecter = function(){
   push_type_selecter_change(global.NEW_PUSH_TYPE);
-  var push_type_list = ["note", "link", "address", "list"];
+  var push_type_list = ["note", "link", "address", "list", "file"];
   $(".content-title img").on("click", function(){
     for (var i in push_type_list) {
       if (global.NEW_PUSH_TYPE == push_type_list[i]){
@@ -223,14 +225,6 @@ var push_type_selecter = function(){
 };
 
 var send_new_push = function(){
-  $('.card-control.pre-send').html('<a class="control expand loading send" href="#" stop="stop" >Sending</a>');
-  setTimeout(function(){
-    $('.card-control.pre-send').html('<a class="control expand send" href="#">Resend ?</a>');
-    $(".send").on("click", function(obj){
-      if ($('.control.send').stop === "stop") return false;
-      send_new_push();
-    });
-  }, 15000);
   var data = {};
   data.title = $(".titlebox").val();
   data.type = global.NEW_PUSH_TYPE;
@@ -252,7 +246,21 @@ var send_new_push = function(){
       }
     });
     break;
+    case "file":
+      if (!global.UPLOAD_FILE) {
+    } else {
+      data.file = global.UPLOAD_FILE;
+    }
+    break;
   }
+  $('.card-control.pre-send').html('<a class="control expand loading send" href="#" stop="stop" >Sending</a>');
+  setTimeout(function(){
+    $('.card-control.pre-send').html('<a class="control expand send" href="#">Resend ?</a>');
+    $(".send").on("click", function(obj){
+      if ($('.control.send').stop === "stop") return false;
+      send_new_push();
+    });
+  }, 15000);
   console.log(data);
   new_push(data, global.ID, function(d){
     console.log(d);
@@ -361,6 +369,7 @@ var card_button = function(){
   }, 100);
 };
 
+
 $(document).ready(function(){
   setTimeout(function(){
     //start ws
@@ -371,6 +380,7 @@ $(document).ready(function(){
     global.refresh_info();
     global.refresh_history("syncing_changes");
     traffic_light();
+    drag_file.disable_drag_in(document);
     //catch error
     process.on("uncaughtException", function(e){
       console.error("uncaughtException:", e);

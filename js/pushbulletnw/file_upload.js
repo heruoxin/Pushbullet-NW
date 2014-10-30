@@ -8,10 +8,10 @@ var fs = require('fs');
 var formData = require('form-data');
 var https = require('https');
 
-var upload_request = function(token ,file_path, cb){
+var upload_request = function(token ,file, cb){
   var post_data = JSON.stringify({
-    file_name: file_path.split('/').pop(),
-    file_type: mime.lookup(file_path),
+    file_name: file.name,
+    file_type: file.type,
   });
   var options = {
     hostname: 'api.pushbullet.com',
@@ -30,7 +30,7 @@ var upload_request = function(token ,file_path, cb){
       if (e) return console.error("upload_request", e);
       var answer = JSON.parse(d);
       console.log(answer);
-      upload(token, file_path, answer, cb);
+      upload(token, file, answer, cb);
     }));
   });
   req.write(post_data);
@@ -38,33 +38,36 @@ var upload_request = function(token ,file_path, cb){
 
 };
 
-var upload = function(token, file_path, answer, cb){
+var upload = function(token, file, answer, cb){
+  console.log("START UPLOAD");
   var form = new formData();
   for (var i in answer.data){
     form.append(i, answer.data[i]);
   }
-  form.append('file', fs.createReadStream(file_path));
+  form.append('file', fs.createReadStream(file.path));
   form.submit(answer.upload_url, function(err, res) {
     if (err) return console.error("upload:", err);
     res.pipe(bl(function(e, d){
       if (e) return console.error("Error:", e);
-      //console.log(d);
+      console.log(d);
     }));
     var file_info = {
-      file_name: file_path.split('/').pop(),
-      file_type: mime.lookup(file_path),
+      type: 'file',
+      file_name: file.name,
+      file_type: file.type,
       file_url: answer.file_url,
     };
+    global.UPLOAD_FILE = undefined;
     if (typeof cb === 'function') cb(file_info);
   });
 };
 
-module.exports = function(file_path, cb){
-  fs.exists(file_path, function (exists) {
+module.exports = function(file, cb){
+  fs.exists(file.path, function (exists) {
     if (exists) {
       var token = JSON.parse(fs.readFileSync(process.env.HOME+'/Library/Preferences/com.1ittlecup.pushbulletnw.info.json', {encoding: 'utf8'})).token;
-      return upload_request(token, file_path, cb);
+      return upload_request(token, file, cb);
     }
-    return console.error("file dont exist: ", file_path);
+    return console.error("file dont exist: ", file.path);
   });
 };

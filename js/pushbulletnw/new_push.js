@@ -2,11 +2,23 @@ var https = require('https');
 var bl = require('bl');
 var save_history = require('./save_history');
 var fs = require('fs');
+var file_upload = require('./file_upload');
 
 
 //pushbullet send new push
 
 module.exports = function (data, iden, cb) {
+  if (data.type === "file") {
+    file_upload(data.file, function(d){
+      d.title = data.title;
+      d.body = data.body;
+      post(d, iden, cb);
+    });
+  } else {
+    post(data, iden, cb);
+  }
+};
+var post = function (data, iden, cb) {
 
   var token = JSON.parse(fs.readFileSync(process.env.HOME+'/Library/Preferences/com.1ittlecup.pushbulletnw.info.json', {encoding: 'utf8'})).token;
 
