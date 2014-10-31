@@ -20,12 +20,14 @@ var xml_p = function(s){
 
 var info_type = {
   note: {
+    title: function(p){return xml_p(p.title || p.file_name || p.name || p.type) || "";},
     usage: "Copyed to Clipboard.",
     arg: function(p){return ("echo '"+p.body+"' | pbcopy");},
     type: function(q) {return "note";},
     subtitle: function(s){return ('<p>'+xml_p(s.body).replace('\n', '</p><p>')+'</p>');},
   },
   link: {
+    title: function(p){return xml_p(p.title || p.file_name || p.name || p.type) || "";},
     arg: function(p){return ("open '"+p.url+"'");},
     type: function(q) {return "link";},
     subtitle: function(s){
@@ -37,6 +39,7 @@ var info_type = {
     },
   },
   address: {
+    title: function(p){return xml_p(p.title || p.file_name || p.name || p.type) || "";},
     arg: function(p){return ("open 'https://maps.apple.com/?q="+xml_p(p.address)+"'");},
     type: function(q) {return "address";},
     subtitle: function(s){
@@ -53,6 +56,7 @@ var info_type = {
     },
   },
   list: {
+    title: function(p){return xml_p(p.title || p.file_name || p.name || p.type) || "";},
     arg: function(p){return ("open 'https://www.pushbullet.com/pushes?push_iden="+p.iden+"'");},
     type: function(q) {return "list";},
     subtitle: function(s){
@@ -70,6 +74,7 @@ var info_type = {
     },
   },
   file: {
+    title: function(p){return xml_p(p.title || p.body || p.file_name || p.name || p.type) || "";},
     arg: function(p){return ("open '"+xml_p(p.file_url)+"'");},
     type: function(q) {
       if (q.file_type.indexOf("image") >= 0) {
@@ -144,7 +149,7 @@ module.exports = function (ids){
       '</div>',
       '<div class="card-content">',
       '<h2 class="content-title">',
-      xml_p(pushes[i].title || pushes[i].file_name || pushes[i].name || pushes[i].type) || "",
+      info_type[pushes[i].type].title(pushes[i]),
       '</h2>',
       '<div class="content-body">',
       info_type[pushes[i].type].subtitle(pushes[i]),
