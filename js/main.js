@@ -7,6 +7,8 @@ var send_notification = require('./js/pushbulletnw/send_notification');
 var regist_devices = require('./js/pushbulletnw/regist_devices');
 var animate = require('./js/pushbulletnw/animation');
 var keybind = require('./js/pushbulletnw/keybind');
+var mime = require('mime');
+var path = require('path');
 var drag_file = require('./js/pushbulletnw/drag_file');
 
 if (!global.hasOwnProperty("$")){
@@ -220,6 +222,7 @@ var push_type_selecter = function(){
       }
     }
     list_expand_bind();
+    select_file();
     push_type_selecter_change(global.NEW_PUSH_TYPE);
   });
 };
@@ -311,18 +314,36 @@ var traffic_light = function(){
   });
 };
 
-//When new push' type is list, it should auto expand.
+//When new push's type is list, it should auto expand.
 var list_expand_bind = function(){
   $(".list-expand").on("focus", function(){
-    if (!global.LIST_EXPAND) {
-      $(".list-expand").removeClass("list-expand");
-      $('.bodybox.list').append('<input type="text" class="list-expand" name="list" placeholder="item (optional)" />');
-      global.LIST_EXPAND = true;
-      setTimeout(function(){
-        global.LIST_EXPAND = false;
-      }, 300);
-    }
+    if (global.LIST_EXPAND) return;
+    global.LIST_EXPAND = true;
+    $(".list-expand").removeClass("list-expand");
+    $('.bodybox.list').append('<input type="text" class="list-expand" name="list" placeholder="item (optional)" />');
+    setTimeout(function(){
+      global.LIST_EXPAND = false;
+    }, 300);
     return list_expand_bind();
+  });
+};
+//When new push's type is file, click to select file.
+var select_file = function(){
+  $('.bodybox.file.file-box').on("click", function(){
+    if (global.FILE_SELECTED) return;
+    global.FILE_SELECTED = true;
+    $('#file-upload').click();
+    setTimeout(function(){
+      global.FILE_SELECTED = false;
+    }, 300);
+  });
+  $('#file-upload').on("change", function(){
+    global.UPLOAD_FILE = {
+      path: this.value,
+      name: path.basename(this.value),
+      type: mime.lookup(this.value),
+    };
+    $('.bodybox.file h5').html(global.UPLOAD_FILE.name);
   });
 };
 
