@@ -264,7 +264,10 @@ var send_new_push = function(){
       if ($('.control.send').stop === "stop") return false;
       send_new_push();
     });
-  }, 15000);
+  }, function(t){
+    if (t === "file") return 600000;
+    return 15000;
+  }(global.NEW_PUSH_TYPE));
   console.log(data);
   new_push(data, global.ID, function(d){
     console.log(d);

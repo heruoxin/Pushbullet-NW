@@ -12,14 +12,9 @@
 
   background-color: white;
 }
-.new-card
+#card-top
 {
-  max-height: inherit !important;
-  min-height: inherit !important;
-}
-.new-card .card-main
-{
-  min-height: 59px !important;
+  max-height: 200px;
 }
 .content-body
 {
