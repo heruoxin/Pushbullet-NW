@@ -29,6 +29,8 @@ exports.get_file_path = function(selector){
     e.preventDefault();
     e.stopPropagation();
     global.UPLOAD_FILE = e.originalEvent.dataTransfer.files[0];
-    $('.bodybox.file h5').html(global.UPLOAD_FILE.name);
+    if (global.UPLOAD_FILE){
+      $('.bodybox.file h5').html(global.UPLOAD_FILE.name);
+    }
   });
 };

@@ -74,7 +74,7 @@ var info_type = {
     },
   },
   file: {
-    title: function(p){return xml_p(p.title || p.body || p.file_name || p.name || p.type) || "";},
+    title: function(p){return xml_p(p.title || p.file_name || p.name || p.type) || "";},
     arg: function(p){return ("open '"+xml_p(p.file_url)+"'");},
     type: function(q) {
       if (q.file_type.indexOf("image") >= 0) {
@@ -98,7 +98,7 @@ var info_type = {
         ].join(''));
       } else {
         //for other file
-        return ('<a href="'+s.file_url+'">'+'View '+s.file_name+' on web'+'</a>');
+        return ('<div class="file-box"><a href="'+s.file_url+'">'+s.file_name+'</a></div>');
       }
     },
   },

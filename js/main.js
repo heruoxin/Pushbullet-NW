@@ -248,6 +248,10 @@ var send_new_push = function(){
     break;
     case "file":
       if (!global.UPLOAD_FILE) {
+      $('.bodybox.file.file-box').addClass('loading');
+      return setTimeout(function(){
+        $('.bodybox.file.file-box').removeClass('loading');
+      }, 500);
     } else {
       data.file = global.UPLOAD_FILE;
     }
