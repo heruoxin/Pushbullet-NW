@@ -58,6 +58,7 @@
 }
 .selectorbox
 {
+  cursor: pointer;
   display: inline-block;
   margin-left: 4px;
 }
