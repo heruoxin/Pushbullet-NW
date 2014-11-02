@@ -205,6 +205,8 @@ var change_new_push_type = function(){
 };
 
 var menubar_click = function (){
+  $(".menber").removeClass("star");
+  $("#"+global.ID).addClass("star");
   $(".menber").on("click", function(obj){
     if (obj.currentTarget.id !== "msf") return global.show_history(obj.currentTarget.id);
     global.open_setting();
