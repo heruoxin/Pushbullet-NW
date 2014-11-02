@@ -1,6 +1,6 @@
 {
   "name": "pushbulletnw",
-  "version": "0.0.0",
+  "version": "0.1.4",
   "description": "",
   "main": "index.html",
   "scripts": {
@@ -30,8 +30,8 @@
     "bl": "^0.9.1",
     "getmac": "^1.0.6",
     "jquery": "^2.1.1",
-    "node-notifier": "^3.1.3",
-    "querystring": "^0.2.0",
-    "ws": "^0.4.32"
+    "ws": "^0.4.32",
+    "form-data": "^0.1.4",
+    "mime": "^1.2.11"
   }
 }
