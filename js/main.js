@@ -90,12 +90,10 @@ global.refresh_history = function(time){
 };
 
 global.show_history = function(id){
-  cancel_push();
   try {
     global.ID = id || "everypush";
     $(".menber").removeClass("star");
     $("#"+global.ID).addClass("star");
-    cancel_push();
     //console.log('show_history:',global.ID);
     if (global.ID === "everypush"){
       require('./js/pushbulletnw/show_push_history')();
@@ -103,6 +101,7 @@ global.show_history = function(id){
       require('./js/pushbulletnw/show_push_history')(global.ID);
     }
     animate.fadein('#push-list');
+    cancel_push();
     card_button();
   } catch (e) {
     //    global.add_error_card("Show push history error", e);
@@ -290,6 +289,7 @@ var send_new_push = function(){
   console.log(data);
   new_push(data, global.ID, function(d){
     console.log(d);
+    global.NEW_PUSH_TYPE = undefined;
     return global.refresh_history(3);
   });
 };

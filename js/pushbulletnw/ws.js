@@ -6,6 +6,9 @@ if (!global.hasOwnProperty("$")){
 var $ = global.$;
 
 var go_green = function(){
+  if (!global.NEW_PUSH_TYPE) {
+    $('.add-new').css({'display': 'block'});
+  }
   setTimeout(function(){
     $('.control-window').css({'background-color': '#68c14f'});
     $('#menu-bar').css({'background-color': '#68c14f'});
@@ -77,6 +80,7 @@ setInterval(function(){ //HeartBeat check
     $('.control-window').css({'background-color': '#feeaac'});
     $('#menu-bar').css({'background-color': '#feeaac'});
     $('.control-window p').html("connect or login error");
+    $('.add-new').css({'display': 'none'});
     setTimeout(function(){
       $('.control-window p').html("offline");
     }, 5000);
