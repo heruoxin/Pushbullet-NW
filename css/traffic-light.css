@@ -45,8 +45,25 @@
 .add-new {
   display: block;
   position: fixed;
-  color: black;
+  color: #8f9c9d;
   font-size: 150%;
   right: 10px;
   top: 0;
+}
+
+#type-selector
+{
+  position: absolute;
+  right: 10px;
+}
+.selectorbox
+{
+  display: inline-block;
+  margin-left: 4px;
+}
+.selectorbox img
+{
+  pointer-events: none;
+  height: 22px;
+  width:auto;
 }

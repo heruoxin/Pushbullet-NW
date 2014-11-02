@@ -28,7 +28,9 @@ var info_type = {
   },
   link: {
     title: function(p){return xml_p(p.title || p.file_name || p.name || p.type) || "";},
-    arg: function(p){return ("open '"+p.url+"'");},
+    arg: function(p){
+      return ("open '"+p.url+"'");
+    },
     type: function(q) {return "link";},
     subtitle: function(s){
       var message = "";
@@ -115,6 +117,9 @@ module.exports = function (ids){
   for (var index in pushes_index){
     var i = pushes_index[index];
     if (!pushes[i].active) {continue;}
+    if (pushes[i].hasOwnProperty('url') && pushes[i].url.indexOf('http') === -1){
+      pushes[i].url = 'http://'+pushes[i].url;
+    }
     if (ids){
       var the_id = pushes[i].target_device_iden;
       var the_email = pushes[i].receiver_email_normalized.replace(".", "DoTDoTDoT").replace("@", "AtAtAt");

@@ -92,12 +92,9 @@ global.refresh_history = function(time){
 global.show_history = function(id){
   try {
     global.ID = id || "everypush";
-    global.NEW_PUSH_TYPE = undefined;
-    //
     $(".menber").removeClass("star");
     $("#"+global.ID).addClass("star");
-    //
-
+    cancel_push();
     //console.log('show_history:',global.ID);
     if (global.ID === "everypush"){
       require('./js/pushbulletnw/show_push_history')();
@@ -123,10 +120,9 @@ global.show_info = function(){
 
 global.open_setting = function(){
   $('#push-list').html('');
-  global.NEW_PUSH_TYPE = undefined;
   $(".menber").removeClass("star");
   $("#msf").addClass("star");
-  global.ID = "history";
+  global.ID = "setting";
   login();
   if (!global.SETTING_SHOW) {
     //more setting cards should add to here.
@@ -142,25 +138,37 @@ global.open_setting = function(){
 };
 
 global.add_new_push = function(){
+  $('.add-new').css({'display': 'none'});
+  $('#type-selector').css({'display': 'block'});
+  global.NEW_PUSH_TYPE = 'note';
   fs.readFile(process.cwd()+"/html/addpushcard.html", {encoding: 'utf8'}, function(e, d){
-    if (e) return console.log;
-    if (global.ID === "history") {
+    if (e) return console.error("Read addpushcard.html:", e);
+    if (global.ID === "setting") {
       global.show_history(undefined);
-      return console.log("In history Page, not allow to add card");
+      return console.log("Cannot add card in setting page");
     }
-    if (global.NEW_PUSH_TYPE) {
+    if ($(document).has('#card-top').length !== 0) {
       $("#main").animate({
         scrollTop: $("#card-top").offset().top - $("#main").offset().top + $("#main").scrollTop()
       });
       return console.log("Already adding");
     }
-    global.NEW_PUSH_TYPE = 'note';
     $("#push-list").prepend(d);
     //new card
     $("#main").animate({
       scrollTop: $("#card-top").offset().top - $("#main").offset().top + $("#main").scrollTop()
     });
-    push_type_selecter();
+    $(".imgbox").css({display: "none"});
+    $(".bodybox").css({display: "none"});
+    $(".note").css({display: "block"});
+    $(".hide").css({display: "none"});
+    $(".no-hide").css({display: "block"});
+    $(".hide.note").css({display: "block"});
+    $(".no-hide.note").css({display: "none"});
+    $('.titlebox').attr("placeholder", "note title");
+    change_new_push_type();
+    list_expand_bind();
+    select_file();
     drag_file.get_file_path('.bodybox.file');
     setTimeout(function(){
       $(".bodybox").submit(function(obj){
@@ -168,7 +176,7 @@ global.add_new_push = function(){
         send_new_push();
       });
       $(".send").on("click", function(obj){
-        if ($('.control.send').stop === "stop") return false;
+        if ($('.control.send').attr("stop") === "stop") return false;
         send_new_push();
       });
       $(".cancel").on("click", function(){
@@ -180,6 +188,20 @@ global.add_new_push = function(){
 
 global.show_dev_tools = function(){
   require('nw.gui').Window.get().showDevTools();
+};
+var change_new_push_type = function(){
+  $('.selectorbox').on("click", function(){
+    var type = $(this).attr("type");
+    $(".imgbox").css({display: "none"});
+    $(".bodybox").css({display: "none"});
+    $("."+type).css({display: "block"});
+    $(".hide").css({display: "none"});
+    $(".no-hide").css({display: "block"});
+    $(".hide."+type).css({display: "block"});
+    $(".no-hide."+type).css({display: "none"});
+    if(!$('.titlebox').val()) $('.titlebox').attr("placeholder", type+" title");
+    global.NEW_PUSH_TYPE = type;
+  });
 };
 
 var menubar_click = function (){
@@ -200,30 +222,6 @@ var alfred_workflow = function(){
   fs.readFile(process.cwd()+'/html/alfredworkflow.html',{encoding: 'utf8'}, function(e, d){
     if (e) return console.log;
     $("#push-list").prepend(d);
-  });
-};
-
-var push_type_selecter_change = function(type){
-  $(".imgbox").css({display: "none"});
-  $(".bodybox").css({display: "none"});
-  $("."+type).css({display: "block"});
-  if($('.titlebox').val()) return;
-  $('.titlebox').attr("placeholder", type+" title");
-};
-
-var push_type_selecter = function(){
-  push_type_selecter_change(global.NEW_PUSH_TYPE);
-  var push_type_list = ["note", "link", "address", "list", "file"];
-  $(".content-title img").on("click", function(){
-    for (var i in push_type_list) {
-      if (global.NEW_PUSH_TYPE == push_type_list[i]){
-        global.NEW_PUSH_TYPE = push_type_list[Number(i)+1] || push_type_list[0];
-        break;
-      }
-    }
-    list_expand_bind();
-    select_file();
-    push_type_selecter_change(global.NEW_PUSH_TYPE);
   });
 };
 
@@ -267,24 +265,24 @@ var send_new_push = function(){
       if ($('.control.send').stop === "stop") return false;
       send_new_push();
     });
-  }, function(t){
-    if (t === "file") return 600000;
+  }, function(ty){
+    if (ty === "file") return 600000;
     return 15000;
   }(global.NEW_PUSH_TYPE));
   console.log(data);
   new_push(data, global.ID, function(d){
     console.log(d);
-    global.NEW_PUSH_TYPE = undefined;
     return global.refresh_history(3);
   });
 };
 
 var cancel_push = function(){
+  $('.add-new').css({'display': 'block'});
+  $('#type-selector').css({'display': 'none'});
   $('.push-card.new-card').css({
     'max-height': 0,
     'min-height': 0,
   });
-  global.NEW_PUSH_TYPE = undefined;
   setTimeout(function(){
     $('.push-card.new-card').remove();
   }, 801);
@@ -354,7 +352,6 @@ var card_button = function(){
       var e = $("#"+obj.currentTarget.id);
       console.log(obj.currentTarget.id, e);
       exec(e.attr("arg"), function(err, stdout, stderr){
-        //23333
         if (err || stderr) console.error("do open error:", err|| stderr);
         send_notification({
           title: e.attr('usage'),

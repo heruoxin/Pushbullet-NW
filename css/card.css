@@ -37,14 +37,6 @@
   margin-top: 9px;
   margin-bottom: 8px;
 }
-.content-title img
-{
-  width: auto !important;
-  height: 15px !important;
-  min-height: 15px !important;
-  display: inline-block;
-  cursor: pointer;
-}
 .push-card:hover
 {
   max-height: 500px;
