@@ -90,6 +90,7 @@ global.refresh_history = function(time){
 };
 
 global.show_history = function(id){
+  cancel_push();
   try {
     global.ID = id || "everypush";
     $(".menber").removeClass("star");
@@ -285,6 +286,7 @@ var cancel_push = function(){
     'max-height': 0,
     'min-height': 0,
   });
+  global.NEW_PUSH_TYPE = undefined;
   setTimeout(function(){
     $('.push-card.new-card').remove();
   }, 801);
