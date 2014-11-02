@@ -101,7 +101,7 @@ global.show_history = function(id){
       require('./js/pushbulletnw/show_push_history')(global.ID);
     }
     animate.fadein('#push-list');
-    cancel_push();
+    global.cancel_push();
     card_button();
   } catch (e) {
     //    global.add_error_card("Show push history error", e);
@@ -138,6 +138,7 @@ global.open_setting = function(){
 };
 
 global.add_new_push = function(){
+  if (!global.CONNCETED) return;
   $('.add-new').css({'display': 'none'});
   $('#type-selector').css({'display': 'block'});
   global.NEW_PUSH_TYPE = 'note';
@@ -180,7 +181,7 @@ global.add_new_push = function(){
         send_new_push();
       });
       $(".cancel").on("click", function(){
-        cancel_push();
+        global.cancel_push();
       });
     }, 100);
   });
@@ -294,7 +295,7 @@ var send_new_push = function(){
   });
 };
 
-var cancel_push = function(){
+global.cancel_push = function(){
   if (global.CONNCETED) $('.add-new').css({'display': 'block'});
   $('#type-selector').css({'display': 'none'});
   $('.push-card.new-card').css({

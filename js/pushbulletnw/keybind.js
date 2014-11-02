@@ -17,5 +17,8 @@ $(window).keydown(function(event){
     case 73: //cmd+opt+i show dev tools
       global.show_dev_tools();
     break;
+    case 27: //esc cancel push
+      global.cancel_push();
+    break;
   }
 });

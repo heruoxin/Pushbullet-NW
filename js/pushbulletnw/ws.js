@@ -5,7 +5,7 @@ if (!global.hasOwnProperty("$")){
 }
 var $ = global.$;
 
-var go_green = function(){
+var go_success = function(){
   global.CONNCETED = true;
   if (!global.NEW_PUSH_TYPE) {
     $('.add-new').css({'display': 'block'});
@@ -18,6 +18,17 @@ var go_green = function(){
     $('.control-window').css({'background-color': '#f6f6f6'});
     $('#menu-bar').css({'background-color': '#f6f6f6'});
   }, 620);
+};
+
+var go_failed = function(){
+  global.CONNCETED = false;
+  $('.control-window').css({'background-color': '#feeaac'});
+  $('#menu-bar').css({'background-color': '#feeaac'});
+  $('.control-window p').html("connect or login error");
+  $('.add-new').css({'display': 'none'});
+  setTimeout(function(){
+    $('.control-window p').html("offline");
+  }, 5000);
 };
 
 global.CONNCETED = false;
@@ -33,7 +44,7 @@ var start_ws = function() {
   var connection = new WebSocket('wss://stream.pushbullet.com/websocket/' + token);
   connection.on('open', function(e) {
     console.log('ws open: %s', new Date());
-    go_green();
+    go_success();
   });
   connection.on('message', function(e) {
     $('.control-window p').html(" ");
@@ -47,7 +58,7 @@ var start_ws = function() {
         global.HEART_BEAT += 1;
       break;
       case 'tickle':
-        go_green();
+        go_success();
       if (e.subtype === 'device'){ // device list updated
         global.refresh_info();
       } else { // pushes updated
@@ -80,14 +91,7 @@ global.restart_ws();
 setInterval(function(){ //HeartBeat check
   if (global.HEART_BEAT-- <= 0){
     global.HEART_BEAT = 2;
-    global.CONNCETED = false;
-    $('.control-window').css({'background-color': '#feeaac'});
-    $('#menu-bar').css({'background-color': '#feeaac'});
-    $('.control-window p').html("connect or login error");
-    $('.add-new').css({'display': 'none'});
-    setTimeout(function(){
-      $('.control-window p').html("offline");
-    }, 5000);
+    go_failed();
     console.warn("ws try to restart", new Date());
     global.restart_ws();
   }
