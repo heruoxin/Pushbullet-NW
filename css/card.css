@@ -12,9 +12,9 @@
 
   background-color: white;
 }
-#card-top
+.new-card
 {
-  max-height: 200px;
+  max-height: 500px;
 }
 .content-body
 {

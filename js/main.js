@@ -196,6 +196,21 @@ var change_new_push_type = function(){
     $(".imgbox").css({display: "none"});
     $(".bodybox").css({display: "none"});
     $("."+type).css({display: "block"});
+    switch (type) {
+      case "file":
+        $('.new-card').css({'max-height': '150px'});
+        $(".bodybox."+type).css({display: "none"});
+        setTimeout(function(){$(".bodybox."+type).css({display: "block"});},300);
+      break;
+      case "list":
+        $('.new-card').css({'max-height': '500px'});
+      break;
+      case "note":
+      case "address":
+      case "link":
+        $('.new-card').css({'max-height': '90px'});
+      break;
+    }
     $(".hide").css({display: "none"});
     $(".no-hide").css({display: "block"});
     $(".hide."+type).css({display: "block"});
