@@ -295,7 +295,7 @@ var send_new_push = function(){
 };
 
 var cancel_push = function(){
-  $('.add-new').css({'display': 'block'});
+  if (global.CONNCETED) $('.add-new').css({'display': 'block'});
   $('#type-selector').css({'display': 'none'});
   $('.push-card.new-card').css({
     'max-height': 0,

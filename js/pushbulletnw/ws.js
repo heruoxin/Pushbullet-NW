@@ -6,6 +6,7 @@ if (!global.hasOwnProperty("$")){
 var $ = global.$;
 
 var go_green = function(){
+  global.CONNCETED = true;
   if (!global.NEW_PUSH_TYPE) {
     $('.add-new').css({'display': 'block'});
   }
@@ -18,6 +19,8 @@ var go_green = function(){
     $('#menu-bar').css({'background-color': '#f6f6f6'});
   }, 620);
 };
+
+global.CONNCETED = false;
 
 var start_ws = function() {
   global.HEART_BEAT = 2;
@@ -77,6 +80,7 @@ global.restart_ws();
 setInterval(function(){ //HeartBeat check
   if (global.HEART_BEAT-- <= 0){
     global.HEART_BEAT = 2;
+    global.CONNCETED = false;
     $('.control-window').css({'background-color': '#feeaac'});
     $('#menu-bar').css({'background-color': '#feeaac'});
     $('.control-window p').html("connect or login error");
