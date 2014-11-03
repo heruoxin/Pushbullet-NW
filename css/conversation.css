@@ -1,0 +1,40 @@
+.dialogue
+{
+  overflow-y: scroll;
+  height: calc(100% - 55px);
+  width: 100%;
+  position: fixed;
+}
+.reply-message
+{
+  margin: 5px 5px 5px 35px;
+  padding: 5px;
+  background-color: #e5e5ea;
+  color: white;
+}
+.send-message
+{
+  margin: 5px 35px 5px 5px;
+  padding: 5px;
+  background-color: #288e69;
+  color: white;
+}
+.reply
+{
+  position: fixed;
+  display: block;
+  width: 100%;
+  background-color: white;
+  bottom: 0;
+}
+.reply input
+{
+  display: inline-block;
+  width: 82%;
+}
+.reply a
+{
+  background-color: #82d072;
+  font-size: 15px;
+  width: 16%;
+}

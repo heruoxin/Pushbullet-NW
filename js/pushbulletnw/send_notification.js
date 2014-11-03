@@ -1,4 +1,6 @@
+var conversation = require('./conversation.js');
 global.notifications = {};
+global.message_history = {};
 
 var getid = function(e) {
   return String(e.notification_id).replace("-", "no");
@@ -38,10 +40,22 @@ module.exports = function(e){
     global.notifications[getid(e)] = notification;
   }
 
-  if (e.active) {
+  if (e.active) { // click to list
     notification.onclick = function (){
       global.show_history(e.target_device_iden || e.receiver_email_normalized.replace(".", "DoTDoTDoT").replace("@", "AtAtAt"));
     };
+    return;
+  }
+  if (e.conversation_iden) { // click to reply
+    if (global.message_history.hasOwnProperty(e.title)) {
+      global.message_history[e.title] += '<p class="reply-message">'+e.body+'</p>';
+    } else {
+      global.message_history[e.title] = '<p class="reply-message">'+e.body+'</p>';
+    }
+    notification.onclick = function(){
+      conversation.newWindow(e);
+    };
+    return;
   }
 };
 

@@ -41,6 +41,9 @@
 .traffice-light .deactivate {
   background: #d1d1d1;
 }
+.traffice-light .deactivated {
+  background: #d1d1d1;
+}
 
 .add-new {
   display: block;

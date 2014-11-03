@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="UTF-8" />
+    <link href="../css/main.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/traffic-light.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/card.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/conversation.css" rel="stylesheet" type="text/css"/>
+    <link href="../css/animation.css" rel="stylesheet" type="text/css"/>
+    <title></title>
+  </head>
+
+  <body>
+
+    <nav class="control-window">
+      <div class="traffice-light">
+        <a href="#" class="close"></a>
+        <a href="#" class="minimize"></a>
+        <a href="#" class="deactivated"></a>
+      </div>
+      <p id="conversation-title">10010</p>
+    </nav>
+    <div class="dialogue">
+      <p id="conversation-body">Loading</p>
+    </div>
+    <div class="reply">
+      <input type="text" placeholder="Reply..." />
+      <a class="control">Send</a>
+    </div>
+  </body>
+  <script>
+    var conversation = require(process.cwd()+'/js/pushbulletnw/conversation.js');
+    conversation.pageBind(document);
+  </script>
+</html>
+

@@ -1,4 +1,5 @@
 var gui = require('nw.gui');
+global.gui = gui;
 var fs = require('fs');
 var exec = require('child_process').exec;
 var login = require('./js/pushbulletnw/login');
@@ -10,6 +11,7 @@ var keybind = require('./js/pushbulletnw/keybind');
 var mime = require('mime');
 var path = require('path');
 var drag_file = require('./js/pushbulletnw/drag_file');
+global.CWD = process.cwd();
 
 if (!global.hasOwnProperty("$")){
   global.$ = require('jquery');
@@ -188,7 +190,7 @@ global.add_new_push = function(){
 };
 
 global.show_dev_tools = function(){
-  require('nw.gui').Window.get().showDevTools();
+  gui.Window.get().showDevTools();
 };
 var change_new_push_type = function(){
   $('.selectorbox').on("click", function(){
@@ -309,6 +311,7 @@ global.cancel_push = function(){
 };
 
 var traffic_light = function(){
+  var win = global.gui.Window.get();
   //button behave
   $('.close').on("click", function(){
     win.close();
@@ -323,7 +326,6 @@ var traffic_light = function(){
     global.add_new_push();
   });
   //window active or not
-  var win = gui.Window.get();
   win.on('focus', function() {
     $('.traffice-light a').removeClass('deactivate');
   });
