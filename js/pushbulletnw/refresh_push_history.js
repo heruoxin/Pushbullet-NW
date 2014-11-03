@@ -60,7 +60,11 @@ module.exports = function (time, cb) {
         } catch(error) {
           return console.error(error);
         }
-        p = answers.pushes;
+        //p = answers.pushes;
+        p = {};
+        for (var j in answers.pushes) {
+          p[answers.pushes[j].iden] = answers.pushes[j];
+        }
         for (var k in pre_answers_pushes) {
           //if (p.hasOwnProperty(k)) continue;
           p[k] = pre_answers_pushes[k];
