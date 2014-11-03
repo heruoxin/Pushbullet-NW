@@ -6,11 +6,11 @@
   margin-top: -16px;
 }
 
-.traffice-light
+#traffice-light
 {
   margin-left: 2px;
 }
-.traffice-light a {
+#traffice-light a {
   display: inline-block;
   margin: 2px 0 3px 1px;
   width: 12px;
@@ -19,29 +19,29 @@
   position: relative;
 }
 
-.traffice-light a.close:hover {
+#traffice-light a.close:hover {
   background: #fc635e url(../icons/buttons-hover.png) 1px 1px no-repeat;
 }
-.traffice-light a.minimize:hover {
+#traffice-light a.minimize:hover {
   background: #fdbe41 url(../icons/buttons-hover.png) -9px 1px no-repeat;
 }
-.traffice-light a.maximize:hover {
+#traffice-light a.maximize:hover {
   background: #35cd4b url(../icons/buttons-hover.png) -19px 1px no-repeat;
 }
 
-.traffice-light .close {
+#traffice-light .close {
   background: #fc635e;
 }
-.traffice-light .minimize {
+#traffice-light .minimize {
   background: #fdbe41;
 }
-.traffice-light .maximize {
+#traffice-light .maximize {
   background: #35cd4b;
 }
-.traffice-light .deactivate {
+#traffice-light .deactivate {
   background: #d1d1d1;
 }
-.traffice-light .deactivated {
+#traffice-light .deactivated {
   background: #d1d1d1;
 }
 

@@ -13,7 +13,7 @@
   <body>
 
     <nav class="control-window">
-      <div class="traffice-light">
+      <div id="traffice-light">
         <a href="#" class="close"></a>
         <a href="#" class="minimize"></a>
         <a href="#" class="deactivated"></a>
@@ -29,8 +29,10 @@
     </div>
   </body>
   <script>
+    var gui = require('nw.gui');
+    var win = gui.Window.get();
     var conversation = require(process.cwd()+'/js/pushbulletnw/conversation.js');
-    conversation.pageBind(document);
+    conversation.pageBind(document, win);
   </script>
 </html>
 

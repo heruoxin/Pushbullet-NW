@@ -1,4 +1,5 @@
 var gui = require('nw.gui');
+global.console = console;
 global.gui = gui;
 var fs = require('fs');
 var exec = require('child_process').exec;
@@ -327,10 +328,10 @@ var traffic_light = function(){
   });
   //window active or not
   win.on('focus', function() {
-    $('.traffice-light a').removeClass('deactivate');
+    $('#traffice-light a').removeClass('deactivate');
   });
   win.on('blur', function() {
-    $('.traffice-light a').addClass('deactivate');
+    $('#traffice-light a').addClass('deactivate');
   });
 };
 

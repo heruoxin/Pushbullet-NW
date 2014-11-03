@@ -9,15 +9,15 @@
 {
   margin: 5px 5px 5px 35px;
   padding: 5px;
-  background-color: #e5e5ea;
-  color: white;
+  background-color: #d8dee0;
+  color: black;
 }
 .send-message
 {
   margin: 5px 35px 5px 5px;
   padding: 5px;
   background-color: #288e69;
-  color: white;
+  color: black;
 }
 .reply
 {
