@@ -18,7 +18,7 @@
         <a href="#" class="minimize"></a>
         <a href="#" class="deactivated"></a>
       </div>
-      <p id="conversation-title">10010</p>
+      <p id="conversation-title">00000</p>
     </nav>
 
     <div class="reply">
@@ -35,7 +35,7 @@
     var gui = require('nw.gui');
     var win = gui.Window.get();
     var conversation = require(process.cwd()+'/js/pushbulletnw/conversation.js');
-    conversation.pageBind(document, win);
+    conversation.pageBind(document, location, win);
   </script>
 </html>
 

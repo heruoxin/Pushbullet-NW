@@ -20,7 +20,7 @@ exports.newWindow = function(e){
   });
 };
 
-exports.pageBind = function(document, win){
+exports.pageBind = function(document, location, win){
 
   //show message and title
   var conversationData = {};
@@ -28,7 +28,8 @@ exports.pageBind = function(document, win){
     conversationData[i] = global.CONVERSATION_DATA[i];
   }
   document.getElementById('conversation-title').innerHTML = conversationData.title;
-  document.getElementById('conversation-body').innerHTML = global.message_history[conversationData.title];
+  document.getElementById('conversation-body').innerHTML = global.message_history[conversationData.conversation_iden] + '<div id="bottom"></div>';
+  location.href = '#bottom';
 
   var preSendReply = function(){
     document.getElementById('send-button').innerHTML = '<img src="../img/loading.gif" />';
@@ -46,13 +47,12 @@ exports.pageBind = function(document, win){
     };
     sendReply(postData, function(d){
       document.getElementById('send-button').innerHTML = 'Send';
-      document.getElementById('conversation-body').innerHTML = global.message_history[conversationData.title];
-      console.log(d);
+      document.getElementById('conversation-body').innerHTML = '<div id="bottom"><a>aaaaaaa</a></div>';
+      location.href = '#bottom';
+      win.close();
     });
   };
   document.getElementById('send-button').onclick = preSendReply;
-  document.getElementById('send-input').onsubmit = preSendReply;
-
 
   //button behave
   document.getElementsByClassName('close')[0].onclick = function(){
@@ -100,7 +100,7 @@ var sendReply = function(postData, cb) {
       }
       d = JSON.parse(d);
       if (cb) cb(d);
-      global.message_history[postData.conversation_iden] += '<p class="send-message">'+postData.message+'</p>';
+      global.message_history[JSON.parse(postData).push.conversation_iden] += '<p class="send-message">'+JSON.parse(postData).push.message+'</p>';
       return console.log("Message Reply:", d);
     }));
   });
