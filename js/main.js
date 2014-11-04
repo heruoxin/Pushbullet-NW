@@ -145,7 +145,7 @@ global.add_new_push = function(){
   $('.add-new').css({'display': 'none'});
   $('#type-selector').css({'display': 'block'});
   global.NEW_PUSH_TYPE = 'note';
-  fs.readFile(process.cwd()+"/html/addpushcard.html", {encoding: 'utf8'}, function(e, d){
+  fs.readFile(global.CWD + "/html/addpushcard.html", {encoding: 'utf8'}, function(e, d){
     if (e) return console.error("Read addpushcard.html:", e);
     if (global.ID === "setting") {
       global.show_history(undefined);
