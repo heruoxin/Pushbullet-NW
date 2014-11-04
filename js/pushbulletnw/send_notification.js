@@ -54,6 +54,7 @@ module.exports = function(e){
     }
     notification.onclick = function(){
       conversation.newWindow(e);
+      notification.close();
     };
     return;
   }
