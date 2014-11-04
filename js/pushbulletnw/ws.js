@@ -66,6 +66,7 @@ var start_ws = function() {
       }
       break;
       case 'push': // Android notification mirror
+        if (e.push.type === "messaging_extension_reply") break;
         send_notification(e.push);
       break;
     }
