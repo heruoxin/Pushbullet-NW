@@ -48,9 +48,9 @@ module.exports = function(e){
   }
   if (e.conversation_iden) { // click to reply
     if (global.message_history.hasOwnProperty(e.conversation_iden)) {
-      global.message_history[e.conversation_iden] += '<p class="reply-message">'+e.body+'</p>';
+      global.message_history[e.conversation_iden] += '<p class="reply-message">'+e.body.replace('↵','</p><p class="reply-message">')+'</p>';
     } else {
-      global.message_history[e.conversation_iden] = '<p class="reply-message">'+e.body+'</p>';
+      global.message_history[e.conversation_iden] = '<p class="reply-message">'+e.body.replace('↵','</p><p class="reply-message">')+'</p>';
     }
     notification.onclick = function(){
       conversation.newWindow(e);
