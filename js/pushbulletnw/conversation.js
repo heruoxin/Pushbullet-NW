@@ -31,7 +31,6 @@ exports.pageBind = function(document, win){
   document.getElementById('conversation-body').innerHTML = global.message_history[conversationData.title];
 
   var preSendReply = function(){
-    console.log(23456789);
     document.getElementById('send-button').innerHTML = '<img src="../img/loading.gif" />';
     var message = document.getElementById('send-input').value;
     var postData = {
@@ -46,10 +45,8 @@ exports.pageBind = function(document, win){
       }
     };
     sendReply(postData, function(d){
-      document.getElementById('send-button').innerHTML = 'Success';
-      setTimeout(function(){
-        win.close();
-      }, 1000);
+      document.getElementById('send-button').innerHTML = 'Send';
+      document.getElementById('conversation-body').innerHTML = global.message_history[conversationData.title];
       console.log(d);
     });
   };
@@ -103,7 +100,8 @@ var sendReply = function(postData, cb) {
       }
       d = JSON.parse(d);
       if (cb) cb(d);
-      return console.log(2323233, d);
+      global.message_history[postData.conversation_iden] += '<p class="send-message">'+postData.message+'</p>';
+      return console.log("Message Reply:", d);
     }));
   });
   req.write(postData);
