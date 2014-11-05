@@ -20,7 +20,7 @@ if (!global.hasOwnProperty("$")){
 var $ = global.$;
 
 var mb = new gui.Menu({type:"menubar"});
-mb.createMacBuiltin("Pushbullet");
+mb.createMacBuiltin("Pushbullet-NW");
 gui.Window.get().menu = mb;
 
 global.add_error_card = function(title, e){
