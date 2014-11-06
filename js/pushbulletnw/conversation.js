@@ -33,6 +33,7 @@ exports.pageBind = function(document, location, win){
 
   var preSendReply = function(){
     document.getElementById('send-button').innerHTML = '<img src="../img/loading.gif" />';
+    document.getElementById("send-input").setAttributeNode(document.createAttribute("disabled"));
     var message = document.getElementById('send-input').value;
     var postData = {
       "type": "push",
@@ -47,6 +48,7 @@ exports.pageBind = function(document, location, win){
     };
     sendReply(postData, function(d){
       document.getElementById('send-button').innerHTML = 'Send';
+      document.getElementById("send-input").removeAttribute("disabled");
       document.getElementById('conversation-body').innerHTML = '<div id="bottom"><a>aaaaaaa</a></div>';
       location.href = '#bottom';
       win.close();
