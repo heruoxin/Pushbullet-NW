@@ -17,39 +17,9 @@ var mime = require('mime');
 var path = require('path');
 var drag_file = require('./js/pushbulletnw/drag_file');
 
-
 var mb = new gui.Menu({type:"menubar"});
 mb.createMacBuiltin("Pushbullet-NW");
 global.mainWin.menu = mb;
-
-global.add_error_card = function(title, e){
-  console.log(title, e);
-  var error_card = [
-    '          <div class="push-card">',
-    '        <div class="card-main">',
-    '          <div class="card-logo">',
-    '            <img src="icons/error.png" />',
-    '          </div>',
-    '          <div class="card-content">',
-    '            <h2 class="content-title">',
-    title,
-    '            </h2>',
-    '            <hr class="card-hr-horizonal" />',
-    '            <div class="content-body">',
-    '            <p>',
-    e.toString(),
-    '            </p>',
-    '          </div>',
-    '          </div>',
-    '        </div>',
-    '        <div class="card-control">',
-    '            <a href="#" class="control open">Refresh</a>',
-    '            <a href="#" class="control delete">Delete</a>',
-    '        </div>',
-    '      </div>',
-  ].join('');
-  $("#push-list").append(error_card);
-};
 
 global.refresh_info = function(token, options, cb){
   try {
@@ -61,7 +31,6 @@ global.refresh_info = function(token, options, cb){
       global.show_info();
     });
   } catch (e) {
-    //    global.add_error_card("Refresh account info error", e);
     $("#push-list").html('');
     console.error("global.refresh_info:", e);
     login();
@@ -86,7 +55,6 @@ global.refresh_history = function(time){
       });
     }
   } catch (e) {
-    //    global.add_error_card("Refresh push history error", e);
     console.error('global.refresh_history:', e);
   }
 };
@@ -106,7 +74,6 @@ global.show_history = function(id){
     global.cancel_push();
     card_button();
   } catch (e) {
-    //    global.add_error_card("Show push history error", e);
     console.error('global.show_history:',e);
   }
 };
@@ -115,7 +82,6 @@ global.show_info = function(){
   try {
     return require('./js/pushbulletnw/show_devices_contacts_list')(menubar_click);
   } catch (e) {
-    //    global.add_error_card("Refresh devices list error", e);
     console.error("global.show_info", e);
   }
 };
@@ -211,7 +177,11 @@ var change_new_push_type = function(){
     var type = $(this).attr("type");
     $(".imgbox").css({display: "none"});
     $(".bodybox").css({display: "none"});
+    $(".titlebox").attr("type", "text");
     $("."+type).css({display: "block"});
+    $("#main").animate({
+      scrollTop: $("#card-top").offset().top - $("#main").offset().top + $("#main").scrollTop()
+    });
     switch (type) {
       case "file":
         $('.new-card').css({'max-height': '150px'});
@@ -225,6 +195,9 @@ var change_new_push_type = function(){
         case "address":
         case "link":
         $('.new-card').css({'max-height': '90px'});
+      break;
+      case "sms":
+        $(".titlebox").attr("type", "number");
       break;
     }
     $(".hide").css({display: "none"});
