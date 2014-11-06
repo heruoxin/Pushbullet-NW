@@ -46,7 +46,7 @@ exports.pageBind = function(document, location, win){
         "message": message
       }
     };
-    sendReply(postData, function(d){
+    sendSMS(postData, function(d){
       document.getElementById('send-button').innerHTML = 'Send';
       document.getElementById("send-input").removeAttribute("disabled");
       document.getElementById('conversation-body').innerHTML = '<div id="bottom"><a>aaaaaaa</a></div>';
@@ -77,9 +77,10 @@ exports.pageBind = function(document, location, win){
   });
 };
 
-var sendReply = function(postData, cb) {
-  postData = JSON.stringify(postData);
+exports.sendSMS = sendSMS;
+function sendSMS (postData, cb) {
   var token = JSON.parse(fs.readFileSync(process.env.HOME+'/Library/Preferences/com.1ittlecup.pushbulletnw.info.json', {encoding: 'utf8'})).token;
+  post = JSON.stringify(postData);
 
   var options = {
     hostname: 'api.pushbullet.com',
@@ -89,7 +90,7 @@ var sendReply = function(postData, cb) {
     headers: {
       'Authorization': 'Basic ' + new Buffer(token+':').toString('base64'),
       'Content-Type': 'application/json',
-      'Content-Length': Buffer.byteLength(postData)
+      'Content-Length': Buffer.byteLength(post)
     }
   };
 
@@ -102,10 +103,10 @@ var sendReply = function(postData, cb) {
       }
       d = JSON.parse(d);
       if (cb) cb(d);
-      global.message_history[JSON.parse(postData).push.conversation_iden] += '<p class="send-message">'+JSON.parse(postData).push.message+'</p>';
+      global.message_history[postData.push.conversation_iden] += '<p class="send-message">'+postData.push.message+'</p>';
       return console.log("Message Reply:", d);
     }));
   });
-  req.write(postData);
+  req.write(post);
   req.end();
-};
+}

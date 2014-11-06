@@ -142,7 +142,7 @@ global.open_setting = function(){
 };
 
 global.add_new_push = function(){
-  if (!global.CONNCETED) return;
+  //if (!global.CONNCETED) return;
   $('.add-new').css({'display': 'none'});
   $('#type-selector').css({'display': 'block'});
   global.NEW_PUSH_TYPE = 'note';
@@ -191,6 +191,20 @@ global.add_new_push = function(){
   });
 };
 
+global.cancel_push = function(){
+  global.NEW_PUSH_TYPE = undefined;
+  if (global.CONNCETED) $('.add-new').css({'display': 'block'});
+  $('#type-selector').css({'display': 'none'});
+  $('.push-card.new-card').css({
+    'max-height': 0,
+    'min-height': 0,
+  });
+  global.NEW_PUSH_TYPE = undefined;
+  setTimeout(function(){
+    $('.push-card.new-card').remove();
+  }, 801);
+};
+
 global.show_dev_tools = function(){
   global.mainWin.showDevTools();
 };
@@ -219,7 +233,10 @@ var change_new_push_type = function(){
     $(".no-hide").css({display: "block"});
     $(".hide."+type).css({display: "block"});
     $(".no-hide."+type).css({display: "none"});
-    if(!$('.titlebox').val()) $('.titlebox').attr("placeholder", type+" title");
+    if (!$('.titlebox').val()) $('.titlebox').attr("placeholder", type+" title");
+    if (type === "sms") {
+      $('.titlebox').attr("placeholder", "Phone Number");
+    }
     global.NEW_PUSH_TYPE = type;
   });
 };
@@ -279,6 +296,9 @@ var send_new_push = function(){
       data.file = global.UPLOAD_FILE;
     }
     break;
+    case "sms":
+      data.message = $('.bodybox.sms').val();
+    break;
   }
   $('.card-control.pre-send').html('<a class="control expand loading send" href="#" stop="stop" >Sending</a>');
   setTimeout(function(){
@@ -294,22 +314,9 @@ var send_new_push = function(){
   console.log(data);
   new_push(data, global.ID, function(d){
     console.log(d);
-    global.NEW_PUSH_TYPE = undefined;
+    global.cancel_push();
     return global.refresh_history(3);
   });
-};
-
-global.cancel_push = function(){
-  if (global.CONNCETED) $('.add-new').css({'display': 'block'});
-  $('#type-selector').css({'display': 'none'});
-  $('.push-card.new-card').css({
-    'max-height': 0,
-    'min-height': 0,
-  });
-  global.NEW_PUSH_TYPE = undefined;
-  setTimeout(function(){
-    $('.push-card.new-card').remove();
-  }, 801);
 };
 
 var traffic_light = function(){

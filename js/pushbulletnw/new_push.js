@@ -3,7 +3,7 @@ var bl = require('bl');
 var save_history = require('./save_history');
 var fs = require('fs');
 var file_upload = require('./file_upload');
-
+var conversation = require('./conversation');
 
 //pushbullet send new push
 
@@ -14,6 +14,20 @@ module.exports = function (data, iden, cb) {
       d.body = data.body;
       post(d, iden, cb);
     });
+  } else if (data.type === "sms") {
+    var token = JSON.parse(fs.readFileSync(process.env.HOME+'/Library/Preferences/com.1ittlecup.pushbulletnw.info.json', {encoding: 'utf8'})).token;
+    var postData = {
+      "type": "push",
+      "push": {
+        "type": "messaging_extension_reply",
+        "package_name": "com.pushbullet.android",
+        "source_user_iden": token.substr(token.length - 5),
+        "target_device_iden": conversationData.source_device_iden,
+        "conversation_iden": data.title,
+        "message": data.message
+      }
+    };
+    conversation.sendSMS(postData);
   } else {
     post(data, iden, cb);
   }
