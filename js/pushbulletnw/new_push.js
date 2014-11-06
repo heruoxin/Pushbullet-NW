@@ -23,12 +23,12 @@ module.exports = function (data, iden, cb) {
         "type": "messaging_extension_reply",
         "package_name": "com.pushbullet.android",
         "source_user_iden": token.substr(token.length - 5),
-        "target_device_iden": conversationData.source_device_iden,
+        "target_device_iden": data.source_device_iden,
         "conversation_iden": data.title,
         "message": data.message
       }
     };
-    conversation.sendSMS(postData);
+    conversation.sendSMS(postData, cb);
   } else {
     post(data, iden, cb);
   }

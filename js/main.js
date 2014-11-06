@@ -6,16 +6,20 @@ global.CWD = process.cwd();
 global.$ = require('jquery');
 var $ = global.$;
 var fs = require('fs');
+var mime = require('mime');
+var path = require('path');
 var exec = require('child_process').exec;
 var login = require('./js/pushbulletnw/login');
 var new_push = require('./js/pushbulletnw/new_push');
 var send_notification = require('./js/pushbulletnw/send_notification');
 var regist_devices = require('./js/pushbulletnw/regist_devices');
+var refresh_devices_contacts = require('./js/pushbulletnw/refresh_devices_contacts');
+var refresh_push_history = require('./js/pushbulletnw/refresh_push_history');
+var show_push_history = require('./js/pushbulletnw/show_push_history');
 var animate = require('./js/pushbulletnw/animation');
 var keybind = require('./js/pushbulletnw/keybind');
-var mime = require('mime');
-var path = require('path');
 var drag_file = require('./js/pushbulletnw/drag_file');
+var getInfo = require('./js/pushbulletnw/getInfo');
 
 var mb = new gui.Menu({type:"menubar"});
 mb.createMacBuiltin("Pushbullet-NW");
@@ -23,7 +27,7 @@ global.mainWin.menu = mb;
 
 global.refresh_info = function(token, options, cb){
   try {
-    require('./js/pushbulletnw/refresh_devices_contacts')(token, options, function(status, info){
+    refresh_devices_contacts(token, options, function(status, info){
       if (typeof cb === 'function'){
         cb(status, info);
       }
@@ -45,12 +49,12 @@ global.refresh_history = function(time){
       fs.stat(file_path, function (err, stats) {
         if (err) throw err;
         time = Number(new Date())/1000 - Number(new Date(stats.mtime))/1000;
-        return require('./js/pushbulletnw/refresh_push_history')(time, function(){
+        return refresh_push_history(time, function(){
           global.show_history(global.ID);
         });
       });
     } else {
-      return require('./js/pushbulletnw/refresh_push_history')(time, function(){
+      return refresh_push_history(time, function(){
         global.show_history(global.ID);
       });
     }
@@ -60,18 +64,18 @@ global.refresh_history = function(time){
 };
 
 global.show_history = function(id){
+  global.cancel_push();
   try {
     global.ID = id || "everypush";
     $(".menber").removeClass("star");
     $("#"+global.ID).addClass("star");
     //console.log('show_history:',global.ID);
     if (global.ID === "everypush"){
-      require('./js/pushbulletnw/show_push_history')();
+      show_push_history();
     } else {
-      require('./js/pushbulletnw/show_push_history')(global.ID);
+      show_push_history(global.ID);
     }
     animate.fadein('#push-list');
-    global.cancel_push();
     card_button();
   } catch (e) {
     console.error('global.show_history:',e);
@@ -123,6 +127,15 @@ global.add_new_push = function(){
       return console.log("Already adding");
     }
     $("#push-list").prepend(d);
+    //show devices list for send sms
+    var selectList = "";
+    var devicesList = getInfo.getInfo().devices;
+    for (var i in devicesList) {
+      if (devicesList[i].type != "android") continue;
+      if (!devicesList[i].active) continue;
+      selectList += '<option value="'+devicesList[i].iden+'">'+devicesList[i].nickname+'</option>';
+    }
+    $('.bodybox.sms select').html(selectList);
     //new card
     $("#main").animate({
       scrollTop: $("#card-top").offset().top - $("#main").offset().top + $("#main").scrollTop()
@@ -182,9 +195,15 @@ var change_new_push_type = function(){
     $("#main").animate({
       scrollTop: $("#card-top").offset().top - $("#main").offset().top + $("#main").scrollTop()
     });
+    $(".hide").css({display: "none"});
+    $(".no-hide").css({display: "block"});
+    $(".hide."+type).css({display: "block"});
+    $(".no-hide."+type).css({display: "none"});
+    if (!$('.titlebox').val()) $('.titlebox').attr("placeholder", type+" title");
     switch (type) {
       case "sms":
         $(".titlebox").attr("type", "number");
+      $('.titlebox').attr("placeholder", "Phone Number");
       $('.new-card').css({'max-height': '200px'});
       $(".bodybox."+type).css({display: "none"});
       setTimeout(function(){$(".bodybox."+type).css({display: "block"});},300);
@@ -202,14 +221,6 @@ var change_new_push_type = function(){
         case "link":
         $('.new-card').css({'max-height': '90px'});
       break;
-    }
-    $(".hide").css({display: "none"});
-    $(".no-hide").css({display: "block"});
-    $(".hide."+type).css({display: "block"});
-    $(".no-hide."+type).css({display: "none"});
-    if (!$('.titlebox').val()) $('.titlebox').attr("placeholder", type+" title");
-    if (type === "sms") {
-      $('.titlebox').attr("placeholder", "Phone Number");
     }
     global.NEW_PUSH_TYPE = type;
   });
@@ -271,7 +282,8 @@ var send_new_push = function(){
     }
     break;
     case "sms":
-      data.message = $('.bodybox.sms').val();
+      data.message = $('.bodybox.sms textarea').val();
+    data.source_device_iden = $('.bodybox.sms select').val();
     break;
   }
   $('.card-control.pre-send').html('<a class="control expand loading send" href="#" stop="stop" >Sending</a>');
@@ -401,8 +413,6 @@ var card_button = function(){
 
 $(document).ready(function(){
   setTimeout(function(){
-    //start ws
-    require('./js/pushbulletnw/ws');
     //show & bind
     global.show_info();
     global.show_history();
@@ -410,6 +420,8 @@ $(document).ready(function(){
     global.refresh_history("syncing_changes");
     traffic_light();
     drag_file.disable_drag_in(document);
+    //start ws
+    require('./js/pushbulletnw/ws');
     //catch error
     process.on("uncaughtException", function(e){
       console.error("uncaughtException:", e);

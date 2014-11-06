@@ -103,7 +103,11 @@ function sendSMS (postData, cb) {
       }
       d = JSON.parse(d);
       if (cb) cb(d);
-      global.message_history[postData.push.conversation_iden] += '<p class="send-message">'+postData.push.message+'</p>';
+      if (!global.message_history[postData.push.conversation_iden]) {
+        global.message_history[postData.push.conversation_iden] = '<p class="send-message">'+postData.push.message+'</p>';
+      } else {
+        global.message_history[postData.push.conversation_iden] += '<p class="send-message">'+postData.push.message+'</p>';
+      }
       return console.log("Message Reply:", d);
     }));
   });
