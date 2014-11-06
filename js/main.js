@@ -183,6 +183,12 @@ var change_new_push_type = function(){
       scrollTop: $("#card-top").offset().top - $("#main").offset().top + $("#main").scrollTop()
     });
     switch (type) {
+      case "sms":
+        $(".titlebox").attr("type", "number");
+      $('.new-card').css({'max-height': '200px'});
+      $(".bodybox."+type).css({display: "none"});
+      setTimeout(function(){$(".bodybox."+type).css({display: "block"});},300);
+      break;
       case "file":
         $('.new-card').css({'max-height': '150px'});
       $(".bodybox."+type).css({display: "none"});
@@ -195,9 +201,6 @@ var change_new_push_type = function(){
         case "address":
         case "link":
         $('.new-card').css({'max-height': '90px'});
-      break;
-      case "sms":
-        $(".titlebox").attr("type", "number");
       break;
     }
     $(".hide").css({display: "none"});

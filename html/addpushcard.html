@@ -10,13 +10,15 @@
     </div>
     <div class="card-content">
       <div class="content-title">
-        <input type="text" class="titlebox" name="title" placeholder="NOTE title" />
+        <input type="text" class="titlebox" name="title" autofocus placeholder="NOTE title" />
       </div>
       <div class="content-body">
         <input type="text" class="bodybox note" name="body" placeholder="message" />
         <input type="text" class="bodybox link" name="url" placeholder="url" />
         <input type="text" class="bodybox address" name="address" placeholder="address" />
-        <input type="text" class="bodybox sms" name="sms" placeholder="SMS" />
+        <div class="bodybox sms">
+          <textarea name="sms" rows="3" cols="20" placeholder="SMS" />
+        </div>
         <div class="bodybox list">
           <input type="text" class="list-expand" name="list" placeholder="item" />
         </div>

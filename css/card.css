@@ -166,6 +166,10 @@
   margin: 100% 100px;
   color: #a8aeb0;
 }
+textarea
+{
+  border-color: #d4dadc;
+}
 
 .open
 {
