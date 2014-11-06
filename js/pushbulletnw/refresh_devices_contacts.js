@@ -1,5 +1,6 @@
 var fs = require('fs');
 var https = require('https');
+var getInfo = require('./getInfo');
 
 module.exports = function(token, options, next){
 
@@ -9,12 +10,12 @@ module.exports = function(token, options, next){
   }
   var old_info;
   if (!token) {
-    old_info = require(process.env.HOME+'/Library/Preferences/com.1ittlecup.pushbulletnw.info.json');
+    old_info = getInfo.getInfo();
     token = old_info.token;
     options = old_info.options;
     for (var i in old_info.options) {
       if (options.hasOwnProperty(i)) continue;
-      options[i] =old_info.options[i];
+      options[i] = old_info.options[i];
     }
   }
 

@@ -1,9 +1,5 @@
-var fs = require('fs');
-if (!global.hasOwnProperty("$")){
-  global.$ = require('jquery');
-}
 var $ = global.$;
-
+var fs = require('fs');
 
 global.ADD_PUSH_NUMBERS = function(){
   if (!global.LOGIN) {

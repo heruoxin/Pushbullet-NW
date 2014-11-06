@@ -3,6 +3,7 @@ var bl = require('bl');
 var save_history = require('./save_history');
 var fs = require('fs');
 var file_upload = require('./file_upload');
+var getInfo = require('./getInfo');
 var conversation = require('./conversation');
 
 //pushbullet send new push
@@ -34,8 +35,7 @@ module.exports = function (data, iden, cb) {
 };
 var post = function (data, iden, cb) {
 
-  var token = JSON.parse(fs.readFileSync(process.env.HOME+'/Library/Preferences/com.1ittlecup.pushbulletnw.info.json', {encoding: 'utf8'})).token;
-
+  var token = getInfo.getInfo().token;
   if (!data) { return console.error("No data given!");}
 
   if (typeof(iden) === "function"){

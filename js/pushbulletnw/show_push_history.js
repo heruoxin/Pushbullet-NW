@@ -1,7 +1,4 @@
 var fs = require('fs');
-if (!global.hasOwnProperty("$")){
-  global.$ = require('jquery');
-}
 var $ = global.$;
 
 //pushbullet showing push history

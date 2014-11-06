@@ -1,8 +1,4 @@
-if (!global.hasOwnProperty("$")){
-  global.$ = require('jquery');
-}
 var $ = global.$;
-
 
 exports.disable_drag_in = function(selector){
   $(function(){

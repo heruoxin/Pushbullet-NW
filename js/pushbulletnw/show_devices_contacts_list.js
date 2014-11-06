@@ -1,8 +1,5 @@
-var fs = require('fs');
+var getInfo = require('./getInfo');
 var crypto = require('crypto');
-if (!global.hasOwnProperty("$")){
-  global.$ = require('jquery');
-}
 var $ = global.$;
 
 var check_type = function(obj){
@@ -23,7 +20,7 @@ var get_img =function(i){
 
 module.exports = function(cb){
 
-  var info = JSON.parse( fs.readFileSync(process.env.HOME+'/Library/Preferences/com.1ittlecup.pushbulletnw.info.json', {encoding: 'utf8'}) );
+  var info = getInfo.getInfo();
   var _out = [];
 
   _out.push(

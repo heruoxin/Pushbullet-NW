@@ -1,12 +1,9 @@
 var https = require('https');
 var bl = require('bl');
 var save_history = require('./save_history');
+var getInfo = require('./getInfo');
 
-var token = process.argv.slice(2)[0];
-if (!token) {
-  token = require(process.env.HOME+'/Library/Preferences/com.1ittlecup.pushbulletnw.info.json').token;
-}
-
+var token = getInfo.getInfo().token;
 //pushbullet delete push
 
 module.exports = function (iden, created, cb) {

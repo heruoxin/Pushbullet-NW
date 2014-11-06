@@ -1,8 +1,8 @@
 var gui = global.gui;
 var console = global.console;
+var getInfo = require('./getInfo');
 var https = require('https');
 var bl = require('bl');
-var fs = require('fs');
 
 exports.newWindow = function(e){
   global.CONVERSATION_DATA = e;
@@ -79,7 +79,7 @@ exports.pageBind = function(document, location, win){
 
 exports.sendSMS = sendSMS;
 function sendSMS (postData, cb) {
-  var token = JSON.parse(fs.readFileSync(process.env.HOME+'/Library/Preferences/com.1ittlecup.pushbulletnw.info.json', {encoding: 'utf8'})).token;
+  var token = getInfo.getInfo().token;
   post = JSON.stringify(postData);
 
   var options = {

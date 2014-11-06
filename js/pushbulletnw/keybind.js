@@ -1,6 +1,3 @@
-if (!global.hasOwnProperty("$")){
-  global.$ = require('jquery');
-}
 var $ = global.$;
 
 $(window).keydown(function(event){

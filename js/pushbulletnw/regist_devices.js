@@ -1,7 +1,7 @@
 var https = require('https');
-var fs = require('fs');
 var os = require('os');
 var bl = require('bl');
+var getInfo = require('./getInfo');
 
 //regist a new device
 module.exports = function (cb) {
@@ -16,7 +16,7 @@ module.exports = function (cb) {
 
   var info;
   try {
-    info = JSON.parse( fs.readFileSync(process.env.HOME+'/Library/Preferences/com.1ittlecup.pushbulletnw.info.json', {encoding: 'utf8'}) );
+    info = getInfo.getInfo();
   } catch (e) {
     if (typeof cb === 'function') cb();
     return console.error("read info error:", e);

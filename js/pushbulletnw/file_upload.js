@@ -1,12 +1,10 @@
-if (!global.hasOwnProperty("$")){
-  global.$ = require('jquery');
-}
 var $ = global.$;
 var mime = require('mime');
 var bl = require('bl');
 var fs = require('fs');
 var formData = require('form-data');
 var https = require('https');
+var getInfo = require('./getInfo');
 
 var upload_request = function(token ,file, cb){
   var post_data = JSON.stringify({
@@ -65,7 +63,7 @@ var upload = function(token, file, answer, cb){
 module.exports = function(file, cb){
   fs.exists(file.path, function (exists) {
     if (exists) {
-      var token = JSON.parse(fs.readFileSync(process.env.HOME+'/Library/Preferences/com.1ittlecup.pushbulletnw.info.json', {encoding: 'utf8'})).token;
+      var token = getInfo.getInfo().token;
       return upload_request(token, file, cb);
     }
     return console.error("file dont exist: ", file.path);

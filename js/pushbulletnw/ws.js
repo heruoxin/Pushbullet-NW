@@ -1,8 +1,6 @@
 var WebSocket = require('ws');
 var send_notification = require('./send_notification');
-if (!global.hasOwnProperty("$")){
-  global.$ = require('jquery');
-}
+var getInfo = require('./getInfo');
 var $ = global.$;
 
 var go_success = function(){
@@ -37,7 +35,7 @@ var start_ws = function() {
   global.HEART_BEAT = 2;
   var token;
   try {
-    token = require(process.env.HOME+'/Library/Preferences/com.1ittlecup.pushbulletnw.info.json').token;
+    token = getInfo.getInfo().token;
   } catch(e) {
     return console.error("No token file:", e);
   }

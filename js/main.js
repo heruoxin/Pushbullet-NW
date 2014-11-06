@@ -2,6 +2,9 @@ var gui = require('nw.gui');
 global.console = console;
 global.gui = gui;
 global.mainWin = gui.Window.get();
+global.CWD = process.cwd();
+global.$ = require('jquery');
+var $ = global.$;
 var fs = require('fs');
 var exec = require('child_process').exec;
 var login = require('./js/pushbulletnw/login');
@@ -13,12 +16,7 @@ var keybind = require('./js/pushbulletnw/keybind');
 var mime = require('mime');
 var path = require('path');
 var drag_file = require('./js/pushbulletnw/drag_file');
-global.CWD = process.cwd();
 
-if (!global.hasOwnProperty("$")){
-  global.$ = require('jquery');
-}
-var $ = global.$;
 
 var mb = new gui.Menu({type:"menubar"});
 mb.createMacBuiltin("Pushbullet-NW");
