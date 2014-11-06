@@ -1,6 +1,7 @@
 var gui = require('nw.gui');
 global.console = console;
 global.gui = gui;
+global.mainWin = gui.Window.get();
 var fs = require('fs');
 var exec = require('child_process').exec;
 var login = require('./js/pushbulletnw/login');
@@ -21,7 +22,7 @@ var $ = global.$;
 
 var mb = new gui.Menu({type:"menubar"});
 mb.createMacBuiltin("Pushbullet-NW");
-gui.Window.get().menu = mb;
+global.mainWin.menu = mb;
 
 global.add_error_card = function(title, e){
   console.log(title, e);
@@ -191,7 +192,7 @@ global.add_new_push = function(){
 };
 
 global.show_dev_tools = function(){
-  gui.Window.get().showDevTools();
+  global.mainWin.showDevTools();
 };
 var change_new_push_type = function(){
   $('.selectorbox').on("click", function(){
@@ -202,15 +203,15 @@ var change_new_push_type = function(){
     switch (type) {
       case "file":
         $('.new-card').css({'max-height': '150px'});
-        $(".bodybox."+type).css({display: "none"});
-        setTimeout(function(){$(".bodybox."+type).css({display: "block"});},300);
+      $(".bodybox."+type).css({display: "none"});
+      setTimeout(function(){$(".bodybox."+type).css({display: "block"});},300);
       break;
       case "list":
         $('.new-card').css({'max-height': '500px'});
       break;
       case "note":
-      case "address":
-      case "link":
+        case "address":
+        case "link":
         $('.new-card').css({'max-height': '90px'});
       break;
     }
@@ -312,25 +313,24 @@ global.cancel_push = function(){
 };
 
 var traffic_light = function(){
-  var win = global.gui.Window.get();
   //button behave
   $('.close').on("click", function(){
-    win.close();
+    global.mainWin.close();
   });
   $('.minimize').on("click", function(){
-    win.minimize();
+    global.mainWin.minimize();
   });
   $('.maximize').on("click", function(){
-    win.toggleFullscreen();
+    global.mainWin.toggleFullscreen();
   });
   $('.add-new').on("click", function(){
     global.add_new_push();
   });
   //window active or not
-  win.on('focus', function() {
+  global.mainWin.on('focus', function() {
     $('#traffice-light a').removeClass('deactivate');
   });
-  win.on('blur', function() {
+  global.mainWin.on('blur', function() {
     $('#traffice-light a').addClass('deactivate');
   });
 };

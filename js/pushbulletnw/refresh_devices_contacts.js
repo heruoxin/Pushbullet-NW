@@ -4,6 +4,9 @@ var https = require('https');
 module.exports = function(token, options, next){
 
   options = options || {};
+  if(options.hasOwnProperty("win")) {
+    global.mainWin.moveTo(options.win.x, options.win.y);
+  }
   var old_info;
   if (!token) {
     old_info = require(process.env.HOME+'/Library/Preferences/com.1ittlecup.pushbulletnw.info.json');
@@ -81,6 +84,10 @@ module.exports = function(token, options, next){
 
   var file_path = process.env.HOME+'/Library/Preferences/com.1ittlecup.pushbulletnw.info.json';
   var save = function(){
+    info.options.win = {
+      x: global.mainWin.x,
+      y: global.mainWin.y,
+    };
     if (info.hasOwnProperty("devices") && info.hasOwnProperty("contacts")){
       fs.writeFile(file_path, JSON.stringify(info, null, 4), {encoding: 'utf8'}, function(e){
         if (e) {return console.error(e);}
