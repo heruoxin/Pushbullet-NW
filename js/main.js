@@ -110,7 +110,7 @@ global.open_setting = function(){
 };
 
 global.add_new_push = function(){
-  //if (!global.CONNCETED) return;
+  if (!global.CONNCETED) return;
   $('.add-new').css({'display': 'none'});
   $('#type-selector').css({'display': 'block'});
   global.NEW_PUSH_TYPE = 'note';
