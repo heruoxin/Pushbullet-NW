@@ -14,7 +14,7 @@
     "height": 700,
     "min_width": 300,
     "min_height": 500,
-    "max_width": 400,
+    "max_width": 380,
     "max_height": 1000,
     "transparent": true,
     "toolbar": false,

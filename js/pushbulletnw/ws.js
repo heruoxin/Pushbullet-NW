@@ -79,20 +79,21 @@ var start_ws = function() {
 };
 
 global.restart_ws = function(){
+  global.HEART_BEAT = 2;
   try {
     global.ws.close();
   } catch(e) {}
   global.ws = new start_ws();
 };
 
-global.HEART_BEAT = 2;
+var onLine = true;
 global.restart_ws();
 setInterval(function(){ //HeartBeat check
-  if (global.HEART_BEAT-- <= 0){
-    global.HEART_BEAT = 2;
+  if (global.HEART_BEAT-- <= 0 || global.window.navigator.onLine !== onLine){
     go_failed();
     console.warn("ws try to restart", new Date());
     global.restart_ws();
   }
+  onLine = global.window.navigator.onLine;
 },30000);
 
