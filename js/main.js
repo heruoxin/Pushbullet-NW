@@ -373,7 +373,7 @@ var card_button = function(){
           title: e.attr('usage'),
           body: e.attr('info'),
           type: e.attr('type')
-        });
+        }, 3000);
       });
     });
     $('.delete').on("click", function(obj){

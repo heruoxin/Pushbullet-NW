@@ -20,7 +20,7 @@ var openApp = function(name) {
   });
 };
 
-module.exports = function(e){
+module.exports = function(e, time){
   console.log("Notification: ", e);
   if (e.active === false) return;
   if (e.type === "dismissal") {
@@ -50,6 +50,11 @@ module.exports = function(e){
   }
   if (!(e.title || e.type)) return console.error("push obj error:", e);
   var notification = new window.Notification(e.title || e.type, options);
+  if (time) {
+    setTimeout(function(){
+      notification.close();
+    }, time);
+  }
   if (e.notification_id) {
     global.notifications[getid(e)] = notification;
   }
@@ -57,6 +62,7 @@ module.exports = function(e){
   if (e.active) { // push
     notification.onclick = function (){
       global.show_history(e.target_device_iden || e.receiver_email_normalized.replace(".", "DoTDoTDoT").replace("@", "AtAtAt"));
+      notification.close();
     };
   } else { // notification
     dismiss_options = {
