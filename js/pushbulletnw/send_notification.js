@@ -1,11 +1,24 @@
 var conversation = require('./conversation.js');
 var dismiss = require('./dismiss_notification.js');
 var exec = require('child_process').exec;
+var fs = require('fs');
 global.notifications = {};
 global.message_history = {};
 
 var getid = function(e) {
   return String(e.notification_id).replace("-", "no");
+};
+
+var openApp = function(name) {
+  fs.readdir('/Applications/', function(err, files){
+    if (err) return console.log(err);
+    console.log(files);
+    for (var i in files){
+      if(files[i].toLowerCase().indexOf(name.toLowerCase()) === -1) continue;
+      return exec("open /Applications/"+files[i]);
+    }
+    exec("open 'https://www.google.com/webhp?#btnI=I&q="+name+"'");
+  });
 };
 
 module.exports = function(e){
@@ -66,9 +79,8 @@ module.exports = function(e){
     notification.onclick = function(){
       if (e.conversation_iden) { // click to reply
         conversation.newWindow(e);
-      } else { // open web luckly
-        exec("open 'https://www.google.com/webhp?#btnI=I&q="+e.application_name+"'", function(err, stdout, stderr) {
-        });
+      } else {
+        openApp(e.application_name);
       }
       dismiss(dismiss_options);
       notification.close();
