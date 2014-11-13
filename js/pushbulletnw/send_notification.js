@@ -1,4 +1,5 @@
 var conversation = require('./conversation.js');
+var dismiss = require('./dismiss_notification.js');
 global.notifications = {};
 global.message_history = {};
 
@@ -40,23 +41,39 @@ module.exports = function(e){
     global.notifications[getid(e)] = notification;
   }
 
-  if (e.active) { // click to list
+  if (e.active) { // push
     notification.onclick = function (){
       global.show_history(e.target_device_iden || e.receiver_email_normalized.replace(".", "DoTDoTDoT").replace("@", "AtAtAt"));
     };
-    return;
-  }
-  if (e.conversation_iden) { // click to reply
-    if (global.message_history.hasOwnProperty(e.conversation_iden)) {
-      global.message_history[e.conversation_iden] += '<p class="reply-message">'+e.body.replace('↵','</p><p class="reply-message">')+'</p>';
-    } else {
-      global.message_history[e.conversation_iden] = '<p class="reply-message">'+e.body.replace('↵','</p><p class="reply-message">')+'</p>';
+  } else { // notification
+    dismiss_options = {
+      type: "dismissal",
+      package_name: e.package_name,
+      notification_id: e.notification_id,
+      notification_tag: (e.notification_tag || null),
+      source_user_iden: e.source_user_iden
+    };
+
+    if (e.conversation_iden) { // click to reply
+      if (global.message_history.hasOwnProperty(e.conversation_iden)) {
+        global.message_history[e.conversation_iden] += '<p class="reply-message">'+e.body.replace('↵','</p><p class="reply-message">')+'</p>';
+      } else {
+        global.message_history[e.conversation_iden] = '<p class="reply-message">'+e.body.replace('↵','</p><p class="reply-message">')+'</p>';
+      }
     }
+
     notification.onclick = function(){
-      conversation.newWindow(e);
+      if (e.conversation_iden) { // click to reply
+        conversation.newWindow(e);
+      } else { // open web luckly
+      }
+      dismiss(dismiss_options);
       notification.close();
     };
-    return;
+    notification.onclose = function(){
+      dismiss(dismiss_options);
+    };
   }
+
 };
 

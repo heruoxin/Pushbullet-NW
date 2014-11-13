@@ -25,6 +25,7 @@ var go_failed = function(){
   $('.control-window p').html("connect or login error");
   $('.add-new').css({'display': 'none'});
   setTimeout(function(){
+    if (global.CONNCETED === true) return;
     $('.control-window p').html("offline");
   }, 5000);
 };
