@@ -11,7 +11,7 @@ Unofficial pushbullet node-webkit OS X client.
 
 ##Download
 
-[v0.1.6](https://github.com/heruoxin/Pushbullet-NW/blob/release-download/Pushbullet-NW.app.zip?raw=true)
+[link](https://github.com/heruoxin/Pushbullet-NW/blob/release-download/Pushbullet-NW.app.zip?raw=true)
 
 ##Screenshot
 

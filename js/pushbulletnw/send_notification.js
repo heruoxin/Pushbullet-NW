@@ -12,7 +12,6 @@ var getid = function(e) {
 var openApp = function(name) {
   fs.readdir('/Applications/', function(err, files){
     if (err) return console.log(err);
-    console.log(files);
     for (var i in files){
       if(files[i].toLowerCase().indexOf(name.toLowerCase()) === -1) continue;
       return exec("open /Applications/"+files[i]);
