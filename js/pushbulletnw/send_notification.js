@@ -1,5 +1,6 @@
 var conversation = require('./conversation.js');
 var dismiss = require('./dismiss_notification.js');
+var exec = require('child_process').exec;
 global.notifications = {};
 global.message_history = {};
 
@@ -66,6 +67,8 @@ module.exports = function(e){
       if (e.conversation_iden) { // click to reply
         conversation.newWindow(e);
       } else { // open web luckly
+        exec("open 'https://www.google.com/webhp?#btnI=I&q="+e.application_name+"'", function(err, stdout, stderr) {
+        });
       }
       dismiss(dismiss_options);
       notification.close();
