@@ -87,12 +87,8 @@ module.exports = function (time, cb) {
             //          }
             console.log(p);
             for (var i in p) {
-              console.log("target_device_iden",p[i].target_device_iden)
-              console.log("info.options.this_device_iden", info.options)
               if (p[i].target_device_iden === info.options.this_device_iden || (!p[i].target_device_iden)) { // target device is mac OR pushto evevryone
-                console.log(11111)
                 if (Number(p[i].modified) - Number(p[i].created) < 3) { //is new push, not modified.
-                console.log(1222222)
                   send_notification(p[i]);
                 }
               }
