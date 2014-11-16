@@ -1,6 +1,7 @@
 var WebSocket = require('ws');
 var send_notification = require('./send_notification');
 var getInfo = require('./getInfo');
+var clipboard = require('./clipboard');
 var $ = global.$;
 
 var go_success = function(){
@@ -66,7 +67,8 @@ var start_ws = function() {
       break;
       case 'push': // Android notification mirror
         if (e.push.type === "messaging_extension_reply") break;
-        send_notification(e.push);
+        else if (e.push.type === "clip") clipboard.set(e.push.body);
+        else send_notification(e.push);
       break;
     }
   });
@@ -96,5 +98,5 @@ setInterval(function(){ //HeartBeat check
     global.restart_ws();
   }
   onLine = global.window.navigator.onLine;
-},30000);
+}, 30000);
 

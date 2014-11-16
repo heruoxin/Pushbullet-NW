@@ -83,7 +83,6 @@ module.exports = function(token, options, cb){
   });
   req_2.end();
 
-  var file_path = process.env.HOME+'/Library/Preferences/com.1ittlecup.pushbulletnw.info.json';
   var save = function(){
     info.options.win = {
       x: global.mainWin.x,
