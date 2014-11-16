@@ -7,6 +7,7 @@ var getInfo = require('./getInfo');
 var conversation = require('./conversation');
 
 //pushbullet send new push
+var token = getInfo.getInfo().token;
 
 module.exports = function (data, iden, cb) {
   if (data.type === "file") {
@@ -16,7 +17,6 @@ module.exports = function (data, iden, cb) {
       post(d, iden, cb);
     });
   } else if (data.type === "sms") {
-    var token = JSON.parse(fs.readFileSync(process.env.HOME+'/Library/Preferences/com.1ittlecup.pushbulletnw.info.json', {encoding: 'utf8'})).token;
     var postData = {
       "type": "push",
       "push": {
@@ -35,7 +35,6 @@ module.exports = function (data, iden, cb) {
 };
 var post = function (data, iden, cb) {
 
-  var token = getInfo.getInfo().token;
   if (!data) { return console.error("No data given!");}
 
   if (typeof(iden) === "function"){

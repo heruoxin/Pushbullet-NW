@@ -85,9 +85,16 @@ module.exports = function (time, cb) {
             //              }
             //            }
             //          }
-            if (p[0].target_device_iden === info.options.this_device_iden || (!p[0].target_device_iden)) { // target device is mac OR pushto evevryone
-              if (Number(p[0].modified) - Number(p[0].created) < 3) { //is new push, not modified.
-                send_notification(p[0]);
+            console.log(p);
+            for (var i in p) {
+              console.log("target_device_iden",p[i].target_device_iden)
+              console.log("info.options.this_device_iden", info.options)
+              if (p[i].target_device_iden === info.options.this_device_iden || (!p[i].target_device_iden)) { // target device is mac OR pushto evevryone
+                console.log(11111)
+                if (Number(p[i].modified) - Number(p[i].created) < 3) { //is new push, not modified.
+                console.log(1222222)
+                  send_notification(p[i]);
+                }
               }
             }
           }

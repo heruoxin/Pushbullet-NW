@@ -2,7 +2,7 @@ var fs = require('fs');
 var https = require('https');
 var getInfo = require('./getInfo');
 
-module.exports = function(token, options, next){
+module.exports = function(token, options, cb){
 
   options = options || {};
   if(options.hasOwnProperty("win")) {
@@ -46,8 +46,8 @@ module.exports = function(token, options, next){
     res.on('end', function(e) {
       if (e) {return console.error(e);}
       if (JSON.parse(d).hasOwnProperty('error')){
-        if (next){
-          return next(false, "Login Error. Check your token or network");
+        if (cb){
+          return cb(false, "Login Error. Check your token or network");
         }
       }
       info.devices = JSON.parse(d).devices;
@@ -89,13 +89,6 @@ module.exports = function(token, options, next){
       x: global.mainWin.x,
       y: global.mainWin.y,
     };
-    if (info.hasOwnProperty("devices") && info.hasOwnProperty("contacts")){
-      fs.writeFile(file_path, JSON.stringify(info, null, 4), {encoding: 'utf8'}, function(e){
-        if (e) {return console.error(e);}
-        if (next){
-          return next(true, "Success");
-        }
-      });
-    }
+    if (info.hasOwnProperty("devices") && info.hasOwnProperty("contacts")) getInfo.saveInfo(info, cb);
   };
 };

@@ -34,7 +34,9 @@ module.exports = function (cb) {
   for (var i in info.devices) {
     if (info.devices[i].type === "stream") { //has registed
       //这个要重写！！！
-      if (typeof cb === 'function') cb();
+      getInfo.saveInfo({
+        options: {this_device_iden:  info.devices[i].iden}
+      }, cb);
       return console.warn('this devices has registed.');
     }
   }
