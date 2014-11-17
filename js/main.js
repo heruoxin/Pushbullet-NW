@@ -20,6 +20,7 @@ var animate = require('./js/pushbulletnw/animation');
 var keybind = require('./js/pushbulletnw/keybind');
 var drag_file = require('./js/pushbulletnw/drag_file');
 var getInfo = require('./js/pushbulletnw/getInfo');
+var clipboard = require('./js/pushbulletnw/clipboard');
 
 var mb = new gui.Menu({type:"menubar"});
 mb.createMacBuiltin("Pushbullet-NW");
@@ -422,6 +423,8 @@ $(document).ready(function(){
     drag_file.disable_drag_in(document);
     //start ws
     require('./js/pushbulletnw/ws');
+    //start listen clipboard
+    clipboard.startListen();
     //catch error
     process.on("uncaughtException", function(e){
       console.error("uncaughtException:", e);
