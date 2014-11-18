@@ -59,7 +59,15 @@ exports.uploadClipboard = function(text, cb) {
   req.end();
 };
 
+var listener;
 exports.startListen = function() {
-  var listener = exports.onChange(exports.uploadClipboard);
+  if (listener) return console.warn("Clipboard listener has started!");
+  listener = exports.onChange(exports.uploadClipboard);
   return listener;
+};
+exports.stopListen = function() {
+  if (!listener) return console.warn("there's no clipboard listener!");
+  clearInterval(listener);
+  listener = undefined;
+  return true;
 };
