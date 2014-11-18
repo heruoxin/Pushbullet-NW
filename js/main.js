@@ -432,9 +432,9 @@ $(document).ready(function(){
     //start ws
     require('./js/pushbulletnw/ws');
     //start listen clipboard
-    //    if (getInfo.getInfo().options.universalCP) {
-    //      clipboard.startListen();
-    //    }
+        if (getInfo.getInfo().options.universalCP) {
+          clipboard.startListen();
+        }
     //catch error
     process.on("uncaughtException", function(e){
       console.error("uncaughtException:", e);
