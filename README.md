@@ -5,9 +5,10 @@ Unofficial pushbullet node-webkit OS X client.
 ##Feature
 
 - Design for Yosemite. Support Notification Center.
-- Receive & send note, link, address, list, and picture.
-- Mirror notification from Android Device.
+- Receive & send all type of push: note, link, address, list, and picture.
+- Mirror notification from Android device. Click to open on Mac or web.
 - Send & receive sms.
+- Universal Copy & paste.
 
 ##Download
 
