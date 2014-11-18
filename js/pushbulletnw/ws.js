@@ -35,9 +35,10 @@ global.CONNCETED = false;
 
 var start_ws = function() {
   global.HEART_BEAT = 2;
-  var token;
+  var info, token;
   try {
-    token = getInfo.getInfo().token;
+    info = getInfo.getInfo();
+    token = info.token;
   } catch(e) {
     return console.error("No token file:", e);
   }
@@ -59,16 +60,21 @@ var start_ws = function() {
       break;
       case 'tickle':
         go_success();
-      if (e.subtype === 'device'){ // device list updated
-        global.refresh_info();
-      } else { // pushes updated
-        global.refresh_history(15);
-      }
+        if (e.subtype === 'device'){ // device list updated
+          global.refresh_info();
+        } else { // pushes updated
+          global.refresh_history(15);
+        }
       break;
       case 'push': // Android notification mirror
         if (e.push.type === "messaging_extension_reply") break;
-        else if (e.push.type === "clip") clipboard.set(e.push.body);
-        else send_notification(e.push);
+        if (e.push.type === "clip"){
+          if (e.push.source_device_iden !== info.options.this_device_iden){
+            clipboard.set(e.push.body);
+          }
+          break;
+        }
+        send_notification(e.push);
       break;
     }
   });
