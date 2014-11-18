@@ -27,6 +27,7 @@ exports.saveInfo = function(newInfo, cb) {
     {encoding: 'utf8'},
     function(e){
       if (e) return console.error("saveInfo", e);
-      if (cb) return cb(true, "Success");
+      if (cb) cb(true, "Success");
+      setTimeout(exports.refreshInfo, 5);
     });
 };
