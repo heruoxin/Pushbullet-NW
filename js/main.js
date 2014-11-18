@@ -100,6 +100,7 @@ global.open_setting = function(){
   if (!global.SETTING_SHOW) {
     //more setting cards should add to here.
     alfred_workflow();
+    universal_copy();
     about_me();
   }
   animate.fadein('#push-list');
@@ -245,6 +246,13 @@ var about_me = function(){
 
 var alfred_workflow = function(){
   fs.readFile(process.cwd()+'/html/alfredworkflow.html',{encoding: 'utf8'}, function(e, d){
+    if (e) return console.log;
+    $("#push-list").prepend(d);
+  });
+};
+
+var universal_copy = function(){
+  fs.readFile(process.cwd()+'/html/universalcp.html',{encoding: 'utf8'}, function(e, d){
     if (e) return console.log;
     $("#push-list").prepend(d);
   });
@@ -424,7 +432,9 @@ $(document).ready(function(){
     //start ws
     require('./js/pushbulletnw/ws');
     //start listen clipboard
-    clipboard.startListen();
+    //    if (getInfo.getInfo().options.universalCP) {
+    //      clipboard.startListen();
+    //    }
     //catch error
     process.on("uncaughtException", function(e){
       console.error("uncaughtException:", e);

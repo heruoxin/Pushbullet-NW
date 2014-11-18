@@ -1,0 +1,45 @@
+<div class="push-card">
+  <div class="card-main">
+    <div class="card-logo">
+    </div>
+    <div class="card-content">
+      <h2 class="content-title">Universal copy &amp; past</h2>
+      <div class="content-body">
+        <p>Copy text form one device. And past on the others.</p>
+        <p>Note: your clipboard will be upload to Pushbullet's server instantly.</p>
+      </div>
+    </div>
+  </div>
+  <div class="card-control">
+    <a class="control expand" id="turnonucp" href="#">Click to turn on</a>
+    <a class="control expand" id="turnoffucp" href="#">Click to turn off</a>
+  </div>
+</div>
+
+<script>
+  var $ = global.$;
+  var getInfo = require('./js/pushbulletnw/getInfo');
+  var clipboard = require('./js/pushbulletnw/clipboard');
+  var options = getInfo.getInfo().options;
+
+  if (options.universalCP) {
+    $('#turnonucp').css({display: 'none'});
+    $('#turnoffucp').css({display: 'block'});
+  } else {
+    $('#turnonucp').css({display: 'block'});
+    $('#turnoffucp').css({display: 'none'});
+  }
+
+  $('#turnonucp').on("click", function() {
+    getInfo.saveInfo({options: {universalCP: true}});
+    clipboard.startListen();
+    $('#turnonucp').css({display: 'none'});
+    $('#turnoffucp').css({display: 'block'});
+  });
+  $('#turnoffucp').on("click", function() {
+    getInfo.saveInfo({options: {universalCP: false}});
+    clipboard.stopListen();
+    $('#turnonucp').css({display: 'block'});
+    $('#turnoffucp').css({display: 'none'});
+  });
+</script>
