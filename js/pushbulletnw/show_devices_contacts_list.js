@@ -103,6 +103,31 @@ module.exports = function(cb){
     _out.push(contact.join(''));
   }
 
+  //subscriptions list.
+  for (var k in info.subscriptions){
+    if (!info.subscriptions[k].active){continue;}
+    var channel = [
+      '<div class="menber ',
+      '" id="',
+      info.subscriptions[k].iden,
+      '">',
+      '<img src="./icons/channel.png"/>',
+      '<img class="circular hide" src="',
+      info.subscriptions[k].image_url,
+      '" />',
+      '<div class="detail">',
+      '<h5>',
+      info.subscriptions[k].channel.name,
+      '</h5>',
+      '<p>',
+      info.subscriptions[k].channel.description,
+      '</p>',
+      '</div>',
+      '</div>',
+    ];
+    _out.push(channel.join(''));
+  }
+
   $("#menu-list").html(_out.join('').toString());
   if (typeof cb === "function") cb();
 };
