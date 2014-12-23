@@ -109,7 +109,7 @@ module.exports = function(cb){
     var channel = [
       '<div class="menber ',
       '" id="',
-      info.subscriptions[k].iden,
+      info.subscriptions[k].channel.iden,
       '">',
       '<img src="./icons/channel.png"/>',
       '<img class="circular hide" src="',
