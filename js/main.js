@@ -94,7 +94,7 @@ global.show_info = function(){
 global.open_setting = function(){
   $('#push-list').html('');
   $(".menber").removeClass("star");
-  $("#msf").addClass("star");
+  $("#setting").addClass("star");
   global.ID = "setting";
   login();
   if (!global.SETTING_SHOW) {
@@ -113,15 +113,16 @@ global.open_setting = function(){
 
 global.add_new_push = function(){
   if (!global.CONNCETED) return;
+  var pushable = $('#'+global.ID).attr("pushable");
+  if (pushable !== "true") {
+    global.show_history(undefined);
+    return console.log("Cannot add card here.");
+  }
   $('.add-new').css({'display': 'none'});
   $('#type-selector').css({'display': 'block'});
   global.NEW_PUSH_TYPE = 'note';
   fs.readFile(global.CWD + "/html/addpushcard.html", {encoding: 'utf8'}, function(e, d){
     if (e) return console.error("Read addpushcard.html:", e);
-    if (global.ID === "setting") {
-      global.show_history(undefined);
-      return console.log("Cannot add card in setting page");
-    }
     if ($(document).has('#card-top').length !== 0) {
       $("#main").animate({
         scrollTop: $("#card-top").offset().top - $("#main").offset().top + $("#main").scrollTop()
@@ -232,7 +233,7 @@ var menubar_click = function (){
   $(".menber").removeClass("star");
   $("#"+global.ID).addClass("star");
   $(".menber").on("click", function(obj){
-    if (obj.currentTarget.id !== "msf") return global.show_history(obj.currentTarget.id);
+    if (obj.currentTarget.id !== "setting") return global.show_history(obj.currentTarget.id);
     global.open_setting();
   });
 };

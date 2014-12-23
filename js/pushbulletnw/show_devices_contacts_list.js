@@ -26,7 +26,7 @@ module.exports = function(cb){
   _out.push(
 
     [
-    '<div class="menber" id="everypush">',
+    '<div class="menber" id="everypush" pushable="true">',
     '<img src="./icons/everything.png"/>',
     '<img class="hide" src="./icons/green-menu-bar/everything.png"/>',
     '<div class="detail">',
@@ -51,6 +51,7 @@ module.exports = function(cb){
       '<div class="menber ',
       '" id="',
       info.devices[i].iden,
+      '" pushable="true',
       '">',
       '<img src="./icons/',
       check_type(info.devices[i]),
@@ -83,6 +84,7 @@ module.exports = function(cb){
       '<div class="menber ',
       '" id="',
       info.contacts[j].email_normalized.replace(".", "DoTDoTDoT").replace("@", "AtAtAt"),
+      '" pushable="true',
       '">',
       '<img src="./icons/contacts.png"/>',
       //Gravatar
@@ -110,6 +112,7 @@ module.exports = function(cb){
       '<div class="menber ',
       '" id="',
       info.subscriptions[k].channel.iden,
+      '" pushable="false',
       '">',
       '<img src="./icons/channel.png"/>',
       '<img class="circular hide" src="',
