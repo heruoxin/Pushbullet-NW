@@ -34,7 +34,7 @@ module.exports = function(token, options, cb){
       'Authorization': 'Basic ' + new Buffer(token+':').toString('base64')
     }
   };
-  var req = https.request(devices_options, function(res) {
+  var devices_req = https.request(devices_options, function(res) {
     var d = '';
     res.setEncoding('utf8');
     res.on('error', function(e){
@@ -54,7 +54,7 @@ module.exports = function(token, options, cb){
       save();
     });
   });
-  req.end();
+  devices_req.end();
 
   //pushbullet getting contacts list
   var contacts_options = {
@@ -66,7 +66,7 @@ module.exports = function(token, options, cb){
       'Authorization': 'Basic ' + new Buffer(token+':').toString('base64')
     }
   };
-  var req_2 = https.request(contacts_options, function(res) {
+  var contacts_req = https.request(contacts_options, function(res) {
     var d = '';
     res.setEncoding('utf8');
     res.on('error', function(e){
@@ -81,13 +81,43 @@ module.exports = function(token, options, cb){
       save();
     });
   });
-  req_2.end();
+  contacts_req.end();
+
+  //pushbullet getting channels list
+  var channels_options = {
+    hostname: 'api.pushbullet.com',
+    port: 443,
+    path: '/v2/subscriptions',
+    method: 'GET',
+    headers: {
+      'Authorization': 'Basic ' + new Buffer(token+':').toString('base64')
+    }
+  };
+  var channels_req = https.request(channels_options, function(res) {
+    var d = '';
+    res.setEncoding('utf8');
+    res.on('error', function(e){
+      console.error(e);
+    });
+    res.on('data', function(chunk) {
+      d += chunk;
+    });
+    res.on('end', function(e) {
+      if (e) {return console.error(e);}
+      info.subscriptions = JSON.parse(d).subscriptions;
+      save();
+    });
+  });
+  channels_req.end();
 
   var save = function(){
     info.options.win = {
       x: global.mainWin.x,
       y: global.mainWin.y,
     };
-    if (info.hasOwnProperty("devices") && info.hasOwnProperty("contacts")) getInfo.saveInfo(info, cb);
+    if (info.hasOwnProperty("devices") &&
+        info.hasOwnProperty("contacts") &&
+        info.hasOwnProperty("subscriptions")
+       ) getInfo.saveInfo(info, cb);
   };
 };
