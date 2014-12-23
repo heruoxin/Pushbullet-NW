@@ -6,10 +6,10 @@ var file_upload = require('./file_upload');
 var getInfo = require('./getInfo');
 var conversation = require('./conversation');
 
-//pushbullet send new push
-var token = getInfo.getInfo().token;
 
 module.exports = function (data, iden, cb) {
+  //pushbullet send new push
+  var token = getInfo.getInfo().token;
   if (data.type === "file") {
     file_upload(data.file, function(d){
       d.title = data.title;
@@ -30,10 +30,10 @@ module.exports = function (data, iden, cb) {
     };
     conversation.sendSMS(postData, cb);
   } else {
-    post(data, iden, cb);
+    post(token ,data, iden, cb);
   }
 };
-var post = function (data, iden, cb) {
+var post = function (token, data, iden, cb) {
 
   if (!data) { return console.error("No data given!");}
 

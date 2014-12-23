@@ -14,13 +14,17 @@ exports.getInfo = function(){
 };
 
 exports.saveInfo = function(newInfo, cb) {
-  var oldInfo = exports.getInfo();
+  var oldInfo = {};
+  if (fs.existsSync(infoPath)) {
+    oldInfo = exports.getInfo();
+  }
   for (var i in newInfo) {
     oldInfo[i] = oldInfo[i] || {};
     for (var j in newInfo[i]) {
       oldInfo[i][j] = newInfo[i][j];
     }
   }
+  oldInfo.token = newInfo.token;
   fs.writeFile(
     infoPath,
     JSON.stringify(oldInfo, null, 4),

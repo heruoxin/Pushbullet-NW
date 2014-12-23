@@ -422,6 +422,10 @@ var card_button = function(){
 
 $(document).ready(function(){
   setTimeout(function(){
+    //catch error
+    process.on("uncaughtException", function(e){
+      console.error("uncaughtException:", e);
+    });
     //show & bind
     global.show_info();
     global.show_history();
@@ -432,12 +436,8 @@ $(document).ready(function(){
     //start ws
     require('./js/pushbulletnw/ws');
     //start listen clipboard
-        if (getInfo.getInfo().options.universalCP) {
-          clipboard.startListen();
-        }
-    //catch error
-    process.on("uncaughtException", function(e){
-      console.error("uncaughtException:", e);
-    });
+    if (getInfo.getInfo().options.universalCP) {
+      clipboard.startListen();
+    }
   }, 10);
 });
