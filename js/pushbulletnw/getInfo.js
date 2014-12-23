@@ -19,12 +19,11 @@ exports.saveInfo = function(newInfo, cb) {
     oldInfo = exports.getInfo();
   }
   for (var i in newInfo) {
-    oldInfo[i] = oldInfo[i] || {};
+    oldInfo[i] = newInfo[i] || {};
     for (var j in newInfo[i]) {
       oldInfo[i][j] = newInfo[i][j];
     }
   }
-  oldInfo.token = newInfo.token;
   fs.writeFile(
     infoPath,
     JSON.stringify(oldInfo, null, 4),

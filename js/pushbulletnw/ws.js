@@ -79,7 +79,8 @@ var start_ws = function() {
     }
   });
   connection.on('error', function(e) {
-    console.log('ws error: %s',e);
+    console.log('ws error: %s', e);
+    console.log(e);
   });
   connection.on('close', function(e) {
     console.log('close: %s', new Date());
