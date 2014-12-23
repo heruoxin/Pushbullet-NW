@@ -119,8 +119,12 @@ module.exports = function (ids){
     }
     if (ids){
       var the_id = pushes[i].target_device_iden;
-      var the_email = pushes[i].receiver_email_normalized.replace(".", "DoTDoTDoT").replace("@", "AtAtAt");
-      if (the_id !== ids && the_email !== ids) {continue;}
+      var the_channel_iden = pushes[i].channel_iden;
+      var the_email;
+      try {
+      the_email = pushes[i].receiver_email_normalized.replace(".", "DoTDoTDoT").replace("@", "AtAtAt");
+      } catch (e) {}
+      if (the_id !== ids && the_email !== ids && the_channel_iden !== ids) {continue;}
     }
     //    var tmp_string = [
     //      '<item uid="',
