@@ -19,9 +19,12 @@ exports.saveInfo = function(newInfo, cb) {
     oldInfo = exports.getInfo();
   }
   for (var i in newInfo) {
-    oldInfo[i] = newInfo[i] || {};
-    for (var j in newInfo[i]) {
-      oldInfo[i][j] = newInfo[i][j];
+    if (typeof newInfo[i] !== "object") {
+      oldInfo[i] = newInfo[i] || oldInfo[i];
+    } else {
+      for (var j in newInfo[i]) {
+        oldInfo[i][j] = newInfo[i][j];
+      }
     }
   }
   fs.writeFile(
