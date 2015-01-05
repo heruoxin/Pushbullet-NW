@@ -1,7 +1,6 @@
 var https = require('https');
 var bl = require('bl');
 var save_history = require('./save_history');
-var fs = require('fs');
 var file_upload = require('./file_upload');
 var getInfo = require('./getInfo');
 var conversation = require('./conversation');

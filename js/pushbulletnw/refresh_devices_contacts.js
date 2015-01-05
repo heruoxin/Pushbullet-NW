@@ -1,4 +1,3 @@
-var fs = require('fs');
 var https = require('https');
 var getInfo = require('./getInfo');
 

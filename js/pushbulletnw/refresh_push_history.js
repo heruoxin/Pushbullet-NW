@@ -73,18 +73,6 @@ module.exports = function (time, cb) {
         //console.log(JSON.parse(push_history));
         if (time){
           if (time == 15){
-            //it's a dirty hack.
-            //          if (!info.options.this_device_iden) {
-            //            var fs = require('fs');
-            //            var file_path = process.env.HOME+'/Library/Preferences/com.1ittlecup.pushbulletnw.info.json';
-            //            for (var i in info.devices) {
-            //              if (info.devices[i].type === "stream") {
-            //                info.options.this_device_iden = info.devices[i].iden;
-            //                fs.writeFile(file_path, JSON.stringify(info, null, 4), {encoding: 'utf8'}, function(e){console.error(e);});
-            //                break;
-            //              }
-            //            }
-            //          }
             console.log(p);
             for (var i in p) {
               if (p[i].target_device_iden === info.options.this_device_iden || (!p[i].target_device_iden)) { // target device is mac OR pushto evevryone

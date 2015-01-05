@@ -39,7 +39,7 @@
 }
 .push-card:hover
 {
-  max-height: 500px;
+  max-height: 560px;
 }
 .push-card:hover .content-body
 {
