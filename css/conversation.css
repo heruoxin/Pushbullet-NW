@@ -9,6 +9,7 @@
 {
   margin: 5px 35px 5px 5px;
   padding: 5px;
+  -webkit-user-select: text;
   background-color: #d8dee0;
   color: black;
 }
@@ -16,6 +17,7 @@
 {
   margin: 5px 5px 5px 35px;
   padding: 5px;
+  -webkit-user-select: text;
   background-color: #68c14f;
   color: black;
 }
