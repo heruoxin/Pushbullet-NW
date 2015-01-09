@@ -17,8 +17,10 @@ body
 .control-window {
   background-color: #f6f6f6;
   transition: background-color 0.6s ease;
-  left:5px;
-  top:3px;
+/*
+ * left:5px;
+ * top:3px;
+ */
   height:30px;
   -webkit-app-region: drag;
 }
