@@ -14,10 +14,11 @@
 }
 .new-card
 {
-  max-height: 650px;
+  max-height: 420px;
 }
 .content-body
 {
+  max-height: 400px;
   line-height: 140%;
   margin-bottom: 4px;
   word-wrap: break-word;
