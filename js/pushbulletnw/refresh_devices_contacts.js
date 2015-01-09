@@ -4,9 +4,9 @@ var getInfo = require('./getInfo');
 module.exports = function(token, options, cb){
 
   options = options || {};
-  if(options.hasOwnProperty("win")) {
-    global.mainWin.moveTo(options.win.x, options.win.y);
-  }
+//  if(options.hasOwnProperty("win")) {
+//    global.mainWin.moveTo(options.win.x, options.win.y);
+//  }
   var old_info;
   if (!token) {
     old_info = getInfo.getInfo();
@@ -110,10 +110,10 @@ module.exports = function(token, options, cb){
   channels_req.end();
 
   var save = function(){
-    info.options.win = {
-      x: global.mainWin.x,
-      y: global.mainWin.y,
-    };
+//    info.options.win = {
+//      x: global.mainWin.x,
+//      y: global.mainWin.y,
+//    };
     if (info.hasOwnProperty("devices") &&
         info.hasOwnProperty("contacts") &&
         info.hasOwnProperty("subscriptions")

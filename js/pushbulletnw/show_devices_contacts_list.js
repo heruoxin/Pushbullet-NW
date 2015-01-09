@@ -116,7 +116,7 @@ module.exports = function(cb){
       '">',
       '<img src="./icons/channel.png"/>',
       '<img class="circular hide" src="',
-      info.subscriptions[k].image_url,
+      info.subscriptions[k].channel.image_url,
       '" />',
       '<div class="detail">',
       '<h5>',
