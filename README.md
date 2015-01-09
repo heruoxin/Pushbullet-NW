@@ -18,7 +18,15 @@ Unofficial pushbullet node-webkit OS X client.
 
 ![screenshot](https://www.1ittlecup.com/files/Pushbullet-NW/0.1.5/screenshot.png)
 
-##Thanks
+##Acknowledgements
+
+[Node-Webkit](https://github.com/rogerwang/node-webkit)
+
+[jQuery](http://jquery.com/)
+
+[Waves](https://github.com/fians/Waves)
+
+[node-form-data](https://gemnasium.com/felixge/node-form-data)
 
 [flaticon.com](http://www.flaticon.com/)'s icons.
 
