@@ -7,6 +7,7 @@
     <link href="../css/card.css" rel="stylesheet" type="text/css"/>
     <link href="../css/conversation.css" rel="stylesheet" type="text/css"/>
     <link href="../css/animation.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" type="text/css" href="../quote/wave/waves.min.css" />
     <title></title>
   </head>
 
@@ -36,6 +37,10 @@
     var win = gui.Window.get();
     var conversation = require(process.cwd()+'/js/pushbulletnw/conversation.js');
     conversation.pageBind(document, location, win);
+  </script>
+  <script type="text/javascript" src="../quote/wave/waves.min.js"></script>
+  <script type="text/javascript">
+    Waves.displayEffect();
   </script>
 </html>
 

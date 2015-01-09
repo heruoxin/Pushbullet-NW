@@ -107,6 +107,7 @@ global.open_setting = function(){
   global.SETTING_SHOW = true;
   setTimeout(function(){
     global.SETTING_SHOW = undefined;
+    window.Waves.displayEffect();
   }, 10);
   card_button();
 };

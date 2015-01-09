@@ -133,4 +133,5 @@ module.exports = function(cb){
 
   $("#menu-list").html(_out.join('').toString());
   if (typeof cb === "function") cb();
+  window.Waves.displayEffect();
 };

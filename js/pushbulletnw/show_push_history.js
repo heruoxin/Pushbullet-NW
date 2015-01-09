@@ -142,6 +142,7 @@ module.exports = function (ids){
     //      '</item>'
     //    ];
     var tmp_string = [
+      '<div class="waves-effect waves-block">',
       '<div class="push-card" id="',
       pushes[i].iden,
       '" code="',
@@ -185,6 +186,7 @@ module.exports = function (ids){
       '">Delete</a>',
       '</div>',
       '</div>',
+      '</div>',
     ];
     _out.push(tmp_string.join(''));
   }
@@ -193,5 +195,6 @@ module.exports = function (ids){
   } else { //height fix
     _out.push('<div style="height: 22px"></div>');
   }
-  return $("#push-list").html(_out.join(''));
+  $("#push-list").html(_out.join(''));
+  return window.Waves.displayEffect();
 };
