@@ -36,10 +36,7 @@ global.refresh_info = function(token, options, cb){
       global.show_info();
     });
   } catch (e) {
-    $("#push-list").html('');
     console.error("global.refresh_info:", e);
-    login();
-    card_button();
   }
 };
 
@@ -431,7 +428,13 @@ $(document).ready(function(){
     //show & bind
     global.show_info();
     global.show_history();
-    global.refresh_info();
+    global.refresh_info(undefined, undefined, function(status, info){
+      if (info == "Login Error. Check your token or network") {
+        $("#push-list").html('');
+        login();
+        card_button();
+      }
+    });
     global.refresh_history("syncing_changes");
     traffic_light();
     drag_file.disable_drag_in(document);
