@@ -4,25 +4,29 @@ var getInfo = require('./getInfo');
 var clipboard = require('./clipboard');
 var $ = global.$;
 
+var trans_green = "#cff6c2";
+var trans_yellow = "#feeaac";
+var trans_gray = "#f6f6f6";
+
 var go_success = function(){
   global.CONNCETED = true;
   if (!global.NEW_PUSH_TYPE) {
     $('.add-new').css({'display': 'block'});
   }
   setTimeout(function(){
-    $('.control-window').css({'background-color': '#68c14f'});
-    $('#menu-bar').css({'background-color': '#68c14f'});
+    $('.control-window').css({'background-color': trans_green});
+    $('#menu-bar').css({'background-color': trans_green});
   }, 10);
   setTimeout(function(){
-    $('.control-window').css({'background-color': '#f6f6f6'});
-    $('#menu-bar').css({'background-color': '#f6f6f6'});
+    $('.control-window').css({'background-color': trans_gray});
+    $('#menu-bar').css({'background-color': trans_gray});
   }, 620);
 };
 
 var go_failed = function(){
   global.CONNCETED = false;
-  $('.control-window').css({'background-color': '#feeaac'});
-  $('#menu-bar').css({'background-color': '#feeaac'});
+  $('.control-window').css({'background-color': trans_yellow});
+  $('#menu-bar').css({'background-color': trans_yellow});
   $('.control-window p').html("connect or login error");
   $('.add-new').css({'display': 'none'});
   setTimeout(function(){
@@ -49,8 +53,8 @@ var start_ws = function() {
   });
   connection.on('message', function(e) {
     $('.control-window p').html(" ");
-    $('.control-window').css({'background-color': '#f6f6f6'});
-    $('#menu-bar').css({'background-color': '#f6f6f6'});
+    $('.control-window').css({'background-color': trans_gray});
+    $('#menu-bar').css({'background-color': trans_gray});
     e = JSON.parse(e);
     console.log(e);
     switch (e.type) {
