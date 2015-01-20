@@ -16,7 +16,7 @@ Unofficial pushbullet node-webkit OS X client.
 
 ##Screenshot
 
-![screenshot](https://www.1ittlecup.com/files/Pushbullet-NW/0.1.5/screenshot.png)
+![screenshot](https://raw.githubusercontent.com/heruoxin/Pushbullet-NW/release-download/Screenshot01.png)
 
 ##Acknowledgements
 
