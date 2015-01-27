@@ -2,6 +2,10 @@
 
 Unofficial pushbullet node-webkit OS X client.
 
+#THIS PROJECT IS NO LONGER BEING MAINTAINED
+
+The official one is [comming now](https://blog.pushbullet.com/2015/01/27/announcing-pushbullet-for-ipad-mac-and-safari/).
+
 ##Feature
 
 - Design for Yosemite. Support Notification Center.
